@@ -1,6 +1,7 @@
 ---
 title: "About Me"
 page-layout: full
+comments: false
 ---
 
 ::: {.about-hero}
