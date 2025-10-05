@@ -1,0 +1,57 @@
+project:
+  type: website
+  output-dir: docs
+
+execute: 
+  freeze: true
+
+website:
+  title: "Joshua Marie"
+  navbar:
+    background: light
+    left:
+      - text: "Services"
+        href: services.qmd
+      - text: "About"
+        href: about.qmd
+      - text: "Posts"
+        href: posts/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/kisha126
+        aria-label: "GitHub"
+      - icon: linkedin
+        href: https://www.linkedin.com/in/joshua-marie-ongcoy-41b901295/
+        aria-label: "LinkedIn"
+  page-footer:
+    center: "Design inspired by [Geeky Hugo](https://github.com/statichunt/geeky-hugo)"
+  twitter-card: true
+  repo-url: https://github.com/kisha126/joshuamarie
+  repo-actions: [edit, issue]
+  repo-branch: main
+  # site-url: 
+
+highlight-style: pygments
+ 
+format:
+  html:
+    include-in-header:
+      - text: |
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842567530621468" crossorigin="anonymous"></script>
+    comments:
+      utterances:
+        repo: kisha126/joshuamarie
+    code-link: true
+    anchor-sections: true
+    fig-cap-location: margin
+    reference-location: margin
+    footnotes-hover: true
+    fontsize: 1.1em
+    theme: 
+        - theming.scss
+    css: 
+      - styles/base.css
+      - styles/components.css
+      - styles/layout.css
+    mainfont: "Mulish"
+    

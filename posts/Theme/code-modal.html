@@ -1,0 +1,532 @@
+<style>
+    /* Modal Styles */
+    .code-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    .code-modal-content {
+        position: relative;
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 0;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 1200px;
+        max-height: 80vh;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .code-modal-header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .code-modal-title {
+        font-size: 1.2em;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .code-modal-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .code-modal-close:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .code-modal-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .code-modal-section {
+        margin-bottom: 20px;
+    }
+
+    .code-modal-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .code-modal-section h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.1em;
+        color: #333;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #1e3a8a;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .code-modal-code {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 15px;
+        border-radius: 6px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.9em;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre;
+        margin: 0;
+    }
+
+    .code-modal-output {
+        background-color: #fff;
+        border: 1px solid #e2e8f0;
+        padding: 15px;
+        border-radius: 6px;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.9em;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        margin: 0;
+        color: #2d3748;
+    }
+
+    /* Button to open modal */
+    .code-open-btn {
+        background: #0f172a;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85em;
+        font-weight: 500;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+
+    .code-open-btn:hover {
+        background: #1e293b;
+        transform: translateY(-1px);
+    }
+
+    /* Copy button styles */
+    .copy-btn {
+        background: #1e3a8a;
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.75em;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+        background: #1e40af;
+    }
+
+    .copy-btn.copied {
+        background: #059669;
+    }
+
+    .copy-icon {
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+    }
+
+    /* Hide original code blocks that have code-open */
+    .cell[data-code-open="true"] .sourceCode {
+        display: none;
+    }
+
+    .cell[data-code-open="true"] .cell-output {
+        display: none;
+    }
+
+    /* Animation */
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .code-modal.show .code-modal-content {
+        animation: modalFadeIn 0.3s ease-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .code-modal-content {
+            width: 95%;
+            margin: 2% auto;
+            max-height: 90vh;
+        }
+
+        .code-modal-header {
+            padding: 10px 15px;
+        }
+
+        .code-modal-body {
+            padding: 15px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to create modal
+        function createModal() {
+            const modal = document.createElement('div');
+            modal.className = 'code-modal';
+            document.body.appendChild(modal);
+            return modal;
+        }
+
+        // Create the modal
+        const modal = createModal();
+        const modalContent = modal.querySelector('.code-modal-content');
+        const closeBtn = modal.querySelector('.code-modal-close');
+        const codeElement = modal.querySelector('.code-modal-code');
+        const outputElement = modal.querySelector('.code-modal-output');
+
+        // Function to open modal
+        function openModal(codeText, outputText, title = 'Code & Output') {
+            modal.querySelector('.code-modal-title').textContent = title;
+            codeElement.textContent = codeText;
+            outputElement.textContent = outputText || 'No output';
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('show'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Event listeners for modal
+        closeBtn.addEventListener('click', closeModal);
+
+        // Copy functionality
+        const copyCodeBtn = modal.querySelector('#copy-code-btn');
+        const copyOutputBtn = modal.querySelector('#copy-output-btn');
+
+        copyCodeBtn.addEventListener('click', async function() {
+            try {
+                await navigator.clipboard.writeText(codeElement.textContent);
+                copyCodeBtn.innerHTML = `
+                    <svg class="copy-icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    Copied!
+                `;
+                copyCodeBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyCodeBtn.innerHTML = `
+                        <svg class="copy-icon" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        Copy
+                    `;
+                    copyCodeBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+            }
+        });
+
+        copyOutputBtn.addEventListener('click', async function() {
+            try {
+                await navigator.clipboard.writeText(outputElement.textContent);
+                copyOutputBtn.innerHTML = `
+                    <svg class="copy-icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    Copied!
+                `;
+                copyOutputBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyOutputBtn.innerHTML = `
+                        <svg class="copy-icon" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        Copy
+                    `;
+                    copyOutputBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy output:', err);
+            }
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
+
+        // Function to extract title from Quarto cell metadata
+        function extractTitleFromCell(cell) {
+            // Look for code-modal-title in various places
+            let title = null;
+
+            // 1. Check for data attribute on the cell
+            if (cell.hasAttribute('data-code-modal-title')) {
+                title = cell.getAttribute('data-code-modal-title');
+            }
+
+            // 2. Check for code-modal-title in cell options (Quarto metadata)
+            const cellOptions = cell.querySelector('.cell-meta, .cell-code-meta');
+            if (cellOptions && !title) {
+                const optionsText = cellOptions.textContent;
+                const titleMatch = optionsText.match(/code-modal-title:\s*["']([^"']+)["']/);
+                if (titleMatch) {
+                    title = titleMatch[1];
+                }
+            }
+
+            // 3. Look for title in HTML comments (Quarto sometimes puts metadata there)
+            const htmlContent = cell.innerHTML;
+            const commentMatch = htmlContent.match(/<!--.*?code-modal-title:\s*["']([^"']+)["'].*?-->/s);
+            if (commentMatch && !title) {
+                title = commentMatch[1];
+            }
+
+            // 4. Look for title in the cell's script tags or data attributes
+            const scripts = cell.querySelectorAll('script[type="application/json"]');
+            scripts.forEach(script => {
+                if (!title) {
+                    try {
+                        const data = JSON.parse(script.textContent);
+                        if (data['code-modal-title']) {
+                            title = data['code-modal-title'];
+                        }
+                    } catch (e) {
+                        // Ignore JSON parse errors
+                    }
+                }
+            });
+
+            // 5. Look in the raw text content for the pattern
+            if (!title) {
+                const rawText = cell.textContent;
+                const rawMatch = rawText.match(/code-modal-title:\s*["']?([^"'\n]+)["']?/);
+                if (rawMatch) {
+                    title = rawMatch[1].trim().replace(/["']/g, '');
+                }
+            }
+
+            // 6. Alternative pattern matching for YAML-like syntax
+            if (!title) {
+                const yamlMatch = htmlContent.match(/code-modal-title:\s*(.+)/);
+                if (yamlMatch) {
+                    title = yamlMatch[1].trim().replace(/["']/g, '');
+                }
+            }
+
+            return title;
+        }
+
+        // Function to process code blocks with code-open attribute
+        function processCodeOpenBlocks() {
+            // Look for cells with code-open attribute in Quarto
+            const cells = document.querySelectorAll('.cell');
+
+            cells.forEach((cell, index) => {
+                // Skip if already processed
+                if (cell.hasAttribute('data-processed')) return;
+
+                // Check if this cell should have code-open functionality
+                const hasCodeOpen = cell.querySelector('[data-code-open="true"]') ||
+                    cell.hasAttribute('data-code-open') ||
+                    cell.innerHTML.includes('code-open: true') ||
+                    cell.textContent.includes('code-open: true');
+
+                if (hasCodeOpen) {
+                    // Mark the cell as processed
+                    cell.setAttribute('data-code-open', 'true');
+                    cell.setAttribute('data-processed', 'true');
+
+                    // Extract custom title
+                    const customTitle = extractTitleFromCell(cell);
+
+                    // Find source code
+                    const sourceCode = cell.querySelector('.sourceCode code, pre code, .r code');
+                    const codeText = sourceCode ? sourceCode.textContent : '';
+
+                    // Find output
+                    const outputElements = cell.querySelectorAll('.cell-output pre, .cell-output .output');
+                    let outputText = '';
+                    outputElements.forEach(output => {
+                        outputText += output.textContent + '\n';
+                    });
+
+                    // Create open button
+                    const openBtn = document.createElement('button');
+                    openBtn.className = 'code-open-btn';
+                    openBtn.textContent = 'View Code & Output';
+
+                    openBtn.addEventListener('click', function() {
+                        // Use custom title if available, otherwise default
+                        const title = customTitle || `Code Block ${index + 1}`;
+                        openModal(codeText, outputText.trim(), title);
+                    });
+
+                    // Insert button at the beginning of the cell
+                    cell.insertBefore(openBtn, cell.firstChild);
+                }
+            });
+        }
+
+        // Alternative approach for direct code blocks
+        function processDirectCodeBlocks() {
+            const codeBlocks = document.querySelectorAll('pre code');
+
+            codeBlocks.forEach(code => {
+                const preElement = code.parentElement;
+                const container = preElement.parentElement;
+
+                // Skip if already processed
+                if (container.hasAttribute('data-processed')) return;
+
+                // Check for code-open in various ways
+                if (container.hasAttribute('data-code-open') ||
+                    container.classList.contains('code-open') ||
+                    preElement.hasAttribute('data-code-open') ||
+                    container.innerHTML.includes('code-open: true')) {
+
+                    // Mark as processed
+                    container.setAttribute('data-processed', 'true');
+
+                    // Extract custom title
+                    const customTitle = extractTitleFromCell(container);
+
+                    const codeText = code.textContent;
+
+                    // Look for adjacent output
+                    let outputText = '';
+                    let nextElement = container.nextElementSibling;
+                    if (nextElement && (nextElement.tagName === 'PRE' || nextElement.classList.contains('output'))) {
+                        outputText = nextElement.textContent;
+                    }
+
+                    // Create and insert button
+                    const openBtn = document.createElement('button');
+                    openBtn.className = 'code-open-btn';
+                    openBtn.textContent = 'View Code & Output';
+
+                    openBtn.addEventListener('click', function() {
+                        const title = customTitle || 'Code Block';
+                        openModal(codeText, outputText, title);
+                    });
+
+                    // Hide original and add button
+                    container.style.display = 'none';
+                    if (nextElement && outputText) {
+                        nextElement.style.display = 'none';
+                    }
+
+                    container.parentElement.insertBefore(openBtn, container);
+                }
+            });
+        }
+
+        // Run processing functions
+        processCodeOpenBlocks();
+        processDirectCodeBlocks();
+
+        // Also run after a short delay to catch dynamically loaded content
+        setTimeout(() => {
+            processCodeOpenBlocks();
+            processDirectCodeBlocks();
+        }, 1000);
+
+        // Run again after a longer delay for slow-loading content
+        setTimeout(() => {
+            processCodeOpenBlocks();
+            processDirectCodeBlocks();
+        }, 3000);
+    });
+
+    // Manual function to add code-open functionality
+    function addCodeOpen(codeElement, outputElement, title) {
+        const openBtn = document.createElement('button');
+        openBtn.className = 'code-open-btn';
+        openBtn.textContent = 'View Code & Output';
+
+        openBtn.addEventListener('click', function() {
+            const codeText = codeElement.textContent;
+            const outputText = outputElement ? outputElement.textContent : '';
+
+            // Trigger the modal (assuming the modal is already created)
+            const modal = document.querySelector('.code-modal');
+            if (modal) {
+                const event = new CustomEvent('openCodeModal', {
+                    detail: { codeText, outputText, title }
+                });
+                document.dispatchEvent(event);
+            }
+        });
+
+        return openBtn;
+    }
+
+    // Listen for custom events
+    document.addEventListener('openCodeModal', function(e) {
+        const { codeText, outputText, title } = e.detail;
+        const modal = document.querySelector('.code-modal');
+        if (modal) {
+            modal.querySelector('.code-modal-title').textContent = title || 'Code & Output';
+            modal.querySelector('.code-modal-code').textContent = codeText;
+            modal.querySelector('.code-modal-output').textContent = outputText || 'No output';
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('show'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+    });
+</script>
+

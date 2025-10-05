@@ -1,0 +1,700 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Light theme variables */
+:root {
+  --primary-color: #3b82f6;
+  --primary-dark: #2563eb;
+  --secondary-color: #64748b;
+  --accent-color: #06b6d4;
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --surface-hover: #f1f5f9;
+  --surface-light: #e2e8f0;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --primary-color: #60a5fa;
+  --primary-dark: #3b82f6;
+  --secondary-color: #94a3b8;
+  --accent-color: #22d3ee;
+  --background: #0f172a;
+  --surface: #1e293b;
+  --surface-hover: #334155;
+  --surface-light: #475569;
+  --border: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Base styles with smooth transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Remove automatic numbering for headings */
+body {
+  counter-reset: none;
+}
+
+h1::before,
+h2::before,
+h3::before,
+h4::before,
+h5::before,
+h6::before {
+  content: none !important;
+}
+
+/* Override any automatic numbering */
+.section .header-section-number {
+  display: none !important;
+}
+
+.header-section-number {
+  display: none !important;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--background);
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container styling */
+.container-fluid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-top: 4rem; 
+}
+
+/* Header styling with enhanced animations */
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideInFromTop 0.8s ease-out;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 400;
+  animation: slideInFromTop 0.8s ease-out 0.2s both;
+}
+
+.author, .date {
+  color: var(--text-muted);
+  font-size: 1.325rem;
+  margin-bottom: 0.5rem;
+  animation: slideInFromTop 0.8s ease-out 0.4s both;
+}
+
+/* Animations */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   Table of Contents
+   ========================= */
+
+#TOC {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+/* Force all TOC elements to use theme colors */
+#TOC,
+#TOC ul,
+#TOC li,
+#TOC div {
+  background: var(--surface) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Hide "on this page" text in TOC - Multiple selectors for compatibility */
+body.quarto-post #TOC .toc-title,
+#TOC .toc-title,
+.toc-title,
+#quarto-margin-sidebar .toc-title,
+.sidebar nav[role="doc-toc"] > h2,
+.sidebar nav[role="doc-toc"] > .h2,
+#quarto-margin-sidebar h2,
+aside[role="complementary"] h2,
+nav[role="doc-toc"] h2 {
+  display: none !important;
+}
+
+#TOC ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: none;
+  background: var(--surface) !important;
+}
+
+#TOC > ul {
+  padding-left: 0;
+  background: var(--surface) !important;
+}
+
+#TOC li {
+  margin: 0.5rem 0;
+  position: relative;
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+  background: var(--surface) !important;
+}
+
+#TOC li:hover {
+  transform: translateX(5px);
+  background: var(--surface) !important;
+}
+
+#TOC li::before {
+  content: "→";
+  color: var(--primary-color);
+  font-weight: bold;
+  position: absolute;
+  left: -1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+#TOC li:hover::before {
+  opacity: 1;
+}
+
+#TOC a {
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: block;
+  padding: 0.25rem 0;
+  border-radius: var(--radius);
+  padding-left: 0.5rem;
+  background: transparent !important;
+}
+
+#TOC a:hover {
+  color: var(--primary-color) !important;
+  background: var(--surface-hover) !important;
+}
+
+/* Target specific R Markdown TOC structure */
+.tocify-wrapper,
+.tocify-extend-page {
+  background: var(--surface) !important;
+}
+
+/* Override any white backgrounds in TOC */
+#TOC * {
+  background-color: var(--surface) !important;
+}
+
+#TOC a * {
+  background-color: transparent !important;
+}
+
+/* Floating TOC with enhanced styling */
+.tocify {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.tocify-header {
+  font-weight: 600;
+  color: var(--text-primary) !important;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+}
+
+.tocify-item {
+  padding: 0.25rem 0;
+}
+
+.tocify-item a {
+  color: var(--text-secondary) !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  display: block;
+}
+
+.tocify-item a:hover,
+.tocify-item.active a {
+  color: var(--primary-color) !important;
+  background: var(--surface-hover) !important;
+}
+
+/* Headers styling */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: 2.25rem;
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: -100%;
+  right: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    left: -100%;
+    right: 100%;
+  }
+  50% {
+    left: 0%;
+    right: 0%;
+  }
+}
+
+h2 {
+  font-size: 1.875rem;
+  color: var(--primary-dark);
+  position: relative;
+  padding-left: 1rem;
+}
+
+h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+h2:hover::before {
+  transform: scaleY(1);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+h4 {
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+}
+
+/* Interactive code folding button */
+.code-folding-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-folding-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.code-folding-btn:active {
+  transform: translateY(0);
+}
+
+.code-folding-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.code-folding-btn:hover::after {
+  left: 100%;
+}
+
+/* =========================
+   Callout title
+   ========================= */
+
+.callout-title-container {
+  color: #19183B !important;
+}
+
+/* =========================
+   Global hyperlink styling
+   ========================= */
+
+/* MODIFIED: Exclude category links from global styling */
+a:not(.quarto-category):not(.listing-category),
+a:visited:not(.quarto-category):not(.listing-category) {
+  color: #3A6F43 !important;
+  text-decoration: none;
+}
+
+a:hover:not(.quarto-category):not(.listing-category) {
+  color: #333333 !important;
+}
+
+/* =========================
+   Category Links Fix
+   ========================= */
+
+/* Ensure category links remain functional */
+.quarto-category,
+a.quarto-category,
+.quarto-categories .quarto-category,
+.listing-category,
+a.listing-category {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.quarto-category:hover,
+.listing-category:hover {
+  opacity: 0.8 !important;
+  text-decoration: none !important;
+}
+
+/* =========================
+   Strong Global bold text
+   ========================= */
+
+strong, b {
+  font-weight: 700;
+}
+
+/* Enhanced blockquotes */
+blockquote {
+  border-left: 4px solid var(--accent-color);
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text-secondary);
+  font-style: italic;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+blockquote::before {
+  content: """;
+  font-size: 3rem;
+  color: var(--accent-color);
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  opacity: 0.3;
+}
+
+/* Smooth scrolling and enhanced focus */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Enhanced focus styles */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+  border: 2px solid var(--surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .container-fluid {
+    padding: 1rem;
+    padding-top: 3rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.725rem;
+  }
+  
+  h1 {
+    font-size: 1.875rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  pre {
+    padding: 1rem;
+  }
+  
+  pre code {
+    font-size: 0.9rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .theme-toggle {
+    display: none;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+  
+  .title {
+    color: black;
+    -webkit-text-fill-color: black;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: black;
+    page-break-after: avoid;
+  }
+  
+  pre, blockquote {
+    page-break-inside: avoid;
+  }
+  
+  .tocify {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Create theme toggle button
+  const themeToggle = document.createElement('button');
+  themeToggle.className = 'theme-toggle';
+  themeToggle.innerHTML = '🌙';
+  themeToggle.setAttribute('aria-label', 'Toggle dark mode');
+  themeToggle.setAttribute('title', 'Toggle dark/light mode');
+  
+  document.body.appendChild(themeToggle);
+  
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeToggle.innerHTML = savedTheme === 'dark' ?  '🌙': '☀️';
+  
+  // Theme toggle functionality
+  themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    themeToggle.innerHTML = newTheme === 'dark' ? '🌙' : '☀️';
+    
+    // Add a little animation feedback
+    themeToggle.style.transform = 'rotate(360deg)';
+    setTimeout(() => {
+      themeToggle.style.transform = 'rotate(0deg)';
+    }, 300);
+  });
+  
+  // Hide "on this page" text in TOC using JavaScript as backup
+  setTimeout(function() {
+    const tocTitles = document.querySelectorAll('.toc-title, #quarto-margin-sidebar h2, nav[role="doc-toc"] h2');
+    tocTitles.forEach(function(title) {
+      title.style.display = 'none';
+    });
+  }, 100);
+  
+  // Smooth scroll for TOC links
+  const tocLinks = document.querySelectorAll('#TOC a, .tocify a');
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    });
+  });
+  
+  // Add loading animation to images
+  const images = document.querySelectorAll('img');
+  images.forEach(function(img) {
+    if (img.complete) {
+      img.style.opacity = '1';
+    } else {
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 0.5s ease';
+      
+      img.addEventListener('load', function() {
+        this.style.opacity = '1';
+      });
+    }
+  });
+});
+</script>

@@ -1,0 +1,617 @@
+---
+title: "Automatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression"
+subtitle: "Use case of code generation in practice"
+date: "2025-09-23"
+categories: [R, machine-learning, torch, pointless-code]
+image: "tmbnl.jpg"
+format:
+  html:
+    toc: true
+    toc-float: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    theme: default
+    highlight-style: tango
+    fig-width: 10
+    fig-height: 6
+    fig-cap-location: bottom
+    df-print: paged
+execute:
+  echo: true
+  message: false
+  warning: false
+---
+
+# Generating torch DFFNN expression
+
+I have a course tutorial, which I discuss the things to get "advance" in R. Code generation is part of it. My blog compiles *pointless codes* in *pointless code series*, and this is one of them. 
+
+Now, the question is: How do you define neural network architectures in your deep learning projects? Manually write out each layer? Copy-paste and modify existing code? In this part, I wanted to discuss it to you on how to leverage code generation technique that generates 'torch' neural network modules in a *programmatic* approach. This is a handy approach to building flexible, reusable neural network architectures without repetitive code.
+
+I'll walk through a function that creates DFFNN expressions with customizable architectures, layer by layer, explaining each step along the way.
+
+---
+
+## Introduction
+
+The `create_nn_module()` function dynamically generates **torch neural network module definitions**. Instead of manually writing out layer definitions and forward pass logic, this function builds the code expressions for you.
+
+**Key benefits:**
+
+- **Flexibility**: Change network architecture with a single function call
+- **Automation**: Generate multiple network configurations programmatically
+- **Experimentation**: Quickly test different architectures in hyperparameter searches
+
+This is how it's done:
+
+1. Define the network architecture (input size, hidden layers, output size)
+2. Specify activation functions for each layer
+3. Programmatically generate the `initialize` method (layer definitions)
+4. Programmatically generate the `forward` method (forward pass logic)
+5. Return an `nn_module` expression ready to be evaluated
+
+The packages used:
+
+1. [rlang (v1.1.4)](https://rlang.r-lib.org/) - For metaprogramming tools
+2. [purrr (v1.0.2)](https://purrr.tidyverse.org/) - For functional programming
+3. [glue (v1.7.0)](https://glue.tidyverse.org/) - For string interpolation
+4. [magrittr](https://magrittr.tidyverse.org/) - For pipe operator
+5. [box (v1.2.0)](https://github.com/klmr/box) - For modular code organization
+
+## The Complete Function
+
+I created `create_nn_module()` function a while ago and shared it on [GitHub Gist](https://gist.github.com/kisha126/c19c209fbe5e0532e16520649bf142c2). Here's the function we'll be analyzing:
+
+```{r}
+#| code-fold: true
+create_nn_module = function(nn_name = "DeepFFN", hd_neurons = c(20, 30, 20, 15), no_x = 10, no_y = 1, activations = NULL) {
+    box::use(
+        rlang[new_function, call2, caller_env, expr, exprs, sym, is_function, env_get_list],
+        purrr[map, map2, reduce, set_names, compact, map_if, keep, map_lgl], 
+        glue[glue], 
+        magrittr[`%>%`]
+    )
+    
+    nodes = c(no_x, hd_neurons, no_y)
+    n_layers = length(nodes) - 1
+    
+    call_args = match.call()
+    activation_arg = call_args$activations
+    
+    if (is.null(activations)) {
+        activations = c(rep("nnf_relu", length(hd_neurons)), NA)
+    } else if (length(activations) == 1 || is.function(activations)) {
+        single_activation = activations
+        activations = c(rep(list(single_activation), length(hd_neurons)), list(NA))
+    }
+    
+    activations = map2(activations, seq_along(activations), function(x, i) {
+        if (is.null(x)) {
+            NULL
+        } else if (is.function(x)) {
+            if(!is.null(activation_arg) && is.call(activation_arg) && activation_arg[[1]] == quote(c)) {
+                func_name = as.character(activation_arg[[i + 1]])
+                sym(func_name)
+            } else if(!is.null(activation_arg) && (is.symbol(activation_arg) || is.character(activation_arg))) {
+                func_name = as.character(activation_arg)
+                sym(func_name)
+            } else {
+                parent_env = parent.frame()
+                env_names = ls(envir = parent_env)
+                matching_names = env_names %>%
+                    keep(~ {
+                        obj = env_get_list(parent_env, .x)[[1]]
+                        identical(obj, x)
+                    })
+                
+                if (length(matching_names) > 0) {
+                    sym(matching_names[1])
+                } else {
+                    stop("Could not determine function name for activation function")
+                }
+            }
+        } else if (is.character(x)) {
+            if (length(x) == 1 && is.na(x)) {
+                NULL
+            } else {
+                sym(x)
+            }
+        } else if (is.symbol(x)) {
+            x
+        } else if (is.logical(x) && length(x) == 1 && is.na(x)) {
+            NULL
+        } else {
+            stop("Activation must be a function, string, symbol, NA, or NULL")
+        }
+    })
+    
+    init_body = map2(1:n_layers, map2(nodes[-length(nodes)], nodes[-1], c), function(i, dims) {
+        layer_name = if (i == n_layers) "out" else glue("fc{i}")
+        call2("=", call2("$", expr(self), sym(layer_name)), call2("nn_linear", !!!dims))
+    })
+    
+    init = new_function(
+        args = list(), 
+        body = call2("{", !!!init_body)
+    )
+    
+    layer_calls = map(1:n_layers, function(i) {
+        layer_name = if (i == n_layers) "out" else glue("fc{i}")
+        activation_fn = if (i <= length(activations)) activations[[i]] else NULL
+        
+        result = list(call2(call2("$", expr(self), sym(layer_name))))
+        if (!is.null(activation_fn)) {
+            result = append(result, list(call2(activation_fn)))
+        }
+        result
+    }) |> 
+        unlist() |> # recursive = FALSE is also valid
+        compact()
+    
+    forward_body = reduce(layer_calls, function(acc, call) {
+        expr(!!acc %>% !!call)
+    }, .init = expr(x))
+    
+    forward = new_function(
+        args = list(x = expr()), 
+        body = call2("{", forward_body)
+    )
+    
+    call2("nn_module", nn_name, initialize = init, forward = forward)
+}
+```
+
+---
+
+### Why box?
+
+You'll notice that I've been using another approach to load namespace in R. But, why 'box'? 
+You need to check out my mini book dedicated on *modular programming in R*. 
+
+### *But why load dependencies using `box::use()` inside a function?*
+
+Well, a function, or a function call, creates an **environment**, which *encloses* the objects and operations within it. In other words, we create a *closure*. This is actually a good practice for several reasons:
+
+1.    **Namespace isolation**: Dependencies loaded inside the function will not make pollution the global environment, or conflicts with any packages loaded. When you load packages required with `library()`, inside a function or not, it attaches those packages to your search path, and will mask functions from other packages. With `box::use()` inside a function, the imports are scoped only to that function's or call's environment. 
+
+2.    **Explicit dependencies**: Anyone reading the function immediately knows what external tools it uses. You don't have to scroll to the top of a script to see what's loaded.
+
+3.    **Reproducibility**: The function becomes self-contained. If you share just this function, others know exactly what packages they need less hunting through documentation.
+
+4.    **Avoiding conflicts**: Different functions can use different versions or implementations without conflicts. For example, one function might use `dplyr::filter()` while another uses `stats::filter()`, and they won't interfere with each other.
+
+5.    **Lazy loading**: The packages are only loaded when the function is actually called, not when it's defined. This can improve script startup time if you have many functions but only use a few.
+
+::: callout-note
+
+In a nutshell: The 'box' package provides explicit, granular imports, making it transparent which namespace to be imported from which packages. It's like having a well-organized toolbox where each tool is labeled.
+
+:::
+
+---
+
+## Explanations
+
+I'll be trying to be concise on explaining each layers of the function so that you'll understand what I did
+
+### Step 1: Loading Dependencies
+
+I use `box::use()` to load dependencies:
+
+-   **rlang**: Improvised Core R programming. One of the core R programming, *metaprogramming* which includes creating expressions and functions programmatically, are less painful than what base R have. 
+-   **purrr**: Improvised Functional programming utilities.
+-   **glue**: R lacks Python's f-string for string interpolation, although we have `sprintf()` and `paste()` for that. `glue` makes string interpolation more readable with `glue("fc{i}")` instead of `paste0("fc", i)` or `sprintf("fc%d", i)`.
+-   **magrittr**: The pipe operator `%>%` for chaining operations. This is optional, by the way — R 4.1+ has the native pipe `|>`, but `%>%` offers better flexibility with the dot placeholder. 
+
+### Step 2: Defining Network Architecture
+
+In DFFNN architecture, it is defined by the input layer, the hidden layer, and the output layer. 
+
+![Source: https://medium.com/data-science/designing-your-neural-networks-a5e4617027ed](nn-struc.png){fig-align="center"}
+
+The number of nodes are defined by integers, except for input and output layer nodes which they are *fixed* and determined by the data you provided, and they are defined by `no_x` and `no_y`. 
+The number of hidden layers is defined by the length of input in `hd_neurons` argument. 
+
+Combine `no_x`, `hd_neurons`, `no_y` in order: 
+
+``` r
+nodes = c(no_x, hd_neurons, no_y)
+```
+And then calculate the length of `nodes`, which is $1 + n_{\text{hidden layres}} + 1$, and then subtract it by 1 because the applied activation functions is invoked *between each layer*.
+
+``` r
+n_layers = length(nodes) - 1
+```
+
+#### Example
+
+When you have: 
+
+-   10 predictors
+-   5 hidden layers, and for each layer: 
+    
+    1.  20 nodes
+    2.  30 nodes
+    3.  20 nodes
+    4.  15 nodes
+    5.  20 nodes
+
+-   1 response variable
+
+*Total number of layers: 7*
+
+This means we need 7 - 1 linear transformations, and here is my diagram: 
+
+$$10_{\text{inputs}} \rightarrow20_{\text{hd1}} \rightarrow30_{\text{hd2}} \rightarrow20_{\text{hd3}} \rightarrow15_{\text{hd4}} \rightarrow20_{\text{hd5}} \rightarrow1_{\text{ouput}}$$
+
+
+### Step 3: Setting Activation Functions
+
+The `activations` argument holds the account of the activation function. It could be a string, a literal function, or a mix of it in a vector of inputs. 
+
+Then, set `activations = NULL`, where `NULL` is the default value, which leads to set ReLU (`nnf_relu`) as the activation function for all hidden layers
+
+```{r}
+#| code-fold: true
+#| eval: false
+if (is.null(activations)) {
+    activations = c(rep("nnf_relu", length(hd_neurons)), NA)
+}
+```
+
+Every `activations` will have `NA` as the last element because we need to ensure no activation function *after* the output. The output layer often doesn't need an activation (for regression) or needs a specific one based on the task (softmax for classification, sigmoid for binary classification). By defaulting to `NA`, the user can decide.
+
+::: {.callout-note title="Length of inputs"}
+
+To provide values in `activations` argument, it needs to be equal to the size of hidden layers, or if you provide only 1 act. function, this will be the activation function across the transformations. 
+
+:::
+
+::: {.callout-note title="Default"}
+
+The default is `NULL`. That is, if `activations` is not provided, the activation function is set to ReLU function. 
+
+:::
+
+::: {.callout-tip title="Instead of NULL"}
+
+Now, if you're asking "Why needs to set `activations` to `"nnf_relu"` instead of `NULL`"? Don't worry, I did consider that, but this is just a *pure* demo. 
+
+:::
+
+### Step 4: Processing Activation Functions
+
+This part (re)processes the activation function inputs in the `activations` argument. This kept tracks the argument you are putting, especially when you the input you are writing in `activations` argument has different types. 
+
+```{r}
+#| code-fold: true
+#| eval: false
+call_args = match.call()
+activation_arg = call_args$activations
+
+activations = map2(activations, seq_along(activations), function(x, i) {
+    if (is.null(x)) {
+        NULL
+    } else if (is.function(x)) {
+        if(!is.null(activation_arg) && is.call(activation_arg) && 
+           activation_arg[[1]] == quote(c)) {
+            func_name = as.character(activation_arg[[i + 1]])
+            sym(func_name)
+        } else {
+            func_name = names(which(sapply(ls(envir = parent.frame()), 
+                function(name) {
+                    identical(get(name, envir = parent.frame()), x)
+                })))[1]
+            if (!is.na(func_name)) {
+                sym(func_name)
+            } else {
+                stop("Could not determine function name for activation function")
+            }
+        }
+    } else if (is.character(x)) {
+        if (length(x) == 1 && is.na(x)) {
+            NULL
+        } else {
+            sym(x)
+        }
+    } else if (is.symbol(x)) {
+        x
+    } else if (is.logical(x) && length(x) == 1 && is.na(x)) {
+        NULL
+    } else {
+        stop("Activation must be a function, string, symbol, NA, or NULL")
+    }
+})
+```
+
+### Step 5: Building the `initialize` Method Body
+
+The *body* I am referring in `initialize` method is the *body* of the *function* for the `initialize` implemented method. This part is a bit far from trivial. I named it `init_body` to keep track the expression I am trying to build. 
+
+::: {.callout-note title="In reality"}
+
+Keep in mind that there's no `initialize` and `forward` parameters within `nn_module()` torch namespace or whatsoever. However, it is expected you to create them to create a module inside `nn_module()`. These parameters are kept within the `...` wildcard parameter. 
+
+:::
+
+#### Creation of the expressions inside the body
+
+Here is the part I am tracking inside `create_nn_module` body expression: 
+
+```{r}
+#| code-fold: true
+#| eval: false
+init_body = map2(1:n_layers, map2(nodes[-length(nodes)], nodes[-1], c), 
+    function(i, dims) {
+        layer_name = if (i == n_layers) "out" else glue("fc{i}")
+        call2("=", call2("$", expr(self), sym(layer_name)), 
+              call2("nn_linear", !!!dims))
+    })
+```
+
+What it does is it creates assignment expressions for each layer in the network.
+
+For instance, `c(20, 30, 20, 15, 20)` is your argument for the `activations`:
+
+1.  `map2(nodes[-length(nodes)], nodes[-1], c)` pairs consecutive layer sizes:
+
+    ```{r}
+    #| code-fold: true
+    #| eval: false
+    list(
+        c(10, 20), 
+        c(20, 30), 
+        c(30, 20), 
+        c(20, 15), 
+        c(15, 20), 
+        c(20, 1)
+    )
+    ```
+
+2.  For each pair, generates a layer assignment expression:
+
+    -  Layer names: `fc1`, `fc2`, ..., `out` (last layer)
+    -  Creates: `self$fc1 = nn_linear(10, 20)`
+
+*This will be the generated expression:*
+
+``` r
+self$fc1 = nn_linear(10, 20)
+self$fc2 = nn_linear(20, 30)
+self$fc3 = nn_linear(30, 20)
+self$fc4 = nn_linear(20, 15)
+self$fc5 = nn_linear(15, 20)
+self$out = nn_linear(20, 1)
+```
+
+::: {.callout-note title="How is it done?"}
+
+I need you to understand `rlang::call2()` a bit: 
+
+The `call2()` function is a glorified `call()` from base R that builds function call expressions.
+
+From what I did within `init_body`: 
+
+-  `call2("$", expr(self), sym("fc1"))` constructs `self$fc1`
+-  `call2("nn_linear", !!!dims)` is a bit complex:
+
+    -   It splices `dims` from what I created in `map2(nodes[-length(nodes)], nodes[-1], c)`. 
+    -   `call2()` function accepts rlang's quasiquotation API, then splices the dimensions, i.e. `call2("nn_linear", !!!c(10, 20))` to `call2("nn_linear", 10, 20)`. 
+    -   Then finally constructs `nn_linear(10, 20)`
+
+-  `call2("=", lhs, rhs)` parses an expression: `lhs = rhs`. This part yields an expression I want: `self$fc1 = nn_linear(10, 20)`. 
+
+*Note: You can use `<-` if you want, instead of `=`. After all, `=` within `call2()`'s `.fn` argument tokenize `=` as an assignment operator. *
+
+:::
+
+#### Building an *actual* body and function
+
+Now, for this part: 
+
+```{r}
+#| code-fold: true
+#| eval: false
+init = new_function(
+    args = list(), 
+    body = call2("{", !!!init_body)
+)
+```
+
+Don't forget to put curly brackets `{` around the built expression because it becomes necessary in R when composing a function with multiple lines. Still using `call2()` for that, particularly `call2("{", !!!init_body)` creates a code block `{ ... }` containing all initialization statements. The `!!!` operator "splices" the list of expressions into the block, because `init_body` forms a list of expressions.
+
+After building the expression I want for the body of `initialize`, let's take further by utilizing it as a *body* to create a function with `rlang::new_function`. I just simply wraps all the layer initialization expressions into a complete function for `initialize` method for `nn_module()`. 
+
+::: {.callout-note title="Inputs in `initialize`"}
+
+Notice that the argument for `initialize` is *empty*? I could've place `input_size` and `output_size` if I wanted to, but it seems unnecessary since I already placed the sizes of the input and output within the expression I built. To make a function expression with empty arguments, place the `args` argument of `new_function` with empty `list()`. 
+
+:::
+
+Here's the result:
+
+```r
+function() {
+    self$fc1 = nn_linear(10, 20)
+    self$fc2 = nn_linear(20, 30)
+    self$fc3 = nn_linear(30, 20)
+    self$fc4 = nn_linear(20, 15)
+    self$fc5 = nn_linear(15, 20)
+    self$out = nn_linear(20, 1)
+}
+```
+
+*Store this expression into `init` because we still have to finalize the expression we want to create. *
+
+### Step 6: Building Layer Calls for Forward Pass
+
+The same process as `initialize`, except we are not building multiple lines of expression, just building a *chained expression* with 'magrittr' pipe from the initial value.
+
+#### Creating layer of calls
+
+To form this expression is also complex
+
+```{r}
+#| code-fold: true
+#| eval: false
+layer_calls = map(1:n_layers, function(i) {
+    layer_name = if (i == n_layers) "out" else glue("fc{i}")
+    activation_fn = if (i <= length(activations)) activations[[i]] else NULL
+    
+    result = list(call2(call2("$", expr(self), sym(layer_name))))
+    if (!is.null(activation_fn)) {
+        result = append(result, list(call2(activation_fn)))
+    }
+    result
+}) |> 
+    unlist() |> 
+    compact()
+```
+
+What it does is it builds a sequence of operations for the forward pass: layer calls and their activation functions. I stored the output into `layer_calls` so that we can keep track of it. 
+
+**The process:**
+
+1.  For each layer, create a list containing:
+
+    - The layer call: `self$fc1()`
+    - The activation call (if exists): `nnf_relu()`
+
+2.  Flatten all lists into a single sequence with `unlist()`. 
+
+3.  Filter the list we created away from any `NULL` values with `purrr::compact()`. 
+
+Thus, we form a list of expressions:
+
+```{r}
+#| code-fold: true
+#| eval: false
+list(
+    self$fc1(), nnf_relu(),
+    self$fc2(), nnf_relu(),
+    self$fc3(), nnf_relu(),
+    self$fc4(), nnf_relu(),
+    self$fc5(), nnf_relu(),
+    self$out()
+)
+```
+
+**Note:** The last layer (`out`) has no activation because we set it to `NA`.
+
+#### Building an actual body and function
+
+I choose to chain them, `x` or the input as the initial value, and choose not to break lines and forms multiple assignments. This is what I preferred, and besides, it's so easy to form chained expression when the output is a defused call with `reduce()`. 
+
+```{r}
+#| code-fold: true
+#| eval: false
+forward_body = reduce(layer_calls, function(acc, call) {
+    expr(!!acc %>% !!call)
+}, .init = expr(x))
+```
+
+I choose to chain all operations together with pipe operator `%>%` from 'magrittr'.
+
+Then, with `reduce()` works:
+
+1.  Starting with `x`, it progressively adds each operation:
+
+    -   Step 1: `x %>% self$fc1()`
+    -   Step 2: `(x %>% self$fc1()) %>% nnf_relu()`
+    -   Step 3: `(x %>% self$fc1() %>% nnf_relu()) %>% self$fc2()`
+    -   ...and so on
+    
+2.  As for the final output: 
+
+    ```r
+    x %>% self$fc1() %>% nnf_relu() %>% 
+        self$fc2() %>% nnf_relu() %>% 
+        self$fc3() %>% nnf_relu() %>% 
+        self$fc4() %>% nnf_relu() %>% 
+        self$fc5() %>% nnf_relu() %>% 
+        self$out()
+    ```
+
+::: {.callout-tip title="Why pipes?"}
+
+The pipe operator makes the forward pass logic read like a natural sequence: "take input x, pass through `fc1`, apply `nnf_relu` to invoke ReLU activation function, then pass through `fc2`, apply `nnf_relu` to invoke ReLU activation function, ..., it kepts repeating until we reach to `out`"
+
+:::
+
+After that, I stored it into `forward_body`, then make use of it to build the function for `forward` method with `rlang::new_function()`: 
+
+```{r}
+#| code-fold: true
+#| eval: false
+forward = new_function(
+    args = list(x = expr()), 
+    body = call2("{", forward_body)
+)
+```
+
+The `args` for `forward` method has `x` with empty value. Then, wrap the piped forward pass into a function that accepts input `x`.
+
+And here's the result:
+
+```r
+function(x) {
+    x %>% self$fc1() %>% nnf_relu() %>% 
+        self$fc2() %>% nnf_relu() %>% 
+        self$fc3() %>% nnf_relu() %>% 
+        self$fc4() %>% nnf_relu() %>% 
+        self$fc5() %>% nnf_relu() %>% 
+        self$out()
+}
+```
+
+*Store this expression into `forward` because we still have to finalize the expression we want to create. *
+
+### Step 7: Finalizing the `nn_module` Expression generation
+
+Here we are for the final part: generating the `nn_module` expression, by puzzling each part: `initialize` and `forward`. 
+
+The final part is built from this:
+
+``` r
+call2("nn_module", nn_name, !!!set_names(list(init, forward), c("initialize", "forward")))
+```
+
+I mean, you still have to use `call2()` to build a call. The inputs should be:
+
+1.  `.fn = "nn_module"` -> 
+2.  The rest of the arguments:
+
+    -  `nn_name` which is equivalent to "DeepFFN". You can set any names whatever you want, though.
+    -  `initialize = init`
+    -  `forward = forward`
+    -   Originally, I formed this in this expression: `!!!set_names(list(init, forward), c("initialize", "forward"))`. But then, I realized that we only need `initialize` and `forward`, and besides, this is a bit overkill. 
+
+Thus, the final expression that defines the neural network module.
+
+And hence, I form a function that generates a, perhaps, template: 
+
+```{r}
+hd_nodes = c(20, 30, 20, 15, 20)
+act_fns = c("nnf_relu", "nnf_relu", "nnf_relu", "nnf_relu")
+create_nn_module(
+    hd_neurons = hd_nodes, 
+    activations = act_fns
+)
+```
+
+## Disclaimer
+
+This is an advanced example of metaprogramming in R, demonstrating how to leverage functional programming and `rlang` for code generation. I don't mind you to replicate what I did, but sometimes this technique should be used judiciously—sometimes simpler, more explicit code is better.
+
+This example showcases:
+
+-   Deep understanding of R's evaluation model
+-   Functional programming with `purrr`
+-   Expression manipulation with `rlang`
+-   Practical application to deep learning workflows
+
+And also, I am aware to the fact that the function I made is ugly if you said so. 
+
+

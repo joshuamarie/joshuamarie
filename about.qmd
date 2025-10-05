@@ -1,0 +1,414 @@
+---
+title: "About Me"
+page-layout: full
+---
+
+::: {.about-hero}
+![](profile.jpg){.about-image}
+
+```{=html}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Card Layout</title>
+    <!-- Link Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Link Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Link AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Basic Reset & Body */
+        body {
+            background-color: #f0f2f5; /* Light grey background for cards to stand out */
+            margin: 0;
+            padding-top: 2rem; /* Add space above first card */
+            padding-bottom: 2rem; /* Add space below last card */
+        }
+
+        /* --- Base Card Style --- */
+        .content-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem 2rem; /* Standard padding for cards */
+            margin-bottom: 2rem; /* Space between cards */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Ensure content respects border-radius */
+        }
+        .content-card:hover {
+           /* Optional subtle hover effect for cards */
+           /* transform: translateY(-3px); */
+           /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); */
+        }
+
+        /* About Me Container */
+        .about-me-container {
+          font-family: 'Lato', sans-serif;
+          max-width: 960px; /* Adjust max-width for card layout */
+          margin: 0 auto;
+          padding: 0 1rem; /* Padding for container on smaller screens */
+        }
+
+        /* Section Headings within Cards */
+        .content-card h3 {
+          font-family: 'Montserrat', sans-serif;
+          color: #004E4F;
+          margin-top: 0; /* Remove top margin as card provides padding */
+          margin-bottom: 1.2rem;
+          font-size: 1.5rem; /* Slightly larger headings */
+          border-bottom: 2px solid #e0e0e0; /* Optional separator line */
+          padding-bottom: 0.5rem;
+        }
+
+        /* --- Typing Animation (Keep as is, place outside first card or adjust) --- */
+        /* Let's keep it above the first card for introduction */
+         .section-intro {
+             text-align: center; /* Center the typing animation */
+             margin-bottom: 2.5rem; /* Space before the first card */
+         }
+        .typing-container {
+          /* Keep original styles, maybe adjust font size if needed */
+          margin: 0 auto; /* Center if container is block */
+          font-size: 2rem; /* Example size adjustment */
+          font-weight: 500;
+          font-family: 'Poppins', sans-serif;
+          display: inline-flex; /* Use inline-flex for centering */
+          min-height: 50px;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        /* Keep all other .typing-container related styles (.static-text, .dynamic-text-wrapper, etc.) */
+        .static-text { color: #004E4F; margin-right: 0; white-space: nowrap; }
+        .dynamic-text-wrapper { position: relative; height: 50px; display: inline-block; vertical-align: middle; margin-left: 8px; }
+        .dynamic-text { position: absolute; left: 0; top: 0; color: #FF7043; font-weight: 700; height: 50px; display: flex; align-items: center; }
+        .dynamic-text .word { position: absolute; left: 0; top: 50%; transform: translateY(-50%); opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; white-space: nowrap; }
+        .dynamic-text .word.enter-stage { transform: translateY(calc(-50% + 20px)); opacity: 0; }
+        .dynamic-text .word.active { opacity: 1; transform: translateY(-50%); }
+        .dynamic-text .word.exit-stage { opacity: 0; transform: translateY(calc(-50% - 20px)); }
+        .cursor { display: inline-block; width: 3px; height: 40px; /* Match larger font */ background-color: #FF7043; margin-left: 5px; animation: blink 0.7s infinite; vertical-align: middle; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+
+        /* --- Bio Section Card --- */
+        .bio-section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 0; /* Remove bottom margin inside card */
+            color: #333;
+        }
+
+        /* --- List Styles within Cards (Toolkit, Productivity) --- */
+        .technical-toolkit ul,
+        .productivity-tools ul {
+          list-style: none;
+          padding-left: 0;
+          font-size: 1.05rem;
+          line-height: 1.8; /* Slightly more spacing */
+          margin-bottom: 0; /* Remove default ul margin */
+        }
+        .technical-toolkit ul li,
+        .productivity-tools ul li {
+          margin-bottom: 0.8rem;
+          padding-left: 1.8em;
+          position: relative;
+        }
+        .technical-toolkit ul li::before,
+        .productivity-tools ul li::before {
+           /* Use Bootstrap Icon as bullet */
+           content: "\F28A"; /* Example: Bootstrap Icons check circle */
+           font-family: "bootstrap-icons";
+           color: #FF7043;
+           font-weight: normal;
+           position: absolute;
+           left: 0;
+           top: 0.1em; /* Adjust vertical alignment */
+           font-size: 1.1em; /* Icon size */
+        }
+        .technical-toolkit ul li strong,
+        .productivity-tools ul li strong {
+          color: #004E4F;
+          font-weight: 600;
+        }
+
+        /* --- Traits Section Card --- */
+        /* .traits-section itself is now the card */
+        .traits-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust minmax */
+          gap: 1.5rem;
+          margin-top: 1rem; /* Add some space below heading */
+        }
+        /* Keep .trait-item styles as they are 'sub-cards' */
+        .trait-item {
+          display: flex; align-items: flex-start; gap: 1rem;
+          background-color: #f8f9fa; /* Lighter background for inner items */
+          padding: 1.2rem; border-radius: 8px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .trait-item:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); }
+        .trait-item i { font-size: 1.8rem; color: #004E4F; margin-top: 0.2em; }
+        .trait-content h4 { margin: 0 0 0.5rem; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: #004E4F; }
+        .trait-content p { margin: 0; font-size: 0.95rem; color: #555; line-height: 1.5;}
+
+
+        /* --- VA Tools Section Card --- */
+        /* .va-tools itself is now the card */
+        .tools-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust minmax */
+          gap: 1.5rem;
+          margin-top: 1rem; /* Add some space below heading */
+        }
+        /* Keep .tool-category styles as they are 'sub-cards' */
+        .tool-category {
+          background-color: #f8f9fa; /* Lighter background for inner items */
+          padding: 1.5rem 1rem; border-radius: 8px; text-align: center;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tool-category:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); }
+        .tool-category i { font-size: 2rem; color: #004E4F; margin-bottom: 0.8rem; }
+        .tool-category h4 { font-family: 'Montserrat', sans-serif; font-size: 1rem; color: #004E4F; margin: 0.5rem 0; }
+        .tool-category span { font-size: 0.9rem; color: #555; display: block; line-height: 1.4; }
+
+        /* --- Conclusion Section Card --- */
+        .conclusion-section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 0; /* Remove bottom margin inside card */
+            color: #333;
+        }
+
+        /* --- Stats/Counter Card --- */
+        /* .cta-section is the card */
+        .stats-container {
+            /* Remove card styles from here, they are now on .cta-section */
+            padding: 1rem 0 0; /* Add some top padding if needed */
+        }
+        .cta-section.content-card {
+            background-color: #e9f5f5; /* Slightly different bg for stats card */
+            padding: 2rem; /* Keep original padding */
+        }
+
+        .counter-row {
+          display: flex; flex-wrap: wrap; justify-content: space-around; gap: 1.5rem; /* Reduced gap slightly */
+        }
+        .counter-item { text-align: center; flex: 1; min-width: 100px; }
+        .counter-item span { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        .counter-item span.counter { font-size: 2.2rem; color: #004E4F; } /* Adjusted size */
+        /* REMOVED the style for the '+' span as it's no longer used */
+        .counter-item p { margin-top: 0.3rem; font-size: 0.95rem; color: #555; }
+
+        /* --- Media Queries --- */
+        @media (max-width: 768px) {
+          .about-me-container { max-width: 100%; padding: 0 0.8rem; }
+          .content-card { padding: 1.5rem; }
+          .typing-container { font-size: 1.6rem; }
+          .cursor { height: 32px; }
+          .traits-grid, .tools-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } /* Adjust grid for tablets */
+          .counter-row { gap: 1rem; }
+          .counter-item span.counter { font-size: 2rem; }
+          /* REMOVED the media query style for the '+' span */
+        }
+        @media (max-width: 480px) {
+          body { padding-top: 1rem; padding-bottom: 1rem; }
+          .section-intro { margin-bottom: 1.5rem; }
+          .typing-container { font-size: 1.3rem; justify-content: center; text-align: center; display: flex;} /* Center properly */
+          .static-text { margin-bottom: 5px; }
+          .dynamic-text-wrapper { margin-left: 5px; height: 40px;}
+          .dynamic-text { height: 40px; }
+          .cursor { display: none; } /* Hide cursor on very small screens */
+          .content-card { padding: 1rem; }
+          .content-card h3 { font-size: 1.3rem; }
+          .traits-grid, .tools-grid { grid-template-columns: 1fr; } /* Single column */
+          .counter-row { flex-direction: column; align-items: center; gap: 1.5rem; }
+          /* Counter size adjusted slightly for mobile */
+          .counter-item span.counter { font-size: 1.8rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="about-me-container">
+
+  <!-- Animated Intro (Outside Cards) -->
+  <div class="section-intro" data-aos="fade-in" data-aos-duration="1000"> <!-- Simple fade for intro -->
+    <div class="typing-container">
+      <span class="static-text">I'm a </span>
+      <div class="dynamic-text-wrapper">
+        <div class="dynamic-text">
+          <span class="word">Computer Scientist</span>
+          <span class="word">Statistician</span>
+          <span class="word">Data Scientist</span>
+          <span class="word">Consultant</span>
+        </div>
+      </div>
+      <span class="cursor"></span>
+    </div>
+  </div>
+
+  
+</div>
+
+<!-- Link AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+      once: true, 
+      offset: 50,
+      duration: 800
+  });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // --- Typing Animation Logic ---
+  const dynamicTextContainer = document.querySelector('.dynamic-text');
+  if (dynamicTextContainer) {
+      const words = Array.from(dynamicTextContainer.querySelectorAll('.word'));
+      const dynamicTextWrapper = document.querySelector('.dynamic-text-wrapper');
+      let currentIndex = 0;
+      let maxWidth = 0;
+      if (words.length > 0 && dynamicTextWrapper) {
+          words.forEach(word => {
+              word.classList.add('active');
+              const wordWidth = word.offsetWidth + 1; // Add 1px buffer
+              if (wordWidth > maxWidth) { maxWidth = wordWidth; }
+              word.classList.remove('active');
+          });
+
+          // Apply max width with a small buffer
+          dynamicTextWrapper.style.width = `${maxWidth}px`;
+
+          // Initial word setup
+          words[currentIndex].classList.add('enter-stage');
+          setTimeout(() => {
+             words[currentIndex].classList.remove('enter-stage');
+             words[currentIndex].classList.add('active');
+          }, 10); // Short delay for transition
+
+          // Word cycling function
+          function cycleWords() {
+            const currentWord = words[currentIndex];
+            const nextIndex = (currentIndex + 1) % words.length;
+            const nextWord = words[nextIndex];
+
+            // Exit current word
+            currentWord.classList.remove('active');
+            currentWord.classList.add('exit-stage');
+
+            // Prepare next word
+            nextWord.classList.add('enter-stage');
+
+            // Adjust wrapper width before next word enters
+            dynamicTextWrapper.style.width = `${nextWord.offsetWidth + 1}px`; // Adjust width for the next word
+
+            setTimeout(() => {
+              // Remove exit stage from current
+              currentWord.classList.remove('exit-stage');
+              // Make next word active
+              nextWord.classList.remove('enter-stage');
+              nextWord.classList.add('active');
+              currentIndex = nextIndex;
+            }, 300); // Wait for exit animation
+          }
+          setInterval(cycleWords, 2500); // Change word every 2.5 seconds
+      } else {
+          console.error("Typing animation: Words or wrapper not found.");
+      }
+  } else {
+      console.error("Typing animation: Dynamic text container not found.");
+  }
+
+  // --- Counter Logic ---
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counters = entry.target.querySelectorAll('.counter');
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-count'));
+          // Prevent re-animating or animating if target is 0
+          if (counter.dataset.animated === 'true' || target === 0) {
+              if (target === 0) counter.textContent = 0; // Ensure 0 is displayed if target is 0
+              return;
+          }
+          counter.dataset.animated = 'true'; // Mark as animated
+          let count = 0;
+          const duration = 1200; // Animation duration in ms
+          const stepTime = 20; // Update interval in ms
+          const totalSteps = duration / stepTime;
+          const increment = Math.max(1, Math.ceil(target / totalSteps)); // Calculate increment per step
+
+          const updateCount = () => {
+            count += increment;
+            if (count >= target) {
+              counter.textContent = target; // Ensure final value is exact
+            } else {
+              counter.textContent = count;
+              setTimeout(updateCount, stepTime); // Schedule next update
+            }
+          };
+          updateCount(); // Start the animation
+        });
+         // Unobserve the parent card (.cta-section) after animating
+         counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 }); // Trigger when 60% visible
+
+  // Observe the stats card specifically
+  const ctaSectionCard = document.querySelector('.cta-section');
+  if (ctaSectionCard) {
+      counterObserver.observe(ctaSectionCard);
+  } else {
+      console.error("Counter: Stats container (.cta-section) not found.");
+  }
+});
+</script>
+
+</body>
+</html>
+```
+
+:::
+
+Howdy! I’m your neighborhood statistics man — a proud statistics man with some passions for mathematics, statistics, and making sense of the chaos. I serve as a data whisperer, tutor, and a consultant. I am a (self-proclaimed) computer scientist, technical person, and a statistician. I studied layers of programming paradigms. From what I studied so far, R and Python have closely equivalent feature parities. I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields. 
+
+::: {.section-with-icon}
+## Formal Education
+:::
+
+:::: {.info-grid}
+
+::: {.info-card}
+
+### University of Southeastern Philippines
+
+2019 - 2023 • Bachelor of Science in Statistics
+
+:::
+
+::::
+
+::: {.section-with-icon style="margin-top: 3rem;"}
+## Skillsets
+:::
+
+---
+
+## Employment
+
+::: {.info-card}
+-  Statistician @ Fixstat
+-  Package maintainer
+:::
+

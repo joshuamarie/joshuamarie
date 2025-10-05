@@ -1,0 +1,173 @@
+/* =========================
+   Code Blocks
+   ========================= */
+
+/* Container div - handles scrolling and dimensions */
+div.sourceCode {
+  background: #f5f5f5; /* Light mode background */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  position: relative;
+  animation: fadeIn 0.5s ease-out;
+  max-height: 50em;
+  overflow-y: auto;
+  overflow-x: auto;
+  width: 100%;
+}
+
+[data-theme="dark"] div.sourceCode {
+  background: #19183B; /* Dark mode background */
+  border: 1px solid #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Top accent bar - REMOVED FROM HERE */
+/* Moved to pre.sourceCode so it scrolls with content */
+
+/* Pre element - remove extra styling, just handle padding */
+pre.sourceCode {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1.5rem !important;
+  padding-top: calc(1.5rem + 3px) !important; /* Account for accent bar */
+  margin: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  width: fit-content; /* CHANGED: from 100% to fit-content */
+  min-width: 100%; /* ADDED: ensure it fills container when content is narrow */
+  max-width: none;
+  display: block;
+  position: relative; /* ADDED: needed for ::before positioning */
+}
+
+/* Top accent bar - MOVED HERE so it scrolls with content */
+pre.sourceCode::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* CHANGED: from right: 0 to width: 100% */
+  height: 3px;
+  background: linear-gradient(90deg, #6a5acd, #ff6f61);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Standalone pre blocks (without div.sourceCode wrapper) */
+pre:not(.sourceCode) {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  position: relative;
+  animation: fadeIn 0.5s ease-out;
+  width: 100%;
+  display: block;
+}
+
+[data-theme="dark"] pre:not(.sourceCode) {
+  background: #19183B;
+  border: 1px solid #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+pre:not(.sourceCode)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6a5acd, #ff6f61);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Code element styling */
+pre code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: none !important;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  color: #19183B; /* Light mode text */
+  display: block;
+  white-space: pre;
+  min-height: 0;
+}
+
+[data-theme="dark"] pre code {
+  color: #FFF5F2; /* Dark mode text */
+}
+
+/* Ensure syntax highlighting works in scrollable code blocks */
+pre.sourceCode code,
+div.sourceCode code {
+  display: block;
+  min-height: 100%;
+  background: inherit !important;
+}
+
+/* Force inheritance for all syntax tokens */
+pre.sourceCode code *,
+div.sourceCode code *,
+pre.sourceCode code span,
+div.sourceCode code span,
+pre.sourceCode code .kw, 
+pre.sourceCode code .dt,
+pre.sourceCode code .dv, 
+pre.sourceCode code .bn, 
+pre.sourceCode code .fl, 
+pre.sourceCode code .ch, 
+pre.sourceCode code .st, 
+pre.sourceCode code .co, 
+pre.sourceCode code .ot, 
+pre.sourceCode code .al, 
+pre.sourceCode code .fu, 
+pre.sourceCode code .re, 
+pre.sourceCode code .er, 
+pre.sourceCode code .cn, 
+pre.sourceCode code .sc, 
+pre.sourceCode code .vs, 
+pre.sourceCode code .ss, 
+pre.sourceCode code .im, 
+pre.sourceCode code .va, 
+pre.sourceCode code .cf, 
+pre.sourceCode code .op, 
+pre.sourceCode code .in {
+  background: inherit !important;
+  color: inherit !important;
+}
+
+pre:not(.sourceCode) code * {
+  display: inline;
+  background: inherit;
+  color: inherit;
+}
+
+/* =========================
+   Inline Code
+   ========================= */
+code:not(pre code) {
+  background: #f5f5f5; /* Light mode inline */
+  color: #19183B; 
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  font-size: 0.85rem;
+  border: 1px solid #ddd;
+  font-weight: 500;
+}
+
+[data-theme="dark"] code:not(pre code) {
+  background: #19183B; /* Dark mode inline */
+  color: #FFF5F2;
+  border: 1px solid #333;
+}

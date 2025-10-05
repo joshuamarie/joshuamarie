@@ -1,0 +1,34 @@
+# options specified here will apply to all posts in this folder
+
+# freeze computational output
+# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+freeze: true
+
+# Enable banner style title blocks
+title-block-banner: true
+
+# Author name of all blog posts
+author: "Joshua Marie"
+
+# Table of content settings
+toc: true
+toc-depth: 3
+
+format:
+  html:
+    include-in-header:
+      - text: |
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842567530621468" crossorigin="anonymous"></script>
+    fontsize: 1em
+    include-after-body:
+      - Theme/theme.html
+      - Theme/code-modal.html
+    toc-title: ""
+    theme: 
+      light: 
+        - cosmo
+      dark: 
+        - darkly
+    css: 
+      - Theme/code.css
+      - Theme/table.css

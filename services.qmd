@@ -1,0 +1,31 @@
+---
+title: "Want my help?"
+---
+
+:::: {.info-grid}
+
+## Tutorials
+
+*To join is simple: Complete the form by clicking the hyperlinked text*
+
+::: {.info-card}
+-  [Core of R programming](https://docs.google.com/forms/d/e/1FAIpQLSdyCnIbReqDY91JWnNLd6FQ0MkD92zD4g-b1VkwqTAMXiZhkA/viewform?usp=preview): Lectures about the heart of R programming, and it has 3 courses. 
+-  *Core of Python programming (not available right now)*: Lectures about the heart of R programming
+-  *Bayesianism (not available right now)*: Stan probabilistic programming is the main course. 
+:::
+
+## Consultancy
+
+*Email me at: `joshua.marie.k@gmail.com` if you want to reach me*
+
+::: {.info-card}
+-  Data Manipulation
+-  Data Visualization
+-  Calculus & Linear Algebra
+-  Statistical Modelling & Machine Learning
+-  Research & Development
+:::
+
+*Further instruction: Here is the template subject to make a deal: "Consultation: Data Manipulation"*
+
+::::
