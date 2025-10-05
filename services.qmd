@@ -1,5 +1,6 @@
 ---
 title: "Want my help?"
+comments: false
 ---
 
 :::: {.info-grid}
