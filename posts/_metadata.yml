@@ -24,11 +24,11 @@ format:
       - Theme/theme.html
       - Theme/code-modal.html
     toc-title: ""
-    theme: 
-      light: 
-        - cosmo
-      dark: 
-        - darkly
+    # theme: 
+    #   light: 
+    #     - cosmo
+    #   dark: 
+    #     - darkly
     css: 
       - Theme/code.css
       - Theme/table.css

@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/03-modules-in-r/index.html",
       "/posts/02-arima-grid-search/index.html",
       "/posts/01-meta-nn/index.html"
     ]
@@ -10,7 +11,8 @@
     "listing": "/posts/index.html",
     "items": [
       "/posts/01-meta-nn/index.html",
-      "/posts/02-arima-grid-search/index.html"
+      "/posts/02-arima-grid-search/index.html",
+      "/posts/03-modules-in-r/index.html"
     ]
   }
 ]

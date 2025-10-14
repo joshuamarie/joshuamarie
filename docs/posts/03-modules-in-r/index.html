@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua Marie">
+<meta name="dcterms.date" content="2025-10-08">
 
-<title>Check out my blogs – Joshua Marie</title>
+<title>Box: Placing module system into R – Joshua Marie</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a185852c63625fd9ffbdc57047c9a77e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ab45583c7c6ed829eb4d15d6a8462288.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0de45b8b5f35a93596f1d788d60c4c11.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-656ebce7cd2bcb2df27fa5437009aa5d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,75 +68,17 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842567530621468" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../styles/base.css">
-<link rel="stylesheet" href="../styles/components.css">
-<link rel="stylesheet" href="../styles/layout.css">
-<link rel="stylesheet" href="Theme/code.css">
-<link rel="stylesheet" href="Theme/table.css">
-<meta name="twitter:title" content="Check out my blogs – Joshua Marie">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="../posts/01-meta-nn/tmbnl.jpg">
+<link rel="stylesheet" href="../../styles/base.css">
+<link rel="stylesheet" href="../../styles/components.css">
+<link rel="stylesheet" href="../../styles/layout.css">
+<link rel="stylesheet" href="../Theme/code.css">
+<link rel="stylesheet" href="../Theme/table.css">
+<meta name="twitter:title" content="Box: Placing module system into R – Joshua Marie">
+<meta name="twitter:description" content="Definitive Guide">
+<meta name="twitter:image" content="tmbnl.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -148,7 +89,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Joshua Marie</span>
     </a>
   </div>
@@ -159,15 +100,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../services.html"> 
+    <a class="nav-link" href="../../services.html"> 
 <span class="menu-text">Services</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../posts/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
 </ul>
@@ -193,8 +134,13 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Check out my blogs</h1>
-                      </div>
+      <h1 class="title">Box: Placing module system into R</h1>
+            <p class="subtitle lead">Definitive Guide</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">book</div>
+              </div>
+                  </div>
   </div>
     
   
@@ -207,6 +153,12 @@ window.Quarto = {
             </div>
     </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 8, 2025</p>
+      </div>
+    </div>
     
       
     </div>
@@ -220,10 +172,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#subscribe-to-my-newsletter" id="toc-subscribe-to-my-newsletter" class="nav-link active" data-scroll-target="#subscribe-to-my-newsletter">Subscribe to My Newsletter</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="header-section-number">1</span> Welcome!</a>
+  <ul class="collapse">
+  <li><a href="#what-youll-find-here" id="toc-what-youll-find-here" class="nav-link" data-scroll-target="#what-youll-find-here"><span class="header-section-number">1.1</span> What You’ll Find Here</a></li>
+  <li><a href="#why-this-book" id="toc-why-this-book" class="nav-link" data-scroll-target="#why-this-book"><span class="header-section-number">1.2</span> Why this book</a></li>
+  <li><a href="#how-to-use-this-guide" id="toc-how-to-use-this-guide" class="nav-link" data-scroll-target="#how-to-use-this-guide"><span class="header-section-number">1.3</span> How to Use This Guide</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/kisha126/joshuamarie/edit/main/posts/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kisha126/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Ym9vaw==">book <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cG9pbnRsZXNzLWNvZGU=">pointless-code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGltZS1zZXJpZXM=">time-series <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dG9yY2g=">torch <span class="quarto-category-count">(1)</span></div></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/kisha126/joshuamarie/edit/main/posts/03-modules-in-r/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kisha126/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -231,167 +188,42 @@ window.Quarto = {
 
 
 
-<section id="subscribe-to-my-newsletter" class="level2">
-<h2 class="anchored" data-anchor-id="subscribe-to-my-newsletter">Subscribe to My Newsletter</h2>
-<p>Get notified when I publish new posts. No spam, unsubscribe anytime</p>
-<form action="https://buttondown.email/api/emails/embed-subscribe/joshua_marie" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/joshua_marie', 'popupwindow')" style="margin-top: 1rem; margin-bottom: 3rem;">
-<input type="email" name="email" placeholder="Enter your email" required="" style="padding: 0.75rem; border: 2px solid currentColor; background: transparent; font-size: 1rem; width: 300px; max-width: 60%;"> <input type="submit" value="Subscribe" style="padding: 0.75rem 1.5rem; background: #0d6efd; color: white; border: none; cursor: pointer; font-size: 1rem; font-weight: 600;">
-</form>
-<hr>
-
+<section id="welcome" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Welcome!</h1>
+<p><em>Click <a href="https://kisha126.github.io/modules-in-r/">here</a> to read the actual book. </em></p>
+<p>Welcome to the definitive guide to module system in R using box!</p>
+<p>Whether you want another way to import R packages, or simply seeking better ways to organize your code, this guide helps you to reimagine something did not exist in R for quite a long time: module system. This book introduces you the package that I discovered few years ago, it is called <a href="https://github.com/klmr/box">box</a>, initially <strong>modules</strong> package, by Konrad Rudolph. This package provides a clean, straightforward API to define and manage modules. R, especially its users, suffers from managing huge R pipelines, because there’s no clean way to manage such complex pipelines…this problem will potentially cease to exists, as <strong>box</strong> package affords closely equivalent module system to other programming languages like Python, C#, and more.</p>
+<section id="what-youll-find-here" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-youll-find-here"><span class="header-section-number">1.1</span> What You’ll Find Here</h2>
+<p>A definitive guide that walks you through:</p>
+<ul>
+<li>Alternative approach to import R codes (i.e.&nbsp;R packages, modules)</li>
+<li>Modern approaches to compose and organize R codes</li>
+<li>Step-by-step tutorials for using the <strong>box</strong> package</li>
+<li>Best practices for maintainable R code</li>
+</ul>
+</section>
+<section id="why-this-book" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-this-book"><span class="header-section-number">1.2</span> Why this book</h2>
+<p>Only little to no books teach you to correctly write reusable, composable, and modular R codes :). Most of the books maybe teaches you about R, particularly application of R in different fields, but little to none explains one of the best practices. Most of them uses <code>library()</code> anyways, so you won’t certainly find similar book like this.</p>
+<p>Consequently, while R offers various ways to organize code, the <strong>box</strong> package manages to be superior among them (I am bias) by introducing a fresh, modern approach to module system that may significantly improve your R development workflow, similar to the workflow made by other developers, particularly Python devs. This book bridges the gap between basic R programming and professional-grade code organization.</p>
+</section>
+<section id="how-to-use-this-guide" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="how-to-use-this-guide"><span class="header-section-number">1.3</span> How to Use This Guide</h2>
+<p><em>Click <a href="https://kisha126.github.io/modules-in-r/">here</a> and it will send you to the actual book. </em></p>
+<p>The content is structured progressively, building from foundational concepts to practical applications. For the best learning experience:</p>
+<ol type="1">
+<li>Start with the introduction to understand the core concepts</li>
+<li>Follow the package management chapter to learn modern dependency handling</li>
+<li>Practice with the reusable modules chapter, including the importation of R data</li>
+<li>Review the conclusion to reinforce key takeaways</li>
+</ol>
 
 
 </section>
+</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ21hY2hpbmUtbGVhcm5pbmclMkN0b3JjaCUyQ3BvaW50bGVzcy1jb2Rl" data-listing-date-sort="1758556800000" data-listing-file-modified-sort="1759986602533" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4370">
-<div class="thumbnail">
-<p><a href="../posts/01-meta-nn/index.html" class="no-external"></a></p><a href="../posts/01-meta-nn/index.html" class="no-external">
-<p><img loading="lazy" src="../posts/01-meta-nn/tmbnl.jpg" class="thumbnail-image"></p>
-</a><p><a href="../posts/01-meta-nn/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/01-meta-nn/index.html" class="no-external">Automatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/01-meta-nn/index.html" class="no-external">Use case of code generation in practice</a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">
-machine-learning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('dG9yY2g='); return false;">
-torch
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cG9pbnRsZXNzLWNvZGU='); return false;">
-pointless-code
-</div>
-</div>
-<div class="listing-description">
-<a href="../posts/01-meta-nn/index.html" class="no-external">I have a course tutorial, which I discuss the things to get “advance” in R. Code generation is part of it. My blog compiles <em>pointless codes</em> in <em>pointless code series</em>, and…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="../posts/01-meta-nn/index.html" class="no-external">
-<div class="listing-date">
-Sep 23, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ3RpbWUtc2VyaWVzJTJDbWFjaGluZS1sZWFybmluZw==" data-listing-date-sort="1758902400000" data-listing-file-modified-sort="1759986602538" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30" data-listing-word-count-sort="5809">
-<div class="thumbnail">
-<p><a href="../posts/02-arima-grid-search/index.html" class="no-external"></a></p><a href="../posts/02-arima-grid-search/index.html" class="no-external">
-<p><img loading="lazy" src="../posts/02-arima-grid-search/image.png" class="thumbnail-image"></p>
-</a><p><a href="../posts/02-arima-grid-search/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">First level of time series modelling: Basic ARIMA model hyperparameter tuning</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">With plots</a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('dGltZS1zZXJpZXM='); return false;">
-time-series
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">
-machine-learning
-</div>
-</div>
-<div class="listing-description">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">How do you train ARIMA model in your time series models? Grid search, or Hyndman and Khandaka (2008) algorithm? I created this document to demonstrate you how to fit every…</a>
-</div>
-</div>
-<div class="metadata">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">
-<div class="listing-date">
-Sep 27, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ2Jvb2s=" data-listing-date-sort="1759852800000" data-listing-file-modified-sort="1760427782694" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="375">
-<div class="thumbnail">
-<p><a href="../posts/03-modules-in-r/index.html" class="no-external"></a></p><a href="../posts/03-modules-in-r/index.html" class="no-external">
-<p><img loading="lazy" src="../posts/03-modules-in-r/tmbnl.png" class="thumbnail-image"></p>
-</a><p><a href="../posts/03-modules-in-r/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/03-modules-in-r/index.html" class="no-external">Box: Placing module system into R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/03-modules-in-r/index.html" class="no-external">Definitive Guide</a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ym9vaw=='); return false;">
-book
-</div>
-</div>
-<div class="listing-description">
-<a href="../posts/03-modules-in-r/index.html" class="no-external"><em>Click here to read the actual book. </em></a>
-</div>
-</div>
-<div class="metadata">
-<a href="../posts/03-modules-in-r/index.html" class="no-external">
-<div class="listing-date">
-Oct 8, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -3273,6 +3105,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://utteranc.es/client.js" repo="kisha126/joshuamarie" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -3281,7 +3115,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Design inspired by <a href="https://github.com/statichunt/geeky-hugo">Geeky Hugo</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kisha126/joshuamarie/edit/main/posts/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kisha126/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/kisha126/joshuamarie/edit/main/posts/03-modules-in-r/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/kisha126/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

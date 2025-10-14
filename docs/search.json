@@ -88,7 +88,7 @@
     "href": "index.html#recent-posts",
     "title": "My name is Joshua",
     "section": "Recent Posts",
-    "text": "Recent Posts\n\n\n\n\n\n\n\n\n\n\nFirst level of time series modelling: Basic ARIMA model hyperparameter tuning\n\n\nWith plots\n\n\n\nR\n\n\ntime-series\n\n\nmachine-learning\n\n\n\n\n\n\n\n\n\nSep 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAutomatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression\n\n\nUse case of code generation in practice\n\n\n\nR\n\n\nmachine-learning\n\n\ntorch\n\n\npointless-code\n\n\n\n\n\n\n\n\n\nSep 23, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Recent Posts\n\n\n\n\n\n\n\n\n\n\nBox: Placing module system into R\n\n\nDefinitive Guide\n\n\n\nR\n\n\nbook\n\n\n\n\n\n\n\n\n\nOct 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nFirst level of time series modelling: Basic ARIMA model hyperparameter tuning\n\n\nWith plots\n\n\n\nR\n\n\ntime-series\n\n\nmachine-learning\n\n\n\n\n\n\n\n\n\nSep 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAutomatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression\n\n\nUse case of code generation in practice\n\n\n\nR\n\n\nmachine-learning\n\n\ntorch\n\n\npointless-code\n\n\n\n\n\n\n\n\n\nSep 23, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -166,5 +166,33 @@
     "title": "Check out my blogs",
     "section": "",
     "text": "Get notified when I publish new posts. No spam, unsubscribe anytime"
+  },
+  {
+    "objectID": "posts/03-modules-in-r/index.html",
+    "href": "posts/03-modules-in-r/index.html",
+    "title": "Box: Placing module system into R",
+    "section": "",
+    "text": "Click here to read the actual book. \nWelcome to the definitive guide to module system in R using box!\nWhether you want another way to import R packages, or simply seeking better ways to organize your code, this guide helps you to reimagine something did not exist in R for quite a long time: module system. This book introduces you the package that I discovered few years ago, it is called box, initially modules package, by Konrad Rudolph. This package provides a clean, straightforward API to define and manage modules. R, especially its users, suffers from managing huge R pipelines, because there’s no clean way to manage such complex pipelines…this problem will potentially cease to exists, as box package affords closely equivalent module system to other programming languages like Python, C#, and more.\n\n\nA definitive guide that walks you through:\n\nAlternative approach to import R codes (i.e. R packages, modules)\nModern approaches to compose and organize R codes\nStep-by-step tutorials for using the box package\nBest practices for maintainable R code\n\n\n\n\nOnly little to no books teach you to correctly write reusable, composable, and modular R codes :). Most of the books maybe teaches you about R, particularly application of R in different fields, but little to none explains one of the best practices. Most of them uses library() anyways, so you won’t certainly find similar book like this.\nConsequently, while R offers various ways to organize code, the box package manages to be superior among them (I am bias) by introducing a fresh, modern approach to module system that may significantly improve your R development workflow, similar to the workflow made by other developers, particularly Python devs. This book bridges the gap between basic R programming and professional-grade code organization.\n\n\n\nClick here and it will send you to the actual book. \nThe content is structured progressively, building from foundational concepts to practical applications. For the best learning experience:\n\nStart with the introduction to understand the core concepts\nFollow the package management chapter to learn modern dependency handling\nPractice with the reusable modules chapter, including the importation of R data\nReview the conclusion to reinforce key takeaways"
+  },
+  {
+    "objectID": "posts/03-modules-in-r/index.html#what-youll-find-here",
+    "href": "posts/03-modules-in-r/index.html#what-youll-find-here",
+    "title": "Box: Placing module system into R",
+    "section": "",
+    "text": "A definitive guide that walks you through:\n\nAlternative approach to import R codes (i.e. R packages, modules)\nModern approaches to compose and organize R codes\nStep-by-step tutorials for using the box package\nBest practices for maintainable R code"
+  },
+  {
+    "objectID": "posts/03-modules-in-r/index.html#why-this-book",
+    "href": "posts/03-modules-in-r/index.html#why-this-book",
+    "title": "Box: Placing module system into R",
+    "section": "",
+    "text": "Only little to no books teach you to correctly write reusable, composable, and modular R codes :). Most of the books maybe teaches you about R, particularly application of R in different fields, but little to none explains one of the best practices. Most of them uses library() anyways, so you won’t certainly find similar book like this.\nConsequently, while R offers various ways to organize code, the box package manages to be superior among them (I am bias) by introducing a fresh, modern approach to module system that may significantly improve your R development workflow, similar to the workflow made by other developers, particularly Python devs. This book bridges the gap between basic R programming and professional-grade code organization."
+  },
+  {
+    "objectID": "posts/03-modules-in-r/index.html#how-to-use-this-guide",
+    "href": "posts/03-modules-in-r/index.html#how-to-use-this-guide",
+    "title": "Box: Placing module system into R",
+    "section": "",
+    "text": "Click here and it will send you to the actual book. \nThe content is structured progressively, building from foundational concepts to practical applications. For the best learning experience:\n\nStart with the introduction to understand the core concepts\nFollow the package management chapter to learn modern dependency handling\nPractice with the reusable modules chapter, including the importation of R data\nReview the conclusion to reinforce key takeaways"
   }
 ]
