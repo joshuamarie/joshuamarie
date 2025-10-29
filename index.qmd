@@ -34,7 +34,7 @@ listing:
 *Computer Scientist • Statistician*
 :::
 
-::: {.hero-subtitle}
+::: {.hero-overview}
 I am a computer scientist, package creator / maintainer / contributor (to R, Python, Julia), and a statistician. I studied multiple layers of programming paradigms and designs, and still actively learning. From what I studied so far, R and Python have closely equivalent feature parities, hence I use both for data science-y activities :). I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields. 
 :::
 
