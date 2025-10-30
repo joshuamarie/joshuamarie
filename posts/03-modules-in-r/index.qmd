@@ -26,7 +26,7 @@ execute:
 
 # Welcome!
 
-*Click [here](https://kisha126.github.io/modules-in-r/) to read the actual book. *
+*Click [here](https://joshuamarie.github.io/modules-in-r/) to read the actual book. *
 
 Welcome to the definitive guide to module system in R using box! 
 
@@ -51,9 +51,28 @@ Consequently, while R offers various ways to organize code, the **box** package 
 
 *Click [here](https://kisha126.github.io/modules-in-r/) and it will send you to the actual book. *
 
-The content is structured progressively, building from foundational concepts to practical applications. For the best learning experience:
+The content is structured progressively, building from foundational concepts to deep applications. For the best learning experience:
 
 1.  Start with the introduction to understand the core concepts
-2.  Follow the package management chapter to learn modern dependency handling
-3.  Practice with the reusable modules chapter, including the importation of R data
-4.  Review the conclusion to reinforce key takeaways
+2.  Learning the fundamentals of import system with **{box}** package
+3.  Learning the structures and constructions of reusability of modules, treating them like R packages, and supplied with documentation
+4.  Learning unit testing the modules
+
+## Contributing
+
+Contributions are welcome! If you have suggestions or improvements, please open an [issue](https://github.com/joshuamarie/modules-in-r/issues) or submit a pull request on the [GitHub repository](https://github.com/joshuamarie/modules-in-r).
+
+## License
+
+This book is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). See the [LICENSE](https://github.com/joshuamarie/modules-in-r/blob/main/LICENSE.md) file for details.
+
+## Credits
+
+This book was created by [Joshua Marie](https://github.com/joshuamarie).
+
+Special thanks to:
+
+-   [Konrad Rudolph](https://github.com/klmr) for creating and maintaining the [box](https://github.com/klmr/box) package
+-   The R community for their continued support and feedback
+
+The book is built with [Quarto](https://quarto.org/), hosted on GitHub Pages.
