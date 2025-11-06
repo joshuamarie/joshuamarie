@@ -1,0 +1,320 @@
+---
+title: "The Hidden Magic of Tidy-Select: R's Universal Column Selection Language"
+subtitle: "Not limited to tidyselect helpers" 
+date: "2025-11-03"
+image: "image.png"
+format:
+  html:
+    toc: true
+    toc-float: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    code-tools: false
+    theme: default
+    highlight-style: tango
+    fig-width: 10
+    fig-height: 6
+    fig-cap-location: bottom
+    df-print: paged
+execute:
+  echo: true
+  message: false
+  warning: false
+  fig-align: center
+  fig-width: 10
+  fig-height: 6
+---
+
+# Introduction
+
+Have you ever wondered how `where()`, `starts_with()`, and other selection helpers work seamlessly across different `{tidyverse}` packages? I recently discovered something surprising: you can actually use these functions in `{dplyr}`, `{tidyr}`, and other packages that invokes `<tidy-select>` API, without explicitly loading them.
+
+Here's how it works: 
+
+```{r}
+iris |> 
+    tidyr::pivot_longer(
+        cols = where(is.numeric), # using `where()` w/out calling dplyr / tidyselect
+        names_to = 'Variable',
+        values_to = 'Measure'
+    )
+```
+
+Take note that I never load `{tidyselect}` and `{dplyr}` (the `where()` function in `{dplyr}` is just one of many re-exports). Yet, `where()` works perfectly. It doesn't belong to / re-exported by `{tidyr}`, but you can use `where()`, if and only if the functions is invoking `<tidy-select>` API. 
+
+# What Are These Functions Called?
+
+These are officially called *tidyselect helpers* (or "selection language"). They're part of the `{tidyselect}` package, which provides a domain-specific language (DSL) for selecting columns in data frames.
+
+You might also hear them referred to as:
+
+-   Selection helper functions
+-   `<Tidy-select>` helpers
+-   Column selection helpers
+
+# The Complete Family of Selection Helpers
+
+The `{tidyselect}` package can be divided into 3 categories of helpers. 
+
+::: panel-tabset
+
+## Pattern Matching Helpers
+
+1.  Columns starting with a prefix
+
+    ```{r}
+    iris |> 
+        dplyr::select(starts_with("Sepal")) |> 
+        head(3)
+    ```
+
+2.  Columns ending with a suffix
+
+    ```{r}
+    iris |> 
+        dplyr::select(ends_with("Width")) |> 
+        head(3)
+    ```
+
+3.  Columns containing a literal string
+
+    ```{r}
+    iris |> 
+        dplyr::select(contains("al")) |> 
+        head(3)
+    ```
+
+4.  Columns matching a regular expression
+
+    ```{r}
+    iris |> 
+        dplyr::select(matches("^Sepal")) |> 
+        head(3)
+    ```
+
+5.  Columns following the number pattern
+
+    ```{r}
+    iris |> 
+        dplyr::select(num_range('x', 1:4)) |> 
+        head(3)
+    ```
+
+## Predicate-Based Helpers
+
+The `where()` function is similar to SQL `WHERE`, except it is functional that (should) returns a Boolean value that satisfies the condition. 
+
+```{r}
+iris |> 
+    dplyr::select(where(is.numeric)) |> 
+    head(3)
+
+iris |> 
+    dplyr::select(where(is.factor)) |> 
+    head(3)
+
+iris |> 
+    dplyr::select(where(\(col) is.numeric(col) && mean(col) > 3.5))
+```
+
+## "Positional" Helpers
+
+These are functions that select columns based on their position in the data frame
+
+i.  `everything()`
+
+    ```{r}
+    iris |> 
+        dplyr::select(everything()) |> 
+        head(3)
+    ```
+    
+    This is equivalent to `relocate(iris, Species)`:
+    
+    ```{r}
+    iris |> 
+        dplyr::select(Species, everything()) |> 
+        head(3)
+    ```
+    
+ii.  `last_col()`
+
+```{r}
+iris |> 
+    dplyr::select(last_col()) |> 
+    head(3)
+```
+
+Offset: 2nd to the last
+    
+```{r}
+iris |> 
+    dplyr::select(last_col(1)) |> 
+    head(3)
+```
+    
+Offset: Multiple columns from the end
+    
+```{r}
+iris |> 
+    dplyr::select(last_col(2):last_col()) |> 
+    head(3)
+```
+    
+:::
+
+Noticed that I invoked most of `<tidy-select>` helpers, but never loaded `{dplyr}` or `{tidyselect}`, not once, just to use them. 
+
+# "Data-Masking" Subset
+
+Just like those `<tidy-select>` helpers, some functions found in `{dplyr}`, but doesn't in `{tidyselect}`. These are all the functions that can be used within "data-masking" functions, such as `dplyr::mutate()` and `dplyr::summarise()`. Take a note of the term "within", which means, you can't use them outside from "data-masking" functions. 
+
+I call `across()`, `if_any()`, and `if_all()` as *projection helpers* because they correspond to the `SELECT` clause in SQL, except they both `if_any()`, and `if_all()` map over the selected columns and returns the Boolean vector, while the `across()` function modifies the selected columns. The `pick()` function, on the other hand serves as a complement of `across()` by extracting them as a data frame, however, this only applies to subset a data frame to be invoked within the operations in "data-masking" functions. All of them can make use of the `<tidy-select>` API, meaning you can apply selectors like `starts_with()` or `everything()` to specify which columns to project.
+
+::: panel-tabset
+
+## Using `pick()`
+
+Here's an example: Calculating mean and standard deviation 
+
+```{r}
+iris |> 
+    dplyr::group_by(Species) |> 
+    dplyr::summarise(
+        summary = list({
+            num = pick(where(is.numeric))
+            tibble::tibble(
+                vars = colnames(num), 
+                mean = colMeans(num),
+                sd = apply(num, 2, sd)
+            )
+        })
+    ) |> 
+    tidyr::unnest(summary)
+```
+
+> I am aware there's a better approach to calculate the mean and standard deviation of each column by group. 
+
+## Using `across()`
+
+Here's an example: Apply min-max normalization among numeric columns in `iris` dataset
+
+```{r}
+iris |> 
+    dplyr::as_tibble() |> 
+    dplyr::mutate(
+        across(
+            where(is.numeric), 
+            \(col) { col - min(col) } / { max(col) - min(col) }
+        )
+    )
+```
+
+And once again, I never attach `{dplyr}` into the search path just to use `across()` and `pick()`. 
+
+You can use `across()` in some `{dplyr}` "data-masking" function like `filter()`, but this is a deprecated behavior and attaching `{dplyr}` package is required. 
+
+## Using `if_all()` / `if_any()`
+
+Example: Removing all missing values across all columns in `airquality` data frame
+
+```{r}
+airquality |> 
+    dplyr::filter(if_all(everything(), \(col) !is.na(col))) |> 
+    head(5)
+```
+
+If `if_all()` / `if_any()` is used outside `filter()`, those functions need `{dplyr}` package to be attached to use them. 
+
+## Functions you actually need to attach
+
+Though, there are some exceptions: there are helper functions you actually need `{dplyr}` to be attached to use them, otherwise they don't work and R will throw an error. 
+
+Here they are:
+
+```{r}
+library(dplyr)
+```
+
+1.  `n()`
+
+    ```{r}
+    iris |>
+        group_by(Species) |> 
+        slice_max(n = 20, order_by = Sepal.Length) |> 
+        summarise(
+            count = n(), # 👈 
+            m_sl = mean(Sepal.Length)
+        )
+    ```
+
+2.  `cur_group()`
+
+    ```{r}
+    mtcars |>
+        group_by(cyl) |>
+        reframe({
+            model = lm(mpg ~ wt, data = cur_group()) # 👈 
+            coefs = coef(model)
+            
+            tibble(
+                terms = names(coefs), 
+                estimate = coefs
+            )
+        })
+    ```
+
+3.  `cur_group_id()`
+
+    ```{r}
+    starwars |>
+        group_by(species) |>
+        reframe(
+            species, 
+            name, 
+            hierarchical_id = sprintf("%02d-%03d", cur_group_id(), row_number()) # 👈 
+        ) |> 
+        slice_min(hierarchical_id, n = 15)
+    ```
+
+4.  `cur_group_rows()`
+
+    ```{r}
+    iris |> 
+        group_by(Species) |> 
+        slice_sample(
+            n = 75, replace = TRUE
+        ) |> 
+        summarise(
+            m_sl = mean(Sepal.Length),
+            n = {length(cur_group_rows()) + 30} # 👈 
+        )
+    ```
+
+5.  `cur_column()`
+
+    ```{r}
+    iris |> 
+        as_tibble() |> 
+        transmute(
+            across(
+                where(is.numeric),
+                \(col) {
+                    if (stringr::str_detect(cur_column(), "Sepal")) { # 👈 
+                        col - mean(col)
+                    } else if (stringr::str_detect(cur_column(), "Petal")) { # 👈 
+                        (col - mean(col)) / sd(col)
+                    } else {
+                        col
+                    }
+                }
+            )
+        )
+    ```
+
+:::
+
+# Conclusion
+
+I hope they don't change this soon, it is quite a nice feature (definitely not a bug 😋), assembling the DSL strengths across `{tidyverse}` APIs. Even if it is subtle. I still suggest you to attach these functions (through e.g. `library()` and `box::use()`) for better maintainability. 
