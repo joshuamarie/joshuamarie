@@ -270,7 +270,7 @@ window.Quarto = {
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ21hY2hpbmUtbGVhcm5pbmclMkN0b3JjaCUyQ3BvaW50bGVzcy1jb2Rl" data-listing-date-sort="1758556800000" data-listing-file-modified-sort="1759986602533" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4370">
+<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ21hY2hpbmUtbGVhcm5pbmclMkN0b3JjaCUyQ3BvaW50bGVzcy1jb2Rl" data-listing-date-sort="1758556800000" data-listing-file-modified-sort="1762755922725" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4370">
 <div class="thumbnail">
 <p><a href="../posts/01-meta-nn/index.html" class="no-external"></a></p><a href="../posts/01-meta-nn/index.html" class="no-external">
 <p><img loading="lazy" src="../posts/01-meta-nn/tmbnl.jpg" class="thumbnail-image"></p>
@@ -312,7 +312,7 @@ Joshua Marie
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ3RpbWUtc2VyaWVzJTJDbWFjaGluZS1sZWFybmluZw==" data-listing-date-sort="1758902400000" data-listing-file-modified-sort="1759986602538" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30" data-listing-word-count-sort="5809">
+<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ3RpbWUtc2VyaWVzJTJDbWFjaGluZS1sZWFybmluZw==" data-listing-date-sort="1758902400000" data-listing-file-modified-sort="1762752659270" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30" data-listing-word-count-sort="5809">
 <div class="thumbnail">
 <p><a href="../posts/02-arima-grid-search/index.html" class="no-external"></a></p><a href="../posts/02-arima-grid-search/index.html" class="no-external">
 <p><img loading="lazy" src="../posts/02-arima-grid-search/image.png" class="thumbnail-image"></p>
@@ -351,7 +351,7 @@ Joshua Marie
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ2Jvb2s=" data-listing-date-sort="1759852800000" data-listing-file-modified-sort="1761807026249" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="461">
+<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ2Jvb2s=" data-listing-date-sort="1759852800000" data-listing-file-modified-sort="1762752666472" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="461">
 <div class="thumbnail">
 <p><a href="../posts/03-modules-in-r/index.html" class="no-external"></a></p><a href="../posts/03-modules-in-r/index.html" class="no-external">
 <p><img loading="lazy" src="../posts/03-modules-in-r/tmbnl.png" class="thumbnail-image"></p>
@@ -387,7 +387,7 @@ Joshua Marie
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1762099200000" data-listing-file-modified-sort="1762419652031" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1956">
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1762099200000" data-listing-file-modified-sort="1762752673204" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1956">
 <div class="thumbnail">
 <p><a href="../posts/04-tidyselect-helpers/index.html" class="no-external"></a></p><a href="../posts/04-tidyselect-helpers/index.html" class="no-external">
 <p><img loading="lazy" src="../posts/04-tidyselect-helpers/image.png" class="thumbnail-image"></p>
@@ -506,13 +506,353 @@ No matching items
 
 
 
-/* Theme toggle button */
+/* =========================
+
+   Navbar Theme Fix
+
+   ========================= */
+
+
+
+/* Target all navbar elements to use theme colors */
+
+.navbar,
+
+.navbar-default,
+
+.navbar-expand-lg,
+
+nav.navbar,
+
+header.navbar,
+
+#quarto-header,
+
+.quarto-navbar,
+
+nav[role="navigation"] {
+
+  background: var(--background) !important;
+
+  border-bottom: 1px solid var(--border) !important;
+
+  box-shadow: var(--shadow-sm) !important;
+
+}
+
+
+
+/* =========================
+
+   Title Block Banner Theme Fix
+
+   ========================= */
+
+
+
+/* Target title block banner area */
+
+#title-block-header,
+
+.quarto-title-block,
+
+header#title-block-header,
+
+.quarto-title-banner {
+
+  background: var(--background) !important;
+
+  color: var(--text-primary) !important;
+
+}
+
+
+
+/* Title block container */
+
+.quarto-title-block .quarto-title,
+
+#title-block-header .quarto-title {
+
+  background: var(--background) !important;
+
+}
+
+
+
+/* =========================
+
+   Listing Controls Theme Fix (Sorter/Filter)
+
+   ========================= */
+
+
+
+/* Order By / Sort dropdown and Filter input */
+
+.listing-option-group,
+
+.listing-actions,
+
+.listing-controls,
+
+div[class*="listing"] {
+
+  background: var(--background) !important;
+
+}
+
+
+
+/* Dropdowns and inputs in listing controls */
+
+.listing-option-group select,
+
+.listing-option-group input,
+
+#listing-order-by,
+
+select,
+
+input[type="text"],
+
+input[type="search"] {
+
+  background: var(--surface) !important;
+
+  color: var(--text-primary) !important;
+
+  border: 1px solid var(--border) !important;
+
+}
+
+
+
+.listing-option-group select:hover,
+
+.listing-option-group input:hover,
+
+select:hover,
+
+input[type="text"]:hover,
+
+input[type="search"]:hover {
+
+  background: var(--surface-hover) !important;
+
+  border-color: var(--primary-color) !important;
+
+}
+
+
+
+/* Labels in listing controls */
+
+.listing-option-group label,
+
+.listing-controls label {
+
+  color: var(--text-primary) !important;
+
+}
+
+
+
+/* =========================
+
+   Footer Theme Fix
+
+   ========================= */
+
+
+
+/* Footer area */
+
+footer,
+
+.footer,
+
+.nav-footer,
+
+.quarto-footer,
+
+body > footer,
+
+#quarto-footer {
+
+  background: var(--surface) !important;
+
+  color: var(--text-secondary) !important;
+
+  border-top: 1px solid var(--border) !important;
+
+}
+
+
+
+/* Footer links */
+
+footer a,
+
+.footer a,
+
+.nav-footer a,
+
+.quarto-footer a {
+
+  color: var(--text-secondary) !important;
+
+}
+
+
+
+footer a:hover,
+
+.footer a:hover,
+
+.nav-footer a:hover,
+
+.quarto-footer a:hover {
+
+  color: var(--primary-color) !important;
+
+}
+
+
+
+/* Footer text */
+
+footer p,
+
+footer div,
+
+.footer p,
+
+.footer div,
+
+.nav-footer p,
+
+.nav-footer div {
+
+  color: var(--text-secondary) !important;
+
+}
+
+
+
+/* Navbar brand/logo */
+
+.navbar-brand,
+
+.navbar-title,
+
+a.navbar-brand {
+
+  color: var(--text-primary) !important;
+
+}
+
+
+
+/* Navbar links */
+
+.navbar-nav .nav-link,
+
+.navbar .nav-link,
+
+.navbar a,
+
+.nav-link {
+
+  color: var(--text-secondary) !important;
+
+}
+
+
+
+.navbar-nav .nav-link:hover,
+
+.navbar .nav-link:hover,
+
+.navbar a:hover,
+
+.nav-link:hover {
+
+  color: var(--primary-color) !important;
+
+}
+
+
+
+/* Active navbar link */
+
+.navbar-nav .nav-link.active,
+
+.navbar .nav-link.active,
+
+.nav-link.active {
+
+  color: var(--primary-color) !important;
+
+}
+
+
+
+/* Navbar toggler for mobile */
+
+.navbar-toggler,
+
+.navbar-toggler-icon {
+
+  border-color: var(--border) !important;
+
+  background-image: none !important;
+
+}
+
+
+
+.navbar-toggler-icon {
+
+  background-color: var(--text-secondary) !important;
+
+}
+
+
+
+/* Search button and icons in navbar */
+
+.navbar .quarto-navbar-tools,
+
+.navbar-nav .nav-item i,
+
+.navbar i {
+
+  color: var(--text-secondary) !important;
+
+}
+
+
+
+.navbar .quarto-navbar-tools:hover,
+
+.navbar-nav .nav-item i:hover,
+
+.navbar i:hover {
+
+  color: var(--primary-color) !important;
+
+}
+
+
+
+/* Theme toggle button - repositioned to avoid navbar overlap */
 
 .theme-toggle {
 
   position: fixed;
 
-  top: 20px;
+  bottom: 20px;
 
   right: 20px;
 
@@ -536,7 +876,7 @@ No matching items
 
   transition: all 0.3s ease;
 
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 
   display: flex;
 
@@ -554,7 +894,7 @@ No matching items
 
   transform: scale(1.1);
 
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 15px 25px -5px rgb(0 0 0 / 0.3);
 
 }
 
@@ -1532,15 +1872,15 @@ textarea:focus {
 
   .theme-toggle {
 
-    top: 10px;
+    bottom: 15px;
 
-    right: 10px;
+    right: 15px;
 
-    width: 40px;
+    width: 45px;
 
-    height: 40px;
+    height: 45px;
 
-    font-size: 1rem;
+    font-size: 1.1rem;
 
   }
 
@@ -1700,7 +2040,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.documentElement.setAttribute('data-theme', savedTheme);
 
-  themeToggle.innerHTML = savedTheme === 'dark' ?  '🌙': '☀️';
+  themeToggle.innerHTML = savedTheme === 'dark' ? '🌙' : '☀️';
 
   
 

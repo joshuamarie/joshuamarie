@@ -41,10 +41,180 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
 }
 
-/* Theme toggle button */
+/* =========================
+   Navbar Theme Fix
+   ========================= */
+
+/* Target all navbar elements to use theme colors */
+.navbar,
+.navbar-default,
+.navbar-expand-lg,
+nav.navbar,
+header.navbar,
+#quarto-header,
+.quarto-navbar,
+nav[role="navigation"] {
+  background: var(--background) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* =========================
+   Title Block Banner Theme Fix
+   ========================= */
+
+/* Target title block banner area */
+#title-block-header,
+.quarto-title-block,
+header#title-block-header,
+.quarto-title-banner {
+  background: var(--background) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Title block container */
+.quarto-title-block .quarto-title,
+#title-block-header .quarto-title {
+  background: var(--background) !important;
+}
+
+/* =========================
+   Listing Controls Theme Fix (Sorter/Filter)
+   ========================= */
+
+/* Order By / Sort dropdown and Filter input */
+.listing-option-group,
+.listing-actions,
+.listing-controls,
+div[class*="listing"] {
+  background: var(--background) !important;
+}
+
+/* Dropdowns and inputs in listing controls */
+.listing-option-group select,
+.listing-option-group input,
+#listing-order-by,
+select,
+input[type="text"],
+input[type="search"] {
+  background: var(--surface) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.listing-option-group select:hover,
+.listing-option-group input:hover,
+select:hover,
+input[type="text"]:hover,
+input[type="search"]:hover {
+  background: var(--surface-hover) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Labels in listing controls */
+.listing-option-group label,
+.listing-controls label {
+  color: var(--text-primary) !important;
+}
+
+/* =========================
+   Footer Theme Fix
+   ========================= */
+
+/* Footer area */
+footer,
+.footer,
+.nav-footer,
+.quarto-footer,
+body > footer,
+#quarto-footer {
+  background: var(--surface) !important;
+  color: var(--text-secondary) !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+/* Footer links */
+footer a,
+.footer a,
+.nav-footer a,
+.quarto-footer a {
+  color: var(--text-secondary) !important;
+}
+
+footer a:hover,
+.footer a:hover,
+.nav-footer a:hover,
+.quarto-footer a:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Footer text */
+footer p,
+footer div,
+.footer p,
+.footer div,
+.nav-footer p,
+.nav-footer div {
+  color: var(--text-secondary) !important;
+}
+
+/* Navbar brand/logo */
+.navbar-brand,
+.navbar-title,
+a.navbar-brand {
+  color: var(--text-primary) !important;
+}
+
+/* Navbar links */
+.navbar-nav .nav-link,
+.navbar .nav-link,
+.navbar a,
+.nav-link {
+  color: var(--text-secondary) !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar .nav-link:hover,
+.navbar a:hover,
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Active navbar link */
+.navbar-nav .nav-link.active,
+.navbar .nav-link.active,
+.nav-link.active {
+  color: var(--primary-color) !important;
+}
+
+/* Navbar toggler for mobile */
+.navbar-toggler,
+.navbar-toggler-icon {
+  border-color: var(--border) !important;
+  background-image: none !important;
+}
+
+.navbar-toggler-icon {
+  background-color: var(--text-secondary) !important;
+}
+
+/* Search button and icons in navbar */
+.navbar .quarto-navbar-tools,
+.navbar-nav .nav-item i,
+.navbar i {
+  color: var(--text-secondary) !important;
+}
+
+.navbar .quarto-navbar-tools:hover,
+.navbar-nav .nav-item i:hover,
+.navbar i:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Theme toggle button - repositioned to avoid navbar overlap */
 .theme-toggle {
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
   z-index: 1000;
   background: var(--primary-color);
@@ -56,7 +226,7 @@
   cursor: pointer;
   font-size: 1.25rem;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +235,7 @@
 .theme-toggle:hover {
   background: var(--primary-dark);
   transform: scale(1.1);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 15px 25px -5px rgb(0 0 0 / 0.3);
 }
 
 .theme-toggle:active {
@@ -554,11 +724,11 @@ textarea:focus {
 /* Responsive design */
 @media (max-width: 768px) {
   .theme-toggle {
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
   }
   
   .container-fluid {
@@ -638,7 +808,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Check for saved theme preference
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeToggle.innerHTML = savedTheme === 'dark' ?  '🌙': '☀️';
+  themeToggle.innerHTML = savedTheme === 'dark' ? '🌙' : '☀️';
   
   // Theme toggle functionality
   themeToggle.addEventListener('click', function() {

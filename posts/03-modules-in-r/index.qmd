@@ -4,6 +4,7 @@ subtitle: "Definitive Guide"
 date: "2025-10-08"
 categories: [R, book]
 image: "tmbnl.png"
+# navbar: true
 format:
   html:
     toc: true

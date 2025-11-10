@@ -4,6 +4,7 @@ subtitle: "Use case of code generation in practice"
 date: "2025-09-23"
 categories: [R, machine-learning, torch, pointless-code]
 image: "tmbnl.jpg"
+# navbar: true
 format:
   html:
     toc: true
