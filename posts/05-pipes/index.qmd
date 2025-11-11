@@ -1,0 +1,507 @@
+---
+title: 'How much do you know about pipes?'
+subtitle: 'History and Functionality of pipes'
+date: "2025-11-10"
+categories: [R, pipes]
+image: "image.jpg"
+format:
+    html:
+        toc: true
+        toc-float: true
+        toc-depth: 3
+        number-sections: true
+        code-fold: false
+        code-tools: false
+        theme: default
+        highlight-style: tango
+        fig-width: 10
+        fig-height: 6
+        fig-cap-location: bottom
+        df-print: paged
+execute:
+    echo: true
+    message: false
+    warning: false
+    fig-align: center
+    fig-width: 10
+    fig-height: 6
+---
+
+# Pledge
+
+I'll go dive about the history of pipes in R. Pipes have revolutionized the way we write R code, making it more readable and maintainable. But the story of pipes in R is richer than many realize. While most R users are already familiar with `{magrittr}`'s `%>%` or the native R `|>`, the journey of pipes in R spans multiple packages and years of implementations, each with unique features and use cases.
+
+In this post, I'll be chronological about what I explore in the history and variety of pipes available in R, from the pioneering days to modern implementations.
+
+*But the question still remains: How much did you really learn about pipes in R? *
+
+# Brief Definition before starting
+
+A **pipe** operator is a binary operator, just like `+`, that passes the output of one function as the input to the another expression. In R, it mimics Python's chaining method:
+
+:::: panel-tabset
+
+## R
+
+i.  Without breaking into another line: 
+
+```{r}
+#| eval: false
+x |> f() |> g() |> h()
+```
+
+ii.  Breaking into next line:
+
+```{r}
+#| eval: false
+x |> 
+    f() |> 
+    g() |> 
+    h()
+```
+
+## Python
+
+i.  Without breaking into another line: 
+
+``` python
+x.f().g().h()
+```
+
+ii.  Breaking into next line:
+
+``` python
+x \
+    .f() \
+    .g() \
+    .h()
+    
+(
+    x
+      .f() 
+      .g() 
+      .h()
+)
+```
+
+::: callout-note
+In Python, you can't break the code into another line, unless `\` between the methods, or closing the expression with `()` is applied. As you can see, R is more forgiving. 
+:::
+
+::::
+
+It lets you at least avoid creating intermediate variables and write code that reads from **left to right** — Usually, some documentation refers it as left-hand side (LHS) and right-hand side (RHS), respectively.
+
+# The Early Days: Pre-Pipe Workflows (≤2012)
+
+Before pipes, the usual workflow in R relies on the following on nested function calls:
+
+i. Nested function calls
+
+```{r}
+round(mean(c(1, 2, 3, 4, 5)), 2)
+```
+
+This would be difficult to read and maintain once the function calls get deeper
+
+```{r}
+round(mean(log(c(1, 2, 3, 4, 5))), 2)
+```
+
+ii.  Intermediate variables
+
+Instead of a deep nested call
+
+```{r}
+x = c(1, 2, 3, 4, 5)
+log_x = log(x)
+mu_x = mean(log_x)
+mu_x_rounded = round(mu_x, 2)
+mu_x_rounded
+```
+
+My problem with *intermediate variables* is that it is cluttered with temporary variables.
+
+# Timeline of R Pipes
+
+Many of R developers in the past invented pipes, like many times. Let's explore them chronologically. 
+
+See how pipes evolved from experimental packages to core R:
+
+![](pipes-timeline.png)
+
+## 1. The `{pipeR}` Pioneer (2013)
+
+The `{pipeR}` package by Kun Ren was one of the earliest pipe implementations in R, introducing the `%>>%` operator.
+
+```{r}
+box::use(pipeR[`%>>%`])
+
+1:10 %>>%
+    mean() %>>%
+    round(2)
+```
+
+Here's the cool part: 
+
+i.  Lambda expressions with parentheses:
+
+    ```{r}
+    1:10 %>>%
+        (mean(.) * 2) %>>%
+        round(2)
+    ```
+
+ii.  Side effects with continued piping:
+
+    ```{r}
+    rnorm(100) %>>%
+        (~ plot(., main = "Random Normal Values")) %>>%  # Side effect
+        mean() %>>%
+        round(2)
+    ```
+
+::: {.callout-note title="Why it faded"}  
+It's not like it vanished from the existence, more like it is superseded by `{magrittr}` and took over. 
+:::
+
+## 2. The Game Changer: `{magrittr}` Pipe (2014)
+
+The `{magrittr}` package, created by Stefan Milton Bache and later maintained by Lionel Henry at Posit (formerly RStudio), became the most popular pipe implementation. It was inspired by F#'s pipe-forward operator and Unix pipes.
+
+```{r}
+box::use(magrittr[`%>%`, `%<>%`, `%T>%`, `%$%`, `%!>%`])
+
+c(1, 2, 3, 4, 5) %>%
+    mean() %>%
+    round(2)
+```
+
+Do you know? There are plenty pipe operators in `{magrittr}` package, consists of at least 5 operators. Here are the special features: 
+
+:::: panel-tabset
+
+### The classic
+
+The `%>%` is `{magrittr}`'s standard and "lazy" pipe - it doesn't evaluate arguments until needed, which can affect behavior with certain functions. Lazy evaluation means that the RHS is only computed when its value is required, which optimizes performance but can lead to surprises with side-effect-heavy code.
+
+To understand better how `%>%` works, let's give a demonstration by applying dot placeholder for non-first arguments: 
+
+```{r}
+mtcars %>%
+    lm(mpg ~ cyl, data = .)
+```
+
+The dot (`.`) acts as a placeholder for the piped value, allowing it to be inserted into any argument position—not just the first. You can also apply multiple placeholders:
+
+```{r}
+mtcars %>% 
+    head(5) %>% 
+    split(., .$cyl)
+```
+
+### Assignment pipe
+
+The `%<>%` operator is invoking reference semantics, where it pipes and assigns the result back to the original variable:
+
+```{r}
+x = 1:5
+x %<>% log() %>% sum()
+x
+```
+
+This is equivalent to `x = x %>% log() %>% sum()` but more concise. What happened here is we created a side-effect of `x`. Some [pointed](https://www.reddit.com/r/rstats/comments/f77mjv/why_are_the_and_pipes_magrittr_not_used_with_dplyr/) it out why it is a problem. 
+
+### Tee pipe
+
+The `%T>%` "tee" pipe passes the left-hand side value forward, not the output of the right-hand side. Useful for side effects like plotting or printing, where you want to perform an action but continue with the original data: 
+
+```{r}
+set.seed(123)
+rnorm(100) %T>% 
+    plot(main = "Values before mean") %>% 
+    mean() %>%
+    round(2)
+```
+
+This should be the equivalent:
+
+``` r 
+{
+    set.seed(123)
+    plot(rnorm(100), main = "Values before mean")
+    round(mean(rnorm(100)), 2)
+}
+```
+
+So, if you try the following:
+
+```{r}
+1:5 %T>% 
+    mean()
+```
+
+The `%T>%` operator discards the output of `mean(1:5)`, and that's because `mean()` doesn't return a side-value effect. 
+
+By the way, the "tee" name comes from Unix's `tee` command, which splits output streams.
+
+### Exposition pipe
+
+The `%$%` "exposition" pipe exposes the names within the left-hand side object to the right-hand side expression:
+
+```{r}
+mtcars %$%
+    cor(mpg, cyl)
+```
+
+This is equivalent to:
+
+``` r
+cor(mtcars$mpg, mtcars$cyl)
+```
+
+This is particularly useful with functions that don't have a `data` argument.
+
+::: callout-warning
+Do not use `%$%` operator when LHS is not a a list or data frame with named elements. 
+:::
+
+### Eager pipe
+
+The `%!>%` operator is the "eager" version of `%>%` that evaluates arguments *immediately*. This can matter for functions with non-standard evaluation:
+
+```{r}
+# Standard (lazy) pipe
+iris %>% 
+    subset(Species == "setosa") %>% 
+    head(3)
+
+# Eager pipe (forces immediate evaluation)
+iris %!>% 
+    subset(Species == "setosa") %!>% 
+    head(3)
+```
+
+In most cases, the difference is subtle, but it can matter for advanced programming.
+
+To see the actual difference: 
+
+i.  `%!>%`: `cat(1)` is immediately evaluated (it evaluates from left to right)
+
+```{r}
+0 %!>% (\(x) { cat(1); x }) %!>% (\(x) cat(2))
+```
+
+ii.  `%>%`: Evaluates only `cat(2)` as the first result is never used
+
+```{r}
+0 %>% (\(x) { cat(1); x }) %>% (\(x) cat(2))  
+```
+
+Source: https://stackoverflow.com/questions/76326742/what-are-the-differences-and-use-cases-of-the-five-magrittr-pipes
+
+::::
+
+## 3. The `{wrapr}` Dot Arrow (2017)
+
+John Mount's `{wrapr}` package provides the `%.>%` "dot arrow" pipe,
+
+<!-- Add / modify here here -->
+
+This pipe requires the dot to always be explicit, which prevents certain subtle bugs and makes code intentions clearer. It's particularly useful in production code where clarity is paramount.
+
+## 4. The Bizarro Pipe: `->.; ` (Base R, ~2017)
+
+I am not sure when this operator released, but there's a pipe operator in base R: the "Bizarro pipe" (`->.; `), that works like `%>%` and `%.>%`. It's not a formal operator but an emergent behavior from combining existing R syntax.
+
+```{r}
+1:10 ->.; 
+    mean(.) ->.; 
+    round(., 2)
+```
+
+The Bizarro pipe works by:
+
+1. Using right assignment `->` to assign to `.`
+2. Ending each statement with `;` to separate expressions
+3. The next line uses `.` as input
+
+It's called "Bizarro" because it uses right-to-left assignment syntax (`->`) to create a left-to-right workflow. 
+
+However, it has disadvantages (talked in this [Stackoverflow](https://stackoverflow.com/a/67868877) discussion):
+
+- Creates hidden side-effects (the persistent `.` variable)
+- Goes against R style guides (right assignment and semicolons are discouraged)
+- Can lead to subtle bugs if you forget to assign to `.` at some step
+- The `.` variable is hidden from `ls()` and IDE inspectors
+- It's so pesky, it won't auto-inden.t 
+
+Seriously, the Bizarro pipe is primarily used as a debugging tool to convert `%>%` pipelines for step-by-step inspection, not for production code.
+
+## 5. The Native Pipe: `|>` (R v4.1+, 2021)
+
+In May 2021, R v4.1 introduced the native pipe operator `|>`, bringing pipe functionality into base R without the need for external packages. This operator is the true operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.
+
+```{r}
+c(1, 2, 3, 4, 5) |>
+    mean() |>
+    round(2)
+```
+
+This is too identical to `%>%` from `{magrittr}` with some obvious differences. 
+
+### Common differences from `{magrittr}` pipe
+
+The placeholder for `|>` is now applied in R v4.2 and above. For the syntax, it rather uses `_`, not `.`. 
+
+```{r}
+mtcars |>
+    lm(mpg ~ cyl, data = _)
+```
+
+The native pipe:
+
+- Is slightly faster (negligible in often cases, this matters for some cases like running for-loop)
+- Does not support the tee (`%T>%`), exposition (`%$%`), or assignment (`%<>%`) operators
+- Cannot be used with compound assignment
+- Is more strict about valid syntax
+
+### Performance comparison
+
+The native pipe is clearly faster than the `{magrittr}` pipe because native pipe does not add more function calls within its implementation compared to the `{magrittr}` pipe. 
+
+```{r}
+bench::mark(
+    "magrittr pipe" = replicate(10000, 1:100 %>% sum()), 
+    "native R pipe" = replicate(10000, 1:100 |> sum())
+)
+```
+
+### Pipe-bind operator
+
+After R v4.2, the pipe-bind operator `=>`, or pipe-binding syntax, allows you to bind the result of the left-hand side (LHS) to a name within the right-hand side (RHS) expression.
+
+This feature is, however, disabled by default. You may want to enable it by running the following:
+
+```{r}
+Sys.setenv("_R_USE_PIPEBIND_" = TRUE)
+```
+
+Another options: 
+
+i.  Place this command into `.Renviron` file (Hint: run `usethis::edit_r_environ()`):
+
+``` bash
+_R_USE_PIPEBIND_=true
+```
+
+ii.  Run this in a command prompt or PowerShell
+  
+``` powershell
+setx _R_USE_PIPEBIND_ true
+```
+
+If you are in Linux / macOS (bash / zsh):
+
+``` bash
+export _R_USE_PIPEBIND_=true
+```
+  
+Then restart R. 
+
+Here's what it does:
+
+```{r}
+mtcars |> 
+    df => lm(mpg ~ wt, data = df)
+
+mtcars |> 
+    df => split(df, df$cyl) |> 
+    lapply(\(df) lm(mpg ~ wt, data = df)) |> 
+    vapply(\(mod) summary(mod)$r.squared, numeric(1))
+```
+
+The `df` name temporarily exists only inside that RHS expression — not in your global environment. I like this because this is more explicit than `.` in `%>%` operator. You can name the LHS result and refer to it directly inside the RHS expression anything you like.
+
+## Non-Pipe Alternatives
+
+While the above are true pipe operators, it's worth mentioning that some packages achieve similar left-to-right workflows through different mechanisms.
+
+### `{data.table}` Chaining (2010)
+
+`{data.table}` uses method chaining with `[][]` notation. It is NOT a pipe operator in a sense, but achieves a similar left-to-right flow. It behaves differently from the pipe operator — it chains operations within the same `[.data.table` method, and doesn't pass values between functions, i.e. the use of placeholders.
+
+Let's look at the basic `{data.table}` example: 
+
+```{r}
+box::use(data.table[as.data.table, `:=`])
+
+dt = as.data.table(mtcars)
+dt[cyl == 8][order(-mpg)][, .(mpg, cyl, hp)][1:5]
+```
+
+Deeper method chaining in `{data.table}` with grouping and aggregation:
+
+```{r}
+dt[, log_mpg := log(mpg)][,
+    .(
+        mpg_mean = mean(mpg, na.rm = TRUE), 
+        log_mpg_mean = mean(log_mpg, na.rm = TRUE)
+    ), by = cyl
+][
+    order(-mpg_mean, -log_mpg_mean)
+]
+```
+
+This is method chaining, not piping—the key difference is that pipes pass values between different functions, while `data.table` chains operations within the same `[` method.
+
+### `{zeallot}` Multiple Assignment (2018)
+
+R lacks destructuring (also called "unpacking") method, just like what you see in other languages, such as Python:
+
+``` python
+x, y = 0, 1
+```
+
+The `{zeallot}` allows destructuring assignment with `%<-%`. While not exactly a pipe operator to chain the commands, works well in pipe-like workflows.
+
+```{r}
+box::use(zeallot[`%<-%`])
+
+# Multiple assignment
+c(a, b) %<-% c(1, 2)
+c(a, b)
+```
+
+Destructuring with computations:
+
+```{r}
+c(mean_val, sd_val, n) %<-% local({
+    set.seed(125)
+    x = rnorm(100)
+    c(mean(x), sd(x), length(x))
+})
+
+cat(glue::glue("Mean: {mean_val}, SD: {sd_val} , N: {n}"), "\n")
+```
+
+Works with pipe workflows:
+
+```{r}
+set.seed(123)
+c(m, s) %<-% (rnorm(100) %>% {c(mean(.), sd(.))})
+c(m, s)
+```
+
+# Remarks and Resources
+
+As you can see, it needs a lot to came up with lots of crufts and inventions, after years of invention. The native pipe came up later after the release of R v4.1 in May 2021, thanks to the popularization of `{magrittr}` and `{tidyverse}`. And that's all I know about pipes in R.  
+
+Here are the additional resources: 
+
+- [magrittr documentation](https://magrittr.tidyverse.org/)
+- [R - Release Notes](https://cran.r-project.org/doc/manuals/r-release/NEWS.html)
+- [pipeR package](https://renkun-ken.github.io/pipeR/)
+- [wrapr package](https://winvector.github.io/wrapr/)
+- [data.table documentation](https://rdatatable.gitlab.io/data.table/)
+- [zeallot package](https://cran.r-project.org/package=zeallot)
