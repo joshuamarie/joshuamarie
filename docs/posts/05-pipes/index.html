@@ -158,6 +158,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                                 <div class="quarto-categories">
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">pipes</div>
+                <div class="quarto-category">tidyverse</div>
+                <div class="quarto-category">programming</div>
               </div>
                   </div>
   </div>
@@ -371,7 +373,7 @@ rnorm(100) %&gt;&gt;%
 ::: {.cell-output .cell-output-stdout}
 
 ```
-[1] -0.07
+[1] -0.04
 ```
 
 
@@ -615,9 +617,9 @@ Warning
 <li>Goes against R style guides (right assignment and semicolons are discouraged)</li>
 <li>Can lead to subtle bugs if you forget to assign to <code>.</code> at some step</li>
 <li>The <code>.</code> variable is hidden from <code><a href="https://rdrr.io/r/base/ls.html">ls()</a></code> and IDE inspectors</li>
-<li>It’s so pesky, it won’t auto-inden.t</li>
+<li>It’s so pesky, it won’t auto-indent</li>
 </ul>
-<p>Seriously, the Bizarro pipe is primarily used as a debugging tool to convert <code>%&gt;%</code> pipelines for step-by-step inspection, not for production code.</p>
+<p>Seriously, I won’t recommend Bizarro pipe at all. It is still a nice touch as a temporary replacement of <code>%&gt;%</code> for chained R codes, and will not use it for production code.</p>
 </section><section id="the-native-pipe-r-v4.1-2021" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="the-native-pipe-r-v4.1-2021">
 <span class="header-section-number">4.5</span> 5. The Native Pipe: <code>|&gt;</code> (R v4.1+, 2021)</h2>
 <p>In May 2021, R v4.1 introduced the native pipe operator <code>|&gt;</code>, bringing pipe functionality into base R without the need for external packages. This operator is the true operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.</p>
@@ -663,7 +665,7 @@ Coefficients:
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["expression"],"name":[1],"type":["bnch_xpr"],"align":["right"]},{"label":["min"],"name":[2],"type":["bench_tm"],"align":["right"]},{"label":["median"],"name":[3],"type":["bench_tm"],"align":["right"]},{"label":["itr/sec"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["mem_alloc"],"name":[5],"type":["bnch_byt"],"align":["right"]},{"label":["gc/sec"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"<bnch_xpr>","2":"41.2405ms","3":"42.22335ms","4":"23.68358","5":"375.4453KB","6":"94.73431"},{"1":"<bnch_xpr>","2":"12.1644ms","3":"19.2802ms","4":"51.30297","5":"369.4062KB","6":"22.44505"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["expression"],"name":[1],"type":["bnch_xpr"],"align":["right"]},{"label":["min"],"name":[2],"type":["bench_tm"],"align":["right"]},{"label":["median"],"name":[3],"type":["bench_tm"],"align":["right"]},{"label":["itr/sec"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["mem_alloc"],"name":[5],"type":["bnch_byt"],"align":["right"]},{"label":["gc/sec"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"<bnch_xpr>","2":"40.7526ms","3":"40.98675ms","4":"24.39813","5":"375.4453KB","6":"121.99064"},{"1":"<bnch_xpr>","2":"10.6316ms","3":"12.5629ms","4":"82.15638","5":"369.4062KB","6":"46.43622"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>

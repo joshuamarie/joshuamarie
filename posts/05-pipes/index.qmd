@@ -2,8 +2,8 @@
 title: 'How much do you know about pipes?'
 subtitle: 'History and Functionality of pipes'
 date: "2025-11-10"
-categories: [R, pipes]
 image: "image.jpg"
+categories: [R, pipes, tidyverse, programming]
 format:
     html:
         toc: true
@@ -340,9 +340,9 @@ However, it has disadvantages (talked in this [Stackoverflow](https://stackoverf
 - Goes against R style guides (right assignment and semicolons are discouraged)
 - Can lead to subtle bugs if you forget to assign to `.` at some step
 - The `.` variable is hidden from `ls()` and IDE inspectors
-- It's so pesky, it won't auto-inden.t 
+- It's so pesky, it won't auto-indent 
 
-Seriously, the Bizarro pipe is primarily used as a debugging tool to convert `%>%` pipelines for step-by-step inspection, not for production code.
+Seriously, I won't recommend Bizarro pipe at all. It is still a nice touch as a temporary replacement of `%>%` for chained R codes, and will not use it for production code.
 
 ## 5. The Native Pipe: `|>` (R v4.1+, 2021)
 
