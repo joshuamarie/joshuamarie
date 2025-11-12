@@ -50,7 +50,7 @@ Consequently, while R offers various ways to organize code, the **box** package 
 
 ## How to Use This Guide
 
-*Click [here](https://kisha126.github.io/modules-in-r/) and it will send you to the actual book. *
+*Click [here](https://joshuamarie.github.io/modules-in-r/) and it will send you to the actual book. *
 
 The content is structured progressively, building from foundational concepts to deep applications. For the best learning experience:
 
