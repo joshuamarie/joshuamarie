@@ -329,7 +329,7 @@ I am not sure when this operator released, but there's a pipe operator in base R
 
 The Bizarro pipe works by:
 
-1. Using right assignment `->` to assign to `.`
+1. Using right assignment `->` to assign to `.` (this is done by typing `-` + `>` + `.`)
 2. Ending each statement with `;` to separate expressions
 3. The next line uses `.` as input
 
@@ -347,7 +347,7 @@ Seriously, I won't recommend Bizarro pipe at all. It is still a nice touch as a 
 
 ## 5. The Native Pipe: `|>` (R v4.1+, 2021)
 
-In May 2021, R v4.1 introduced the native pipe operator `|>`, bringing pipe functionality into base R without the need for external packages. This operator is the true operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.
+In May 2021, R v4.1 introduced the native pipe operator `|>` (type `|` and `>`), bringing pipe functionality into base R without the need for external packages. This operator is the actual operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.
 
 ```{r}
 c(1, 2, 3, 4, 5) |>

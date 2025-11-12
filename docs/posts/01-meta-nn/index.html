@@ -1042,15 +1042,28 @@ a.navbar-brand {
   color: var(--primary-color) !important;
 }
 
-/* Navbar toggler for mobile */
-.navbar-toggler,
-.navbar-toggler-icon {
+/* Navbar toggler*/
+.navbar-toggler {
   border-color: var(--border) !important;
-  background-image: none !important;
+  padding: 0.25rem 0.5rem;
 }
 
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+/* Create custom hamburger icon that respects theme */
 .navbar-toggler-icon {
-  background-color: var(--text-secondary) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(71, 85, 105, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+/* Dark theme hamburger icon */
+[data-theme="dark"] .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(203, 213, 225, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 /* Search button and icons in navbar */

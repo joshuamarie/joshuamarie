@@ -599,8 +599,7 @@ Warning
 </div>
 <p>The Bizarro pipe works by:</p>
 <ol type="1">
-<li>Using right assignment <code>-&gt;</code> to assign to <code>.</code>
-</li>
+<li>Using right assignment <code>-&gt;</code> to assign to <code>.</code> (this is done by typing <code>-</code> + <code>&gt;</code> + <code>.</code>)</li>
 <li>Ending each statement with <code>;</code> to separate expressions</li>
 <li>The next line uses <code>.</code> as input</li>
 </ol>
@@ -616,7 +615,7 @@ Warning
 <p>Seriously, I won’t recommend Bizarro pipe at all. It is still a nice touch as a temporary replacement of <code>%&gt;%</code> for chained R codes, and will not use it for production code.</p>
 </section><section id="the-native-pipe-r-v4.1-2021" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="the-native-pipe-r-v4.1-2021">
 <span class="header-section-number">4.5</span> 5. The Native Pipe: <code>|&gt;</code> (R v4.1+, 2021)</h2>
-<p>In May 2021, R v4.1 introduced the native pipe operator <code>|&gt;</code>, bringing pipe functionality into base R without the need for external packages. This operator is the true operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.</p>
+<p>In May 2021, R v4.1 introduced the native pipe operator <code>|&gt;</code> (type <code>|</code> and <code>&gt;</code>), bringing pipe functionality into base R without the need for external packages. This operator is the actual operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.</p>
 <div class="cell">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -659,7 +658,7 @@ Coefficients:
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["expression"],"name":[1],"type":["bnch_xpr"],"align":["right"]},{"label":["min"],"name":[2],"type":["bench_tm"],"align":["right"]},{"label":["median"],"name":[3],"type":["bench_tm"],"align":["right"]},{"label":["itr/sec"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["mem_alloc"],"name":[5],"type":["bnch_byt"],"align":["right"]},{"label":["gc/sec"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"<bnch_xpr>","2":"37.8724ms","3":"41.0107ms","4":"24.38388","5":"375.4453KB","6":"109.72746"},{"1":"<bnch_xpr>","2":"11.2529ms","3":"12.89975ms","4":"76.74086","5":"369.4062KB","6":"41.85865"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["expression"],"name":[1],"type":["bnch_xpr"],"align":["right"]},{"label":["min"],"name":[2],"type":["bench_tm"],"align":["right"]},{"label":["median"],"name":[3],"type":["bench_tm"],"align":["right"]},{"label":["itr/sec"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["mem_alloc"],"name":[5],"type":["bnch_byt"],"align":["right"]},{"label":["gc/sec"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"<bnch_xpr>","2":"45.5555ms","3":"45.7007ms","4":"21.88150","5":"375.4453KB","6":"98.46676"},{"1":"<bnch_xpr>","2":"11.4199ms","3":"12.9927ms","4":"76.83003","5":"369.4062KB","6":"40.08523"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -985,15 +984,28 @@ a.navbar-brand {
   color: var(--primary-color) !important;
 }
 
-/* Navbar toggler for mobile */
-.navbar-toggler,
-.navbar-toggler-icon {
+/* Navbar toggler*/
+.navbar-toggler {
   border-color: var(--border) !important;
-  background-image: none !important;
+  padding: 0.25rem 0.5rem;
 }
 
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+/* Create custom hamburger icon that respects theme */
 .navbar-toggler-icon {
-  background-color: var(--text-secondary) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(71, 85, 105, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+/* Dark theme hamburger icon */
+[data-theme="dark"] .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(203, 213, 225, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 /* Search button and icons in navbar */

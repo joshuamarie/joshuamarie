@@ -588,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["m_sl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"setosa","2":"4.984","3":"105"},{"1":"versicolor","2":"5.884","3":"105"},{"1":"virginica","2":"6.584","3":"105"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["m_sl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"setosa","2":"5.008000","3":"105"},{"1":"versicolor","2":"5.950667","3":"105"},{"1":"virginica","2":"6.596000","3":"105"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -820,15 +820,28 @@ a.navbar-brand {
   color: var(--primary-color) !important;
 }
 
-/* Navbar toggler for mobile */
-.navbar-toggler,
-.navbar-toggler-icon {
+/* Navbar toggler*/
+.navbar-toggler {
   border-color: var(--border) !important;
-  background-image: none !important;
+  padding: 0.25rem 0.5rem;
 }
 
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+/* Create custom hamburger icon that respects theme */
 .navbar-toggler-icon {
-  background-color: var(--text-secondary) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(71, 85, 105, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+/* Dark theme hamburger icon */
+[data-theme="dark"] .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(203, 213, 225, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 /* Search button and icons in navbar */
