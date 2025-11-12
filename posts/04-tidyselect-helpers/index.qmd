@@ -3,6 +3,7 @@ title: "The Hidden Magic of Tidy-Select: R's Universal Column Selection Language
 subtitle: "Not limited to tidyselect helpers" 
 date: "2025-11-03"
 image: "image.png"
+categories: [R, tidyselect, tidyverse]
 # navbar: true
 format:
   html:
