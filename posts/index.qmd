@@ -4,7 +4,7 @@ listing:
   contents: ./
   type: default
   categories: true
-  sort: "date"
+  sort: "date desc"
   filter-ui: true
   sort-ui: true
 comments: false

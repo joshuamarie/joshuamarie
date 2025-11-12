@@ -12,11 +12,11 @@
   {
     "listing": "/posts/index.html",
     "items": [
-      "/posts/01-meta-nn/index.html",
-      "/posts/02-arima-grid-search/index.html",
-      "/posts/03-modules-in-r/index.html",
+      "/posts/05-pipes/index.html",
       "/posts/04-tidyselect-helpers/index.html",
-      "/posts/05-pipes/index.html"
+      "/posts/03-modules-in-r/index.html",
+      "/posts/02-arima-grid-search/index.html",
+      "/posts/01-meta-nn/index.html"
     ]
   }
 ]
