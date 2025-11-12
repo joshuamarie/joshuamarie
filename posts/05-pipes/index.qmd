@@ -146,20 +146,21 @@ Here's the cool part:
 
 i.  Lambda expressions with parentheses:
 
-    ```{r}
-    1:10 %>>%
-        (mean(.) * 2) %>>%
-        round(2)
-    ```
+```{r}
+1:10 %>>%
+    (mean(.) * 2) %>>%
+    round(2)
+```
 
 ii.  Side effects with continued piping:
 
-    ```{r}
-    rnorm(100) %>>%
-        (~ plot(., main = "Random Normal Values")) %>>%  # Side effect
-        mean() %>>%
-        round(2)
-    ```
+```{r}
+set.seed(123)
+rnorm(100) %>>%
+    (~ plot(., main = "Random Normal Values")) %>>%  # Side effect
+    mean() %>>%
+    round(2)
+```
 
 ::: {.callout-note title="Why it faded"}  
 It's not like it vanished from the existence, more like it is superseded by `{magrittr}` and took over. 
