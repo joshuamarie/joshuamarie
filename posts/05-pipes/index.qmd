@@ -37,7 +37,7 @@ In this post, I'll be chronological about what I explore in the history and vari
 
 # Brief Definition before starting
 
-A **pipe** operator is a binary operator, just like `+`, that passes the output of one function as the input to the another expression. In R, it mimics Python's chaining method:
+A **pipe** operator is a binary operator, just like `+`, that passes the output of one function as the input to the another expression. In R, it mimics Python's method chaining:
 
 :::: panel-tabset
 
@@ -85,7 +85,7 @@ x \
 ```
 
 ::: callout-note
-In Python, you can't break the code into another line, unless `\` between the methods, or closing the expression with `()` is applied. As you can see, R is more forgiving. 
+In Python, you can't break the code into another line, unless `\` between the methods, or closing the expression with `()` is applied. As you can see, R is more forgiving and a lot better than Python, because it is only bounded in its class. 
 :::
 
 ::::
@@ -304,11 +304,17 @@ Source: https://stackoverflow.com/questions/76326742/what-are-the-differences-an
 
 ## 3. The `{wrapr}` Dot Arrow (2017)
 
-John Mount's `{wrapr}` package provides the `%.>%` "dot arrow" pipe,
+John Mount's `{wrapr}` package provides the `%.>%` "dot arrow" pipe, a deliberate and explicit alternative to `%>%`.
 
-<!-- Add / modify here here -->
+```{r}
+box::use(wrapr[`%.>%`])
 
-This pipe requires the dot to always be explicit, which prevents certain subtle bugs and makes code intentions clearer. It's particularly useful in production code where clarity is paramount.
+1:10 %.>%
+    mean(.) %.>%
+    round(., 2)
+```
+
+I don't know much about this pipe, to be honest. As what I can see, this pipe requires the dot to always be explicit, which, for me, it's so good that it can prevent some subtle bugs and makes code intentions clearer. 
 
 ## 4. The Bizarro Pipe: `->.; ` (Base R, ~2017)
 

@@ -235,7 +235,7 @@
     "href": "posts/05-pipes/index.html#the-piper-pioneer-2013",
     "title": "How much do you know about pipes?",
     "section": "\n4.1 1. The {pipeR} Pioneer (2013)",
-    "text": "4.1 1. The {pipeR} Pioneer (2013)\nThe pipeR package by Kun Ren was one of the earliest pipe implementations in R, introducing the %&gt;&gt;% operator.\n\nbox::use(pipeR[`%&gt;&gt;%`])\n\n1:10 %&gt;&gt;%\n    mean() %&gt;&gt;%\n    round(2)\n\n[1] 5.5\n\n\nHere’s the cool part:\n\n\nLambda expressions with parentheses:\n\n1:10 %&gt;&gt;%\n    (mean(.) * 2) %&gt;&gt;%\n    round(2)\n\n[1] 11\n\n\n\nSide effects with continued piping:\n\n::: {.cell}\n\n```{.r .cell-code}\nrnorm(100) %&gt;&gt;%\n    (~ plot(., main = \"Random Normal Values\")) %&gt;&gt;%  # Side effect\n    mean() %&gt;&gt;%\n    round(2)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-8-1.png){width=960}\n:::\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 0.07\n```\n\n\n:::\n:::\n\n\n\n\n\n\nWhy it faded\n\n\n\nIt’s not like it vanished from the existence, more like it is superseded by magrittr and took over."
+    "text": "4.1 1. The {pipeR} Pioneer (2013)\nThe pipeR package by Kun Ren was one of the earliest pipe implementations in R, introducing the %&gt;&gt;% operator.\n\nbox::use(pipeR[`%&gt;&gt;%`])\n\n1:10 %&gt;&gt;%\n    mean() %&gt;&gt;%\n    round(2)\n\n[1] 5.5\n\n\nHere’s the cool part:\n\n\nLambda expressions with parentheses:\n\n1:10 %&gt;&gt;%\n    (mean(.) * 2) %&gt;&gt;%\n    round(2)\n\n[1] 11\n\n\n\nSide effects with continued piping:\n\n::: {.cell}\n\n```{.r .cell-code}\nrnorm(100) %&gt;&gt;%\n    (~ plot(., main = \"Random Normal Values\")) %&gt;&gt;%  # Side effect\n    mean() %&gt;&gt;%\n    round(2)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-8-1.png){width=960}\n:::\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] -0.07\n```\n\n\n:::\n:::\n\n\n\n\n\n\nWhy it faded\n\n\n\nIt’s not like it vanished from the existence, more like it is superseded by magrittr and took over."
   },
   {
     "objectID": "posts/05-pipes/index.html#the-game-changer-magrittr-pipe-2014",
@@ -249,7 +249,7 @@
     "href": "posts/05-pipes/index.html#the-wrapr-dot-arrow-2017",
     "title": "How much do you know about pipes?",
     "section": "\n4.3 3. The {wrapr} Dot Arrow (2017)",
-    "text": "4.3 3. The {wrapr} Dot Arrow (2017)\nJohn Mount’s wrapr package provides the %.&gt;% “dot arrow” pipe,\n\nThis pipe requires the dot to always be explicit, which prevents certain subtle bugs and makes code intentions clearer. It’s particularly useful in production code where clarity is paramount."
+    "text": "4.3 3. The {wrapr} Dot Arrow (2017)\nJohn Mount’s wrapr package provides the %.&gt;% “dot arrow” pipe, a deliberate and explicit alternative to %&gt;%.\n\nbox::use(wrapr[`%.&gt;%`])\n\n1:10 %.&gt;%\n    mean(.) %.&gt;%\n    round(., 2)\n\n[1] 5.5\n\n\nI don’t know much about this pipe, to be honest. As what I can see, this pipe requires the dot to always be explicit, which, for me, it’s so good that it can prevent some subtle bugs and makes code intentions clearer."
   },
   {
     "objectID": "posts/05-pipes/index.html#the-bizarro-pipe--.-base-r-2017",
