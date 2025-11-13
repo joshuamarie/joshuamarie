@@ -92,7 +92,7 @@ In Python, you can't break the code into another line, unless `\` between the me
 
 It lets you at least avoid creating intermediate variables and write code that reads from **left to right** — Usually, some documentation refers it as left-hand side (LHS) and right-hand side (RHS), respectively.
 
-# The Early Days: Pre-Pipe Workflows (≤2012)
+# The Early Days: Pre-Pipe Workflows (≤2010)
 
 Before pipes, the usual workflow in R relies on the following on nested function calls:
 
@@ -130,7 +130,7 @@ See how pipes evolved from experimental packages to core R:
 
 ![](pipes-timeline.png)
 
-## 1. The `{pipeR}` Pioneer (2013)
+## 1. The **{pipeR}** Pioneer (2013)
 
 The `{pipeR}` package by Kun Ren was one of the earliest pipe implementations in R, introducing the `%>>%` operator.
 
@@ -166,7 +166,7 @@ rnorm(100) %>>%
 It's not like it vanished from the existence, more like it is superseded by `{magrittr}` and took over. 
 :::
 
-## 2. The Game Changer: `{magrittr}` Pipe (2014)
+## 2. The Game Changer: **{magrittr}** Pipe (2014)
 
 The `{magrittr}` package, created by Stefan Milton Bache and later maintained by Lionel Henry at Posit (formerly RStudio), became the most popular pipe implementation. It was inspired by F#'s pipe-forward operator and Unix pipes.
 
@@ -303,7 +303,7 @@ Source: https://stackoverflow.com/questions/76326742/what-are-the-differences-an
 
 ::::
 
-## 3. The `{wrapr}` Dot Arrow (2017)
+## 3. The **{wrapr}** Dot Arrow (2017)
 
 John Mount's `{wrapr}` package provides the `%.>%` "dot arrow" pipe, a deliberate and explicit alternative to `%>%`.
 
@@ -317,9 +317,9 @@ box::use(wrapr[`%.>%`])
 
 I don't know much about this pipe, to be honest. As what I can see, this pipe requires the dot to always be explicit, which, for me, it's so good that it can prevent some subtle bugs and makes code intentions clearer. 
 
-## 4. The Bizarro Pipe: `->.; ` (Base R, ~2017)
+## 4. The Bizarro Pipe (Base R, ~2017)
 
-I am not sure when this operator released, but there's a pipe operator in base R: the "Bizarro pipe" (`->.; `), that works like `%>%` and `%.>%`. It's not a formal operator but an emergent behavior from combining existing R syntax.
+I am not sure when this operator released, but there's a pipe operator (not categorically) in base R: the "Bizarro pipe" (`->.; `), that works like `%>%` and `%.>%`. It's not a formal operator but an emergent behavior from combining existing R syntax.
 
 ```{r}
 1:10 ->.; 
@@ -345,7 +345,7 @@ However, it has disadvantages (talked in this [Stackoverflow](https://stackoverf
 
 Seriously, I won't recommend Bizarro pipe at all. It is still a nice touch as a temporary replacement of `%>%` for chained R codes, and will not use it for production code.
 
-## 5. The Native Pipe: `|>` (R v4.1+, 2021)
+## 5. The Native Pipe (R v4.1+, 2021)
 
 In May 2021, R v4.1 introduced the native pipe operator `|>` (type `|` and `>`), bringing pipe functionality into base R without the need for external packages. This operator is the actual operator that was inspired by the pipe-forward operator in F# and the concept of Unix pipes.
 
@@ -386,7 +386,7 @@ bench::mark(
 
 ### Pipe-bind operator
 
-After R v4.2, the pipe-bind operator `=>`, or pipe-binding syntax, allows you to bind the result of the left-hand side (LHS) to a name within the right-hand side (RHS) expression.
+After R v4.2, the pipe-bind operator `=>` (type `=` + `>`), or a pipe-binding syntax, allows you to bind the result of the left-hand side (LHS) to a name within the right-hand side (RHS) expression.
 
 This feature is, however, disabled by default. You may want to enable it by running the following:
 
@@ -434,7 +434,7 @@ The `df` name temporarily exists only inside that RHS expression — not in your
 
 While the above are true pipe operators, it's worth mentioning that some packages achieve similar left-to-right workflows through different mechanisms.
 
-### `{data.table}` Chaining (2010)
+### Chaining in **{data.table}** (2010)
 
 `{data.table}` uses method chaining with `[][]` notation. It is NOT a pipe operator in a sense, but achieves a similar left-to-right flow. It behaves differently from the pipe operator — it chains operations within the same `[.data.table` method, and doesn't pass values between functions, i.e. the use of placeholders.
 
@@ -460,11 +460,11 @@ dt[, log_mpg := log(mpg)][,
 ]
 ```
 
-This is method chaining, not piping—the key difference is that pipes pass values between different functions, while `data.table` chains operations within the same `[` method.
+This is method chaining, not piping—the key difference is that pipes pass values between different functions, while `{data.table}` chains operations within the same `[` method.
 
-### `{zeallot}` Multiple Assignment (2018)
+### Multiple Assignment with **{zeallot}** (2018)
 
-R lacks destructuring (also called "unpacking") method, just like what you see in other languages, such as Python:
+This is not exactly an operator that behaves like a pipe, where it passes LHS as an input for RHS, but I would like to point this one out. R lacks destructuring (also called "unpacking") method, just like what you see in other languages, such as Python:
 
 ``` python
 x, y = 0, 1
@@ -483,7 +483,7 @@ c(a, b)
 Destructuring with computations:
 
 ```{r}
-c(mean_val, sd_val, n) %<-% local({
+c(mean_val, sd_val, n) %<-% local ({
     set.seed(125)
     x = rnorm(100)
     c(mean(x), sd(x), length(x))
@@ -496,9 +496,15 @@ Works with pipe workflows:
 
 ```{r}
 set.seed(123)
-c(m, s) %<-% (rnorm(100) %>% {c(mean(.), sd(.))})
+c(m, s) %<-% (rnorm(100) %>% { c(mean(.), sd(.)) })
 c(m, s)
 ```
+
+# Acknowledgment
+
+I would like to thank the [r/rstats](https://www.reddit.com/r/rstats/) community for engaging my article about the pipes in R. I would like to thank [u/guepier](https://www.reddit.com/user/guepier/) for pointing out the actual pipe history, where there's actually a pipe that predates both `{pipeR}` and `{magrittr}` in this [comment](https://www.reddit.com/r/rstats/comments/1ouvesz/comment/nof96n6/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button).   
+
+Special thanks to the developers of `{magrittr}`, `{pipeR}`, `{wrapr}`, and the R core team for introducing the native pipe operator.
 
 # Remarks and Resources
 
