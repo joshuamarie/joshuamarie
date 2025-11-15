@@ -78,7 +78,9 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../Theme/table.css">
 <meta name="twitter:title" content="Box: Placing module system into R – Joshua Marie">
 <meta name="twitter:description" content="Definitive Guide">
-<meta name="twitter:image" content="tmbnl.png">
+<meta name="twitter:image" content="https://joshuamarie.com/posts/03-modules-in-r/tmbnl.png">
+<meta name="twitter:image-height" content="277">
+<meta name="twitter:image-width" content="240">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -3165,7 +3167,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/joshuamarie\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

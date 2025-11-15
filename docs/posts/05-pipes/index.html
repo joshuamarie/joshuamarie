@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../Theme/table.css">
 <meta name="twitter:title" content="How much do you know about pipes? – Joshua Marie">
 <meta name="twitter:description" content="History and Functionality of pipes">
-<meta name="twitter:image" content="image.jpg">
+<meta name="twitter:image" content="https://joshuamarie.com/posts/05-pipes/image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="nav-fixed">
@@ -2300,7 +2300,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/joshuamarie\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

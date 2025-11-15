@@ -29,7 +29,7 @@ website:
   repo-url: https://github.com/joshuamarie/joshuamarie
   repo-actions: [edit, issue]
   repo-branch: main
-  # site-url: 
+  site-url: https://joshuamarie.com
 
 highlight-style: pygments
  
@@ -54,4 +54,4 @@ format:
       - styles/components.css
       - styles/layout.css
     mainfont: "Mulish"
-    
+  

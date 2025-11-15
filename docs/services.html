@@ -152,8 +152,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="info-grid">
-<section id="tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="tutorials">Tutorials</h2>
+<section id="courses" class="level2">
+<h2 class="anchored" data-anchor-id="courses">Courses</h2>
 <p><em>To join is simple: Complete the form by clicking the hyperlinked text</em></p>
 <div class="info-card">
 <ul>
@@ -272,7 +272,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/joshuamarie\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

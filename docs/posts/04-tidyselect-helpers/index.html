@@ -104,7 +104,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../Theme/table.css">
 <meta name="twitter:title" content="The Hidden Magic of Tidy-Select: R’s Universal Column Selection Language – Joshua Marie">
 <meta name="twitter:description" content="Not limited to tidyselect helpers">
-<meta name="twitter:image" content="image.png">
+<meta name="twitter:image" content="https://joshuamarie.com/posts/04-tidyselect-helpers/image.png">
+<meta name="twitter:image-height" content="788">
+<meta name="twitter:image-width" content="940">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="nav-fixed">
@@ -2131,7 +2133,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/joshuamarie\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
