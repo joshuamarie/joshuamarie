@@ -89,7 +89,7 @@ Hey there! I'm [Joshua Marie](https://joshuamarie.com/) - I code for fun and sti
   <a href="https://github.com/r-lib/devtools"><img src="https://raw.githubusercontent.com/r-lib/devtools/main/man/figures/logo.png" width="50px"/></a>
 </p>
 
-##### Extending with:
+##### Extending to:
 
 <p align="left">
   <a href="https://quarto.org/"><img src="https://github.com/user-attachments/assets/9888d1bd-2698-4b6e-b175-2a02f62a53b2" width="90px"/></a>
