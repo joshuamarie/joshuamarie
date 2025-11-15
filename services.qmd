@@ -5,7 +5,7 @@ comments: false
 
 :::: {.info-grid}
 
-## Tutorials
+## Courses
 
 *To join is simple: Complete the form by clicking the hyperlinked text*
 
