@@ -12,8 +12,6 @@ website:
     left:
       - text: "Services"
         href: services.qmd
-      - text: "About"
-        href: about.qmd
       - text: "Posts"
         href: posts/index.qmd
     right:

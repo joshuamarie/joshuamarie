@@ -154,46 +154,18 @@
     "text": "This is an advanced example of metaprogramming in R, demonstrating how to leverage functional programming and rlang for code generation. I don’t mind you to replicate what I did, but sometimes this technique should be used judiciously—sometimes simpler, more explicit code is better.\nThis example showcases:\n\nDeep understanding of R’s evaluation model\nFunctional programming with purrr\n\nExpression manipulation with rlang\n\nPractical application to deep learning workflows\n\nAnd also, I am aware to the fact that the function I made is ugly if you said so."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
-    "section": "",
-    "text": "About Me - Card Layout\n    \n    \n    \n    \n    \n    \n    \n    \n\n    \n\n\n\n\n\n  \n   \n    \n      I'm a \n      \n        \n          Computer Scientist\n          Statistician\n          Data Scientist\n          Consultant\nHowdy! I’m your neighborhood statistics man — a proud statistics man with some passions for mathematics, statistics, and making sense of the chaos. I serve as a data whisperer, tutor, and a consultant. I am a (self-proclaimed) computer scientist, technical person, and a statistician. I studied layers of programming paradigms. From what I studied so far, R and Python have closely equivalent feature parities. I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields."
-  },
-  {
-    "objectID": "about.html#formal-education",
-    "href": "about.html#formal-education",
-    "title": "About Me",
-    "section": "Formal Education",
-    "text": "Formal Education"
-  },
-  {
-    "objectID": "about.html#skillsets",
-    "href": "about.html#skillsets",
-    "title": "About Me",
-    "section": "Skillsets",
-    "text": "Skillsets"
-  },
-  {
-    "objectID": "about.html#employment",
-    "href": "about.html#employment",
-    "title": "About Me",
-    "section": "Employment",
-    "text": "Employment\n\n\nStatistician @ Fixstat\nPackage maintainer"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "My name is Joshua",
     "section": "",
-    "text": "Computer Scientist • Statistician\n\n\nI am a computer scientist, package creator / maintainer / contributor (to R, Python, Julia), and a statistician. I studied multiple layers of programming paradigms and designs, and still actively learning. From what I studied so far, R and Python have closely equivalent feature parities, hence I use both for data science-y activities :). I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields.\n\nKnow About Me"
+    "text": "Computer Scientist • Statistician\n\n\nI am a computer scientist, package creator / maintainer / contributor (to R, Python, Julia), and a statistician. I studied multiple layers of programming paradigms and designs, and still actively learning. From what I studied so far, R and Python have closely equivalent feature parities, hence I use both for data science-y activities :). I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields."
   },
   {
     "objectID": "index.html#joshua-marie",
     "href": "index.html#joshua-marie",
     "title": "My name is Joshua",
     "section": "",
-    "text": "Computer Scientist • Statistician\n\n\nI am a computer scientist, package creator / maintainer / contributor (to R, Python, Julia), and a statistician. I studied multiple layers of programming paradigms and designs, and still actively learning. From what I studied so far, R and Python have closely equivalent feature parities, hence I use both for data science-y activities :). I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields.\n\nKnow About Me"
+    "text": "Computer Scientist • Statistician\n\n\nI am a computer scientist, package creator / maintainer / contributor (to R, Python, Julia), and a statistician. I studied multiple layers of programming paradigms and designs, and still actively learning. From what I studied so far, R and Python have closely equivalent feature parities, hence I use both for data science-y activities :). I write packages for statistics, data science, and numerical analysis, as my specialties found in those fields."
   },
   {
     "objectID": "index.html#recent-posts",
