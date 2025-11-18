@@ -63,17 +63,13 @@ comments: false
 <!--     -   Performance audits and refactoring -->
 <!--     -   Best practices implementation -->
 
-:::
-
 ### Rates, Inquiry & Engagement
 
 ::: info-card
 
--   **Hourly rate:** \$2–\$7 per hour depending on project complexity
--   **Minimum engagement:** 4 hours
 -   **Retainer packages available** for ongoing work
--   [Book a free 30-minute discovery call](https://calendly.com/joshua-marie-k/consulting-firm)
--   Or email me: joshua.marie.k@gmail.com
+-   [Book the consultation firm in Calendly](https://calendly.com/joshua-marie-k/consulting-firm)
+-   Or email me at: joshua.marie.k@gmail.com
 
 :::
 
