@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://joshuamarie.com/services.html</loc>
-    <lastmod>2025-11-15T06:21:27.929Z</lastmod>
+    <lastmod>2025-11-18T11:02:09.262Z</lastmod>
   </url>
   <url>
     <loc>https://joshuamarie.com/posts/05-pipes/index.html</loc>
@@ -31,5 +31,9 @@
   <url>
     <loc>https://joshuamarie.com/posts/index.html</loc>
     <lastmod>2025-11-12T05:41:36.595Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/posts/06-load-pkg/index.html</loc>
+    <lastmod>2025-11-18T11:13:49.239Z</lastmod>
   </url>
 </urlset>

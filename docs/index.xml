@@ -2061,6 +2061,679 @@ font-style: inherit;">)</span></span></code></pre></div>
   <media:content url="https://joshuamarie.com/posts/05-pipes/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
+  <title>Ways to load / attach packages in R</title>
+  <dc:creator>Joshua Marie</dc:creator>
+  <link>https://joshuamarie.com/posts/06-load-pkg/</link>
+  <description><![CDATA[ <p>Isn’t it fond that R has more than 1 solution to load packages? In this post, I will try enumerate the different ways to load packages in R, and discuss their pros and cons. I will also rank them from worst to best solution in practices.</p>
+<section id="different-ways-to-load-attach-packages-in-r" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> Different ways to load / attach packages in R</h1>
+<p>I sorted the different ways to load packages in R from worst to best solution in practices. This may be subjective, but I will try to justify my ranking based on the principles of good programming practices.</p>
+<section id="worst-using-require" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="worst-using-require">
+<span class="header-section-number">1.1</span> Worst: Using <strong>require()</strong>
+</h2>
+<p>I’ll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages.</p>
+<p>This function returns a Boolean value:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>It returns <code>TRUE</code> if the package is successfully loaded and <code>FALSE</code> otherwise.</p>
+<p>And should only be applicable inside functions to check if a package is available.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">check_package</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span>, quietly <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>        <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Package loaded successfully"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>        <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Package not available"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">check_package</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Package not available"</code></pre>
+</div>
+</div>
+<p>Using <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> at the top level of your script can lead to silent failures. If the package isn’t installed, your code continues executing, leading to cryptic errors later when you try to use functions from the missing package.</p>
+<p>Seriously, this is just <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> where you can place it at the top level of your script, but add another extra steps.</p>
+</section><section id="the-classic-library" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="the-classic-library">
+<span class="header-section-number">1.2</span> The classic <strong>library()</strong>
+</h2>
+<p>Such a classic function, isn’t it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if <code>pkg</code> is not installed. This function is traditional and simple:</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<p>That’s it, right? I hope it was that simple, but it has some serious downsides:</p>
+<ol type="i">
+<li>It attaches the entire package namespace to the <em>search path</em>,</li>
+<li>It can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.</li>
+<li>It makes the imports unclear which functions come from which packages</li>
+<li>All exported functions are available, even if you only need one or two</li>
+</ol>
+<p>To detach the attached package namespace in the search path, use <code><a href="https://rdrr.io/r/base/detach.html">detach()</a></code> function with <code>package :</code> keyword:</p>
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">package</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be minded that <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function still potentially silently fails, even though it will throw an error, unlike <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> where silent fails are always prominent.</p>
+</div>
+</div>
+</section><section id="bundles-with-pacman" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="bundles-with-pacman">
+<span class="header-section-number">1.3</span> Bundles with <strong>{pacman}</strong>
+</h2>
+<p>The <a href="https://github.com/trinker/pacman">pacman</a> package tries to streamline package management with functions like <code>p_load()</code>.</p>
+<p>Do you know this?</p>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pkg"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span></code></pre></div>
+<p>With <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code>:</p>
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pacman</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<p>You can do the same as above, except you can do this for multiple packages.</p>
+<p>Here’s how:</p>
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pacman</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg1</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg2</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">pkg3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<p>This is definitely not the worst solution ever made, but my take is that it still doesn’t solve the problem I had: Lack of granular imports and importing the packages WITHOUT attaching the entire namespace.</p>
+<p>What I don’t like about this package and why I don’t recommend this</p>
+<ul>
+<li>Violates the <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">single responsibility principle</a>, where in <a href="https://github.com/trinker/pacman">pacman</a>’s case, mixing installation and loading.</li>
+<li>Installation should be a deliberate, one-time setup step, not hidden in your analysis code</li>
+<li>Can lead to unexpected behavior in production environments</li>
+<li>Makes code less portable and reproducible</li>
+<li>Adds an external dependency just for loading packages</li>
+</ul></section><section id="the-new-baseuse-function-v4.4.0" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="the-new-baseuse-function-v4.4.0">
+<span class="header-section-number">1.4</span> The new <strong>base::use()</strong> function (v4.4.0+)</h2>
+<p>This function is available in R version 4.4.0 and above. It allows you to load packages in a way that minimizes namespace conflicts by only attaching the functions you explicitly use. Take note that <code><a href="https://rdrr.io/r/base/use.html">base::use()</a></code> is a short case of <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, a simple wrapper, where it keeps <code>include.only</code> and set:</p>
+<ol type="1">
+<li>
+<code>lib.loc</code> to <code>NULL</code>
+</li>
+<li>
+<code>character.only</code> to <code>TRUE</code>
+</li>
+<li>
+<code>logical.return</code> to <code>TRUE</code>
+</li>
+<li>
+<code>attach.required</code> to <code>FALSE</code>
+</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'pkg'</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'obj1'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'fun1'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<p>This is still <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, but granular imports are explicit. However, another problem occurs: Since it is just a simple wrapper of <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, therefore the import still goes to the search path.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mean_data</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">function</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">.data</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'dplyr'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'summarise'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'tidyr'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'pivot_longer'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    </span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">summarise</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>        <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">.data</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">across</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>            <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">where</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">is.numeric</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, </span>
+<span>            \<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">col</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">col</span>, na.rm <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span>    <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span> </span>
+<span>        <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pivot_longer</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>            cols <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">where</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">is.numeric</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, </span>
+<span>            names_to <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Variable"</span>, </span>
+<span>            values_to <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Ave"</span></span>
+<span>        <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean_data</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">iris</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  Variable       Ave
+  &lt;chr&gt;        &lt;dbl&gt;
+1 Sepal.Length  5.84
+2 Sepal.Width   3.06
+3 Petal.Length  3.76
+4 Petal.Width   1.20</code></pre>
+</div>
+</div>
+<p>After I execute <code>mean_data(iris)</code>, the imports are accessible <em>anywhere</em>. And <code><a href="https://rdrr.io/r/base/use.html">base::use()</a></code> is still broken even in the latest R versions.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is noted by R core team:</p>
+<blockquote class="blockquote">
+<p>This functionality is still experimental: interfaces may change in future versions.</p>
+</blockquote>
+</div>
+</div>
+</section><section id="fusion-of-library-and-conflicted-package" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="fusion-of-library-and-conflicted-package">
+<span class="header-section-number">1.5</span> Fusion of <strong>library()</strong> and <strong>{conflicted}</strong> package</h2>
+<p>How about forcing the search path to select / deselect the imports? Introducing <a href="https://conflicted.r-lib.org/">conflicted</a> package. In this approach, I combine traditional <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> with the <a href="https://conflicted.r-lib.org/">conflicted</a> package to explicitly handle namespace conflicts.</p>
+<p>How good? For example, I prefer using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> over <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code>, but a bit later on, I want to use <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> since I want to run time series. The <code><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflicted::conflict_prefer()</a></code> handles which you want to declare “winners” of conflicts.</p>
+<p>I’ll make a scenario:</p>
+<ol type="i">
+<li>I have no use with <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> because I only want to keep the data frame based on the condition using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code>. Here, I declare <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> as “winner” of the conflict:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">conflicted</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'filter'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'dplyr'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'stats'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">cyl</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<ol start="2" type="i">
+<li>Then, I stopped using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> because I want to perform time series modelling with linear filtering using <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code>. Re-state <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> as the “winner” of the conflict:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">conflicted</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'filter'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'stats'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'dplyr'</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<p>In my standard, this is actually good, but still not enough because it never allows granular imports and import aliasing, and besides, I’ve had better.</p>
+</section><section id="tedious-but-explicit-operator" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="tedious-but-explicit-operator">
+<span class="header-section-number">1.6</span> Tedious but Explicit <strong>::</strong> operator</h2>
+<p>Using the <code>::</code> operator may be tedious, but this is the most explicit solution in R to call package functions without loading packages into your namespace.</p>
+</section><section id="second-to-best-import-package" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="second-to-best-import-package">
+<span class="header-section-number">1.7</span> Second to best: <strong>{import}</strong> package</h2>
+</section><section id="the-ergonomically-superior-box-package" class="level2" data-number="1.8"><h2 data-number="1.8" class="anchored" data-anchor-id="the-ergonomically-superior-box-package">
+<span class="header-section-number">1.8</span> The ergonomically superior <strong>{box}</strong> package</h2>
+<p>Finally, some good food. In 2021, this package introduced a new module system for R by Konrad Rudolph. It allows you to load packages and their functions in a modular way, similar to how modules work in other programming languages like Python or JavaScript. This approach helps to avoid namespace clashes and makes it clear which functions are being used from which packages.</p>
+<p>Here’s what it looks like to use <a href="https://klmr.me/box/">box</a> to load a package:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">box</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">dplyr</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span>keep_when <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">filter</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">select</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mutate</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span>,</span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ggplot2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">ggplot</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">aes</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">geom_point</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+</div>
+<p>You are also allowed to reuse exported namespace from an R script or a folder as a module. Let us assume that <code>{./my_module}</code> is a folder in your root directory, where it contains multiple R scripts exporting functions, and <code>{./utils}</code> is a single R script exporting utility functions. You can load them as modules like this:</p>
+<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">box</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">.</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">my_module</span>,</span>
+<span>    <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">.</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">path</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">to</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">utils</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div>
+<p>With <a href="https://klmr.me/box/">box</a>, you can create modules that encapsulate your code and its dependencies, another revolutionary and W move in R community. This package is making my life easier in managing and reuse code across different projects. This approach aligns well with modern programming practices and helps to keep your codebase clean and maintainable. In fact, I made a <a href="https://joshuamarie.github.io/modules-in-r/">book</a> dedicated on module system with this package.</p>
+</section></section><section id="conclusion" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Conclusion</h1>
+<p>While there are multiple ways to load packages in R, not all methods are created equal. The choice of method can significantly impact the readability, maintainability, and reliability of your code. I recommend using the <a href="https://klmr.me/box/">box</a> package for its modular approach and ability to avoid namespace clashes, making it a superior choice for loading packages in R.</p>
+
+
+</section> ]]></description>
+  <category>R</category>
+  <category>packages</category>
+  <guid>https://joshuamarie.com/posts/06-load-pkg/</guid>
+  <pubDate>Sun, 09 Nov 2025 16:00:00 GMT</pubDate>
+  <media:content url="https://joshuamarie.com/posts/06-load-pkg/image.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
   <title>The Hidden Magic of Tidy-Select: R’s Universal Column Selection Language</title>
   <dc:creator>Joshua Marie</dc:creator>
   <link>https://joshuamarie.com/posts/04-tidyselect-helpers/</link>

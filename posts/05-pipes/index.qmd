@@ -17,7 +17,6 @@ format:
         fig-width: 10
         fig-height: 6
         fig-cap-location: bottom
-        df-print: paged
 execute:
     echo: true
     message: false

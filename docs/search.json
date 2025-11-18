@@ -2,9 +2,9 @@
   {
     "objectID": "services.html",
     "href": "services.html",
-    "title": "Want my help?",
+    "title": "Work with Me — Consulting & Teaching",
     "section": "",
-    "text": "To join is simple: Complete the form by clicking the hyperlinked text\n\n\nCore of R programming: Lectures about the heart of R programming, and it has 3 courses.\nCore of Python programming (not available right now): Lectures about the heart of R programming\nBayesianism (not available right now): Stan probabilistic programming is the main course.\n\n\n\n\n\nEmail me at: joshua.marie.k@gmail.com if you want to reach me\n\n\nData Manipulation\nData Visualization\nCalculus & Linear Algebra\nStatistical Modelling & Machine Learning\nResearch & Development\n\n\nFurther instruction: Here is the template subject to make a deal: “Consultation: Data Manipulation”"
+    "text": "Mathematics & statistics foundation\n\nCalculus\nLinear Algebra\nProbability and statistical theory\n\nStatistical modelling & Machine Learning\n\nStatistical inference and simulation\nCustom model development and validation\nBayesian inference with Stan/CmdStan\nLongitudinal study and time series analysis & forecasting\nExperimental design and causal inference\n\nResearch & Development Consulation\n\nHelp with research study\n\n\n\n\nData Science\n\nData Visualization\nShiny app development\nData manipulation and relational algebra with SQL and {tidyverse}\n\nPackage Development\n\nR/Python package development\nAPI design and documentation\nTesting frameworks\nOpen-source maintenance strategies\n\n\n\n\n\n\n\n\n\n\n\nHourly rate: $2–$7 per hour depending on project complexity\nMinimum engagement: 4 hours\nRetainer packages available for ongoing work\nBook a free 30-minute discovery call\nOr email me: joshua.marie.k@gmail.com\n\n\n::::"
   },
   {
     "objectID": "services.html#courses",
@@ -172,7 +172,7 @@
     "href": "index.html#recent-posts",
     "title": "My name is Joshua",
     "section": "Recent Posts",
-    "text": "Recent Posts\n\n\n\n\n\n\n\n\n\n\nHow much do you know about pipes?\n\n\nHistory and Functionality of pipes\n\n\n\nR\n\n\npipes\n\n\ntidyverse\n\n\nprogramming\n\n\n\n\n\n\n\n\n\nNov 10, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nThe Hidden Magic of Tidy-Select: R’s Universal Column Selection Language\n\n\nNot limited to tidyselect helpers\n\n\n\nR\n\n\ntidyselect\n\n\ntidyverse\n\n\n\n\n\n\n\n\n\nNov 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nBox: Placing module system into R\n\n\nDefinitive Guide\n\n\n\nR\n\n\nbook\n\n\n\n\n\n\n\n\n\nOct 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nFirst level of time series modelling: Basic ARIMA model hyperparameter tuning\n\n\nWith plots\n\n\n\nR\n\n\ntime-series\n\n\nmachine-learning\n\n\n\n\n\n\n\n\n\nSep 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAutomatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression\n\n\nUse case of code generation in practice\n\n\n\nR\n\n\nmachine-learning\n\n\ntorch\n\n\npointless-code\n\n\n\n\n\n\n\n\n\nSep 23, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Recent Posts\n\n\n\n\n\n\n\n\n\n\nHow much do you know about pipes?\n\n\nHistory and Functionality of pipes\n\n\n\nR\n\n\npipes\n\n\ntidyverse\n\n\nprogramming\n\n\n\n\n\n\n\n\n\nNov 10, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nWays to load / attach packages in R\n\n\nWorst to best solution\n\n\n\nR\n\n\npackages\n\n\n\n\n\n\n\n\n\nNov 10, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nThe Hidden Magic of Tidy-Select: R’s Universal Column Selection Language\n\n\nNot limited to tidyselect helpers\n\n\n\nR\n\n\ntidyselect\n\n\ntidyverse\n\n\n\n\n\n\n\n\n\nNov 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nBox: Placing module system into R\n\n\nDefinitive Guide\n\n\n\nR\n\n\nbook\n\n\n\n\n\n\n\n\n\nOct 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nFirst level of time series modelling: Basic ARIMA model hyperparameter tuning\n\n\nWith plots\n\n\n\nR\n\n\ntime-series\n\n\nmachine-learning\n\n\n\n\n\n\n\n\n\nSep 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAutomatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression\n\n\nUse case of code generation in practice\n\n\n\nR\n\n\nmachine-learning\n\n\ntorch\n\n\npointless-code\n\n\n\n\n\n\n\n\n\nSep 23, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/02-arima-grid-search/index.html",
@@ -243,5 +243,145 @@
     "title": "Check out my blogs",
     "section": "",
     "text": "Get notified when I publish new posts. No spam, unsubscribe anytime"
+  },
+  {
+    "objectID": "services.html#consulting-services",
+    "href": "services.html#consulting-services",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "Statistics & Machine Learning\n-   Mathematics and statistics foundation\n-   Statistical inference and simulation\n-   Custom model development and validation\n-   Bayesian inference with Stan/CmdStan\n-   Longitudinal study and time series analysis & forecasting\n-   Experimental design and causal inference\nData Science\n-   Data Visualization\n-   Shiny app development\n-   Data manipulation and relational algebra with SQL and `{tidyverse}`\nPackage Development\n-   R/Python package development\n-   API design and documentation\n-   Testing frameworks\n-   Open-source maintenance strategies\n\n\n\n\n\n\n\n\n\nHourly rate: $2–$7 per hour depending on project complexity\nMinimum engagement: 4 hours\nRetainer packages available for ongoing work\nBook a free 30-minute discovery call\nOr email me: joshua.marie.k@gmail.com"
+  },
+  {
+    "objectID": "services.html#training-mentorship",
+    "href": "services.html#training-mentorship",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "One-on-one coaching for data scientists and statisticians looking to level up their technical skills:\n\nCode review and pair programming sessions\nCareer guidance in data science/statistics\nPackage development mentorship\nResearch collaboration\n\nInvestment: Custom pricing based on goals and commitment\n\n\n\nI design custom workshops tailored to your team’s needs:\nPopular Topics: - Modern R for Statistics Teams (tidyverse, functional programming, Rcpp) - Python for Statistical Computing (NumPy, pandas, scikit-learn optimization) - High-Performance Data Pipelines (Rust bridges, parallelization) - Bayesian Modeling with Stan - Package Development Best Practices - Reproducible Research Workflows (Quarto, Docker, Git)\nFormats: - Half-day intensive (3-4 hours) - Full-day workshop (6-8 hours) - Multi-week training programs - Remote or on-site\nInvestment: Starting at $2,000 for half-day workshops\n📧 Interested? Email joshua.marie.k@gmail.com with subject “Training Inquiry”"
+  },
+  {
+    "objectID": "services.html#online-courses",
+    "href": "services.html#online-courses",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "Learn at your own pace with structured, comprehensive courses:\n\n\nCore of R Programming\nA deep dive into R’s foundations across three courses: - Course 1: Language fundamentals and functional programming - Course 2: Object-oriented programming (S3, S4, R6) - Course 3: Performance optimization (Rcpp, profiling, vectorization)\n\n\n\nCore of Python Programming - Python internals and data model - High-performance numerical computing - Building C/Rust extensions\nBayesian Inference with Stan - Probabilistic programming fundamentals - Model building and diagnostics - Advanced techniques and case studies\nWant early access? Join the waitlist by emailing joshua.marie.k@gmail.com with subject “Course Waitlist”"
+  },
+  {
+    "objectID": "services.html#who-i-work-with",
+    "href": "services.html#who-i-work-with",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "Academic research labs (statistics, computational biology, economics)\nPharmaceutical and biotech companies\nFinancial services and fintech\nGovernment agencies and NGOs\nData science consultancies\n\n\n\n\n“Joshua helped us optimize our data pipeline, reducing runtime from 6 hours to 45 minutes. His expertise in Rust-Python integration was exactly what we needed.”\n— Senior Data Engineer, Tech Startup\n“Clear explanations, production-quality code, and delivered ahead of schedule. Highly recommend.”\n— Research Scientist, University\n(Add your own testimonials as you get them)"
+  },
+  {
+    "objectID": "services.html#open-source-portfolio",
+    "href": "services.html#open-source-portfolio",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "I maintain and contribute to packages used by thousands of practitioners:\n\nGitHub: @joshuamarie\nProjects: [List 2-3 of your key packages with stars/downloads]\n\nExplore my technical writing and tutorials in the blog posts section."
+  },
+  {
+    "objectID": "services.html#faq",
+    "href": "services.html#faq",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "Do you work with small budgets or startups?\nYes! For promising early-stage projects, I offer flexible payment structures. Let’s discuss your needs.\nCan you help with urgent deadlines?\nRush projects possible with 1.5x rate. Contact me ASAP.\nDo you sign NDAs?\nAbsolutely. I’m happy to sign mutual NDAs for sensitive work.\nWhat if I only need a few hours of help?\nWhile my minimum is 4 hours, we can break this into multiple short sessions over time."
+  },
+  {
+    "objectID": "services.html#lets-talk",
+    "href": "services.html#lets-talk",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "",
+    "text": "Whether you need a quick consult or a long-term collaboration, I’m here to help.\nBest ways to reach me: - 📧 Email: joshua.marie.k@gmail.com - 📅 Schedule a call - 💼 LinkedIn - 🐙 GitHub\nResponse time: Usually within 24 hours on business days."
+  },
+  {
+    "objectID": "services.html#course-tutorial",
+    "href": "services.html#course-tutorial",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "Course Tutorial",
+    "text": "Course Tutorial\nThis is a live session with me, prepared with interactive slides.\n\nAvailable Now\nCore of R Programming\n\nCourse section 1: Functional programming\nCourse section 2: Performance optimization\nCourse section 3: Metaprogramming\n\n\n\nComing Soon\n\n\n\n\nBayesian Inference with Stan - Course section 1: Probabilistic programming fundamentals - Course section 2: Stan mechanics - Course section 3: Model building and diagnostics"
+  },
+  {
+    "objectID": "services.html#tutorial-and-consulting-services",
+    "href": "services.html#tutorial-and-consulting-services",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "Tutorial and Consulting Services",
+    "text": "Tutorial and Consulting Services\n\n\nWhat I Offer\nMathematics & statistics foundation\n\nCalculus\nLinear Algebra\nProbability and statistical theory\n\nStatistical modelling & Machine Learning\n\nStatistical inference and simulation\nCustom model development and validation\nBayesian inference with Stan/CmdStan\nLongitudinal study and time series analysis & forecasting\nExperimental design and causal inference\n\nResearch & Development Consulation\n\nHelp with research study\n\n\n\nWhat I Offer\nData Science\n\nData Visualization\nShiny app development\nData manipulation and relational algebra with SQL and {tidyverse}\n\nPackage Development\n\nR/Python package development\nAPI design and documentation\nTesting frameworks\nOpen-source maintenance strategies\n\n\n\n\n\n\n\n\nRates, Inquiry & Engagement\n\n\nHourly rate: $2–$7 per hour depending on project complexity\nMinimum engagement: 4 hours\nRetainer packages available for ongoing work\nBook a free 30-minute discovery call\nOr email me: joshua.marie.k@gmail.com\n\n\n::::"
+  },
+  {
+    "objectID": "services.html#products",
+    "href": "services.html#products",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "Products",
+    "text": "Products\n\nNot available for now"
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html",
+    "href": "posts/06-load-pkg/index.html",
+    "title": "Ways to load / attach packages in R",
+    "section": "",
+    "text": "Isn’t it fond that R has more than 1 solution to load packages? In this post, I will try enumerate the different ways to load packages in R, and discuss their pros and cons. I will also rank them from worst to best solution in practices."
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#worst-using-require",
+    "href": "posts/06-load-pkg/index.html#worst-using-require",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.1 Worst: Using require()\n",
+    "text": "1.1 Worst: Using require()\n\nI’ll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages.\nThis function returns a Boolean value:\n\nrequire(pkg) |&gt; \n    suppressMessages() |&gt; \n    suppressWarnings() |&gt; \n    print()\n\n[1] FALSE\n\n\nIt returns TRUE if the package is successfully loaded and FALSE otherwise.\nAnd should only be applicable inside functions to check if a package is available.\n\ncheck_package = function() {\n    if (require(pkg, quietly = TRUE)) {\n        print(\"Package loaded successfully\")\n    } else {\n        print(\"Package not available\")\n    }\n}\ncheck_package()\n\n[1] \"Package not available\"\n\n\nUsing require() at the top level of your script can lead to silent failures. If the package isn’t installed, your code continues executing, leading to cryptic errors later when you try to use functions from the missing package.\nSeriously, this is just library() where you can place it at the top level of your script, but add another extra steps."
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#the-classic-library",
+    "href": "posts/06-load-pkg/index.html#the-classic-library",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.2 The classic library()\n",
+    "text": "1.2 The classic library()\n\nSuch a classic function, isn’t it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if pkg is not installed. This function is traditional and simple:\nlibrary(pkg)\nThat’s it, right? I hope it was that simple, but it has some serious downsides:\n\nIt attaches the entire package namespace to the search path,\nIt can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.\nIt makes the imports unclear which functions come from which packages\nAll exported functions are available, even if you only need one or two\n\nTo detach the attached package namespace in the search path, use detach() function with package : keyword:\ndetach(package : pkg)\n\n\n\n\n\n\nWarning\n\n\n\nBe minded that library() function still potentially silently fails, even though it will throw an error, unlike require() where silent fails are always prominent."
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#bundles-with-pacman",
+    "href": "posts/06-load-pkg/index.html#bundles-with-pacman",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.3 Bundles with {pacman}\n",
+    "text": "1.3 Bundles with {pacman}\n\nThe pacman package tries to streamline package management with functions like p_load().\nDo you know this?\nif (!require(pkg)) {\n    install.packages(\"pkg\")\n    library(pkg)\n}\nWith pacman::p_load():\npacman::p_load(pkg)\nYou can do the same as above, except you can do this for multiple packages.\nHere’s how:\npacman::p_load(pkg1, pkg2, pkg3)\nThis is definitely not the worst solution ever made, but my take is that it still doesn’t solve the problem I had: Lack of granular imports and importing the packages WITHOUT attaching the entire namespace.\nWhat I don’t like about this package and why I don’t recommend this\n\nViolates the single responsibility principle, where in pacman’s case, mixing installation and loading.\nInstallation should be a deliberate, one-time setup step, not hidden in your analysis code\nCan lead to unexpected behavior in production environments\nMakes code less portable and reproducible\nAdds an external dependency just for loading packages"
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#the-new-baseuse-function-v4.4.0",
+    "href": "posts/06-load-pkg/index.html#the-new-baseuse-function-v4.4.0",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.4 The new base::use() function (v4.4.0+)",
+    "text": "1.4 The new base::use() function (v4.4.0+)\nThis function is available in R version 4.4.0 and above. It allows you to load packages in a way that minimizes namespace conflicts by only attaching the functions you explicitly use. Take note that base::use() is a short case of library(), a simple wrapper, where it keeps include.only and set:\n\n\nlib.loc to NULL\n\n\ncharacter.only to TRUE\n\n\nlogical.return to TRUE\n\n\nattach.required to FALSE\n\n\n\nuse('pkg', c('obj1', 'fun1'))\n\nThis is still library(), but granular imports are explicit. However, another problem occurs: Since it is just a simple wrapper of library(), therefore the import still goes to the search path.\nFor example:\n\nmean_data = function(.data) {\n    use('dplyr', 'summarise')\n    use('tidyr', 'pivot_longer')\n    \n    summarise(\n        .data, across(\n            where(is.numeric), \n            \\(col) mean(col, na.rm = TRUE)\n        )\n    ) |&gt; \n        pivot_longer(\n            cols = where(is.numeric), \n            names_to = \"Variable\", \n            values_to = \"Ave\"\n        )\n}\n\nmean_data(iris)\n\n# A tibble: 4 × 2\n  Variable       Ave\n  &lt;chr&gt;        &lt;dbl&gt;\n1 Sepal.Length  5.84\n2 Sepal.Width   3.06\n3 Petal.Length  3.76\n4 Petal.Width   1.20\n\n\nAfter I execute mean_data(iris), the imports are accessible anywhere. And base::use() is still broken even in the latest R versions.\n\n\n\n\n\n\nNote\n\n\n\nThis is noted by R core team:\n\nThis functionality is still experimental: interfaces may change in future versions."
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#fusion-of-library-and-conflicted-package",
+    "href": "posts/06-load-pkg/index.html#fusion-of-library-and-conflicted-package",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.5 Fusion of library() and {conflicted} package",
+    "text": "1.5 Fusion of library() and {conflicted} package\nHow about forcing the search path to select / deselect the imports? Introducing conflicted package. In this approach, I combine traditional library() with the conflicted package to explicitly handle namespace conflicts.\nHow good? For example, I prefer using dplyr::filter() over stats::filter(), but a bit later on, I want to use stats::filter() since I want to run time series. The conflicted::conflict_prefer() handles which you want to declare “winners” of conflicts.\nI’ll make a scenario:\n\nI have no use with stats::filter() because I only want to keep the data frame based on the condition using dplyr::filter(). Here, I declare dplyr::filter() as “winner” of the conflict:\n\n\nlibrary(dplyr)\n\nconflicted::conflict_prefer('filter', 'dplyr', 'stats')\nfilter(mtcars, cyl == 8)\n\n\nThen, I stopped using dplyr::filter() because I want to perform time series modelling with linear filtering using stats::filter(). Re-state stats::filter() as the “winner” of the conflict:\n\n\nconflicted::conflict_prefer('filter', 'stats', 'dplyr')\nfilter(1:10, rep(1, 3))\n\nIn my standard, this is actually good, but still not enough because it never allows granular imports and import aliasing, and besides, I’ve had better."
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#tedious-but-explicit-operator",
+    "href": "posts/06-load-pkg/index.html#tedious-but-explicit-operator",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.6 Tedious but Explicit :: operator",
+    "text": "1.6 Tedious but Explicit :: operator\nUsing the :: operator may be tedious, but this is the most explicit solution in R to call package functions without loading packages into your namespace."
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#second-to-best-import-package",
+    "href": "posts/06-load-pkg/index.html#second-to-best-import-package",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.7 Second to best: {import} package",
+    "text": "1.7 Second to best: {import} package"
+  },
+  {
+    "objectID": "posts/06-load-pkg/index.html#the-ergonomically-superior-box-package",
+    "href": "posts/06-load-pkg/index.html#the-ergonomically-superior-box-package",
+    "title": "Ways to load / attach packages in R",
+    "section": "\n1.8 The ergonomically superior {box} package",
+    "text": "1.8 The ergonomically superior {box} package\nFinally, some good food. In 2021, this package introduced a new module system for R by Konrad Rudolph. It allows you to load packages and their functions in a modular way, similar to how modules work in other programming languages like Python or JavaScript. This approach helps to avoid namespace clashes and makes it clear which functions are being used from which packages.\nHere’s what it looks like to use box to load a package:\n\nbox::use(\n    dplyr[keep_when = filter, select, mutate],\n    ggplot2[ggplot, aes, geom_point]\n)\n\nYou are also allowed to reuse exported namespace from an R script or a folder as a module. Let us assume that {./my_module} is a folder in your root directory, where it contains multiple R scripts exporting functions, and {./utils} is a single R script exporting utility functions. You can load them as modules like this:\nbox::use(\n    ./my_module,\n    ./path/to/utils\n)\nWith box, you can create modules that encapsulate your code and its dependencies, another revolutionary and W move in R community. This package is making my life easier in managing and reuse code across different projects. This approach aligns well with modern programming practices and helps to keep your codebase clean and maintainable. In fact, I made a book dedicated on module system with this package."
+  },
+  {
+    "objectID": "services.html#consultation-firm",
+    "href": "services.html#consultation-firm",
+    "title": "Work with Me — Consulting & Teaching",
+    "section": "Consultation Firm",
+    "text": "Consultation Firm\n\n\nWhat I Offer\nMathematics & statistics foundation\n\nCalculus\nLinear Algebra\nProbability and statistics theory\n\nStatistical modelling & Machine Learning 1\n\nStatistical inference and simulation\nBayesian inference with Stan/CmdStan\nCustom model development and validation\n\nStatistical modelling & Machine Learning 2\n\nExperimental design and causal inference\nLongitudinal study and time series analysis & forecasting\nApplications with Python and R\n\nResearch & Development Consultation\n\nResearch study consultation\n\n\n\nWhat I Offer\nData Science\n\nData Visualization ({ggplot2}, {altair})\nShiny app development\nData manipulation and relational algebra with SQL and {tidyverse}\nGeospatial data analysis\n\nPackage Development\n\nR/Python package development\nAPI design and documentation\nTesting frameworks\nOpen-source maintenance strategies\n\n\n\n\n\n\n\n\nRates, Inquiry & Engagement\n\n\nHourly rate: $2–$7 per hour depending on project complexity\nMinimum engagement: 4 hours\nRetainer packages available for ongoing work\nBook a free 30-minute discovery call\nOr email me: joshua.marie.k@gmail.com\n\n\n::::"
   }
 ]

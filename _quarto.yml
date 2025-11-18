@@ -10,7 +10,7 @@ website:
   navbar:
     background: light
     left:
-      - text: "Services"
+      - text: "Products and Services"
         href: services.qmd
       - text: "Posts"
         href: posts/index.qmd

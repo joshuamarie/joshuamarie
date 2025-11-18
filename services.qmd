@@ -1,32 +1,108 @@
 ---
-title: "Want my help?"
+title: "Work with Me — Consulting & Teaching"
 comments: false
 ---
 
+---
+
+## Consultation Firm
+
 :::: {.info-grid}
 
-## Courses
+::: info-card
 
-*To join is simple: Complete the form by clicking the hyperlinked text*
+### What I Offer
 
-::: {.info-card}
--  [Core of R programming](https://docs.google.com/forms/d/e/1FAIpQLSdyCnIbReqDY91JWnNLd6FQ0MkD92zD4g-b1VkwqTAMXiZhkA/viewform?usp=preview): Lectures about the heart of R programming, and it has 3 courses. 
--  *Core of Python programming (not available right now)*: Lectures about the heart of R programming
--  *Bayesianism (not available right now)*: Stan probabilistic programming is the main course. 
+***Mathematics & statistics foundation***
+
+-   Calculus
+-   Linear Algebra
+-   Probability and statistics theory
+
+***Statistical modelling & Machine Learning 1***
+
+-   Statistical inference and simulation
+-   Bayesian inference with Stan/CmdStan
+-   Custom model development and validation
+
+***Statistical modelling & Machine Learning 2***
+
+-   Experimental design and causal inference
+-   Longitudinal study and time series analysis & forecasting
+-   Applications with Python and R
+
+***Research & Development Consultation***
+
+-  Research study consultation
+
 :::
 
-## Consultancy
+::: info-card
 
-*Email me at: `joshua.marie.k@gmail.com` if you want to reach me*
+### What I Offer
 
-::: {.info-card}
--  Data Manipulation
--  Data Visualization
--  Calculus & Linear Algebra
--  Statistical Modelling & Machine Learning
--  Research & Development
+***Data Science***
+
+-   Data Visualization (`{ggplot2}`, `{altair}`)
+-   Shiny app development
+-   Data manipulation and relational algebra with SQL and `{tidyverse}`
+-   Geospatial data analysis
+
+***Package Development***
+
+-   R/Python package development
+-   API design and documentation
+-   Testing frameworks
+-   Open-source maintenance strategies
+
 :::
 
-*Further instruction: Here is the template subject to make a deal: "Consultation: Data Manipulation"*
+<!-- 4.  Code Review & Optimization -->
+
+<!--     -   Architecture review of existing projects -->
+<!--     -   Performance audits and refactoring -->
+<!--     -   Best practices implementation -->
+
+:::
+
+### Rates, Inquiry & Engagement
+
+::: info-card
+
+-   **Hourly rate:** \$2–\$7 per hour depending on project complexity
+-   **Minimum engagement:** 4 hours
+-   **Retainer packages available** for ongoing work
+-   [Book a free 30-minute discovery call](https://calendly.com/joshua-marie-k/consulting-firm)
+-   Or email me: joshua.marie.k@gmail.com
+
+:::
 
 ::::
+
+## Course Tutorial
+
+This is a live session with me, prepared with interactive slides. 
+
+### Available Now
+
+[Core of R Programming](https://calendly.com/joshua-marie-k/course-tutorial-1)
+
+-   Course section 1: Functional programming
+-   Course section 2: Performance optimization
+-   Course section 3: Metaprogramming
+
+### Coming Soon
+
+<!-- **Core of Python Programming** -->
+<!-- -  Python internals and data model -->
+<!-- -  High-performance numerical computing -->
+<!-- -  Building C/Rust extensions -->
+
+**Bayesian Inference with Stan**
+-   Course section 1: Probabilistic programming fundamentals
+-   Course section 2: Stan mechanics
+-   Course section 3: Model building and diagnostics
+
+## Products
+
+### Not available for now
