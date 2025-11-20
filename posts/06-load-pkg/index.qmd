@@ -2,7 +2,7 @@
 title: 'Ways to load / attach packages in R'
 subtitle: 'Worst to best solution'
 description: "A completely objective, totally scientific ranking (2025 edition)"
-date: "2025-11-10"
+date: "2025-11-17"
 image: "image.png"
 categories: [R, packages]
 format:
