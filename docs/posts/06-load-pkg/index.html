@@ -209,7 +209,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#combo-pack" id="toc-combo-pack" class="nav-link" data-scroll-target="#combo-pack"><span class="header-section-number">1.5</span> <strong>library()</strong> and <strong>{conflicted}</strong> package combo</a></li>
   <li><a href="#double-colon" id="toc-double-colon" class="nav-link" data-scroll-target="#double-colon"><span class="header-section-number">1.6</span> Tedious but Explicit: The <strong>::</strong> Operator</a></li>
   <li><a href="#import-pack" id="toc-import-pack" class="nav-link" data-scroll-target="#import-pack"><span class="header-section-number">1.7</span> Second to best: <strong>{import}</strong> package</a></li>
-  <li><a href="#box" id="toc-box" class="nav-link" data-scroll-target="#box"><span class="header-section-number">1.8</span> The ergonomically superior <strong>{box}</strong> package</a></li>
+  <li>
+<a href="#box" id="toc-box" class="nav-link" data-scroll-target="#box"><span class="header-section-number">1.8</span> The ergonomically superior <strong>{box}</strong> package</a>
+  <ul class="collapse">
+<li><a href="#little-resources" id="toc-little-resources" class="nav-link" data-scroll-target="#little-resources"><span class="header-section-number">1.8.1</span> Little resources</a></li>
+  </ul>
+</li>
   </ul>
 </li>
   <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks"><span class="header-section-number">2</span> Remarks</a></li>
@@ -763,12 +768,14 @@ My impression
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With <a href="https://klmr.me/box/">box</a>, you can create modules that encapsulate your code and its dependencies — another revolutionary and W move in R community. This package is making my life easier in managing and reuse code across different projects.</p>
 <p>This approach aligns well with modern programming practices and helps to keep your codebase clean and maintainable.</p>
+<section id="little-resources" class="level3" data-number="1.8.1"><h3 data-number="1.8.1" class="anchored" data-anchor-id="little-resources">
+<span class="header-section-number">1.8.1</span> Little resources</h3>
 <p>Other resources to learn more about this package:</p>
 <ol type="1">
 <li><a href="https://cran.r-project.org/web/packages/box/index.html">CRAN Index</a></li>
 <li><a href="https://klmr.me/box/">Box README</a></li>
 <li><a href="https://joshuamarie.github.io/modules-in-r/">My book</a></li>
-</ol></section></section><section id="remarks" class="level1" data-number="2"><h1 data-number="2">
+</ol></section></section></section><section id="remarks" class="level1" data-number="2"><h1 data-number="2">
 <span class="header-section-number">2</span> Remarks</h1>
 <p>While there are multiple ways to load packages in R, not all methods are created equal — some were created more equal than others, and some were created as war crimes. The choice of method can significantly impact the readability, maintainability, and reliability of your code, as well as your blood pressure and willingness to live.</p>
 <p>I strongly recommend using the <a href="https://klmr.me/box/">box</a> package in your projects, personal or not, for its modular approach and ability to avoid namespace clashes, making it a superior choice for loading packages in R. Like, come on, it’s 2025. We have smartphones that can detect if you’re about to have a heart attack. We have AI that can write poetry. We should NOT still be debugging namespace conflicts like it’s 2005.</p>

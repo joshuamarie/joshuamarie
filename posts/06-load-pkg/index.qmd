@@ -542,6 +542,8 @@ With `{box}`, you can create modules that encapsulate your code and its dependen
 
 This approach aligns well with modern programming practices and helps to keep your codebase clean and maintainable. 
 
+### Little resources
+
 Other resources to learn more about this package:
 
 1.  [CRAN Index](https://cran.r-project.org/web/packages/box/index.html)
