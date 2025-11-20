@@ -29,7 +29,7 @@ filters:
     - social-share
 share:
     permalink: "https://joshuamarie.com/posts/06-load-pkg/"
-    description: "Load R packages - Joshua Marie"
+    description: "Ways to load R packages - Joshua Marie"
     twitter: true
     facebook: true
     reddit: true
@@ -478,9 +478,9 @@ box::use(
 
 1.  Attached the names? Nah, even better: 
 
-    -  Imports the entire `{dplyr}` package as an *object*.  
+    -  Imports the entire `{purrr}` package as an *object*.  
     -  Nothing goes into the search path.  
-    -  You use it as `dplyr$map()`, `purrr$keep()`, etc.  
+    -  You use it as `purrr$map()`, `purrr$keep()`, etc.  
     -  Zero risk of masking, zero pollution. Pure bliss.
 
 2.  Whole package? But make it *short*
@@ -544,8 +544,9 @@ This approach aligns well with modern programming practices and helps to keep yo
 
 Other resources to learn more about this package:
 
-1.  https://cran.r-project.org/web/packages/box/index.html
-2.  https://joshuamarie.github.io/modules-in-r/
+1.  [CRAN Index](https://cran.r-project.org/web/packages/box/index.html)
+2.  [Box README](https://klmr.me/box/)
+3.  [My book](https://joshuamarie.github.io/modules-in-r/)
 
 # Remarks
 
