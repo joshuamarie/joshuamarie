@@ -1,8 +1,9 @@
 ---
 title: 'Ways to load / attach packages in R'
 subtitle: 'Worst to best solution'
+description: "A completely objective, totally scientific ranking (2025 edition)"
 date: "2025-11-10"
-image: "image.jpg"
+image: "image.png"
 categories: [R, packages]
 format:
     html:
@@ -24,18 +25,52 @@ execute:
     fig-align: center
     fig-width: 10
     fig-height: 6
-    code-numbering: true
+filters: 
+    - social-share
+share:
+  permalink: "https://joshuamarie.com/posts/06-load-pkg/"
+  description: "Ways to load / attach packages in R"
+  twitter: true
+  facebook: true
+  reddit: true
+  stumble: true
+  tumblr: true
+  linkedin: true
+  email: true
+  mastodon: true
+  bsky: true
+  location: "before-body"
 ---
 
-Isn't it fond that R has more than 1 solution to load packages? In this post, I will try enumerate the different ways to load packages in R, and discuss their pros and cons. I will also rank them from worst to best solution in practices.
+Isn't it great that R has more than 1 solution to load packages? Some of them are beautiful. Some of them should be illegal in at least three countries.  Let’s rank them from “please never do this” to “finally, some good food.”
+
+![](image.png)
+
+In this post, I will try enumerate the different ways to load packages in R, and discuss their pros and cons. I will also rank them from worst to best solution in practices.
 
 # Different ways to load / attach packages in R
 
 I sorted the different ways to load packages in R from worst to best solution in practices. This may be subjective, but I will try to justify my ranking based on the principles of good programming practices.
 
-## Worst: Using **require()**
+This is how I rank them from worst to best:
 
-I'll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages. 
+| Rank | Method                                      | Verdict                                      |
+|------|---------------------------------------------|----------------------------------------------|
+| 9    | [`require()`](#require)                     | War criminal                                 |
+| 8    | [`library()`](#library-classic)             | Boomer energy                                |
+| 7    | [`{pacman}`](#pacman)                       | Convenience trap                             |
+| 6    | [`base::use()`](#base-use)                  | Experimental copium                          |
+| 5    | [`library() + conflicted`](#combo-pack)     | Manual gearbox                               |
+| 4    | [`::` everywhere](#double-colon)            | Professional wrist pain                      |
+| 3    | [`{import}`](#import-pack)                  | Extremely polite gentleman                   |
+| 2    | [`{box}`](#box)                             | The chosen one                               |
+| 1    | [`{box}` + coffee](#box)                    | Ascended plane of existence                  | 
+
+## Worst: Using **require()** {#require}
+
+![](meme1.jpg)
+
+Just...no. I'll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages. 
 
 This function returns a Boolean value: 
 
@@ -61,11 +96,12 @@ check_package = function() {
 check_package()
 ```
 
-Using `require()` at the top level of your script can lead to silent failures. If the package isn't installed, your code continues executing, leading to cryptic errors later when you try to use functions from the missing package. 
+Using `require()` at the top of a script is how you get mysterious errors 50 lines later.
+Only acceptable inside functions when you actually check the return value.
 
 Seriously, this is just `library()` where you can place it at the top level of your script, but add another extra steps. 
 
-## The classic **library()**
+## The classic **library()** {#library-classic}
 
 Such a classic function, isn't it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if `pkg` is not installed. This function is traditional and simple:
 
@@ -73,7 +109,9 @@ Such a classic function, isn't it? After all, this is the most used function to 
 library(pkg)
 ```
 
-That's it, right? I hope it was that simple, but it has some serious downsides: 
+That's it, right? 
+
+I hope it was that simple, but it has some serious downsides: 
 
 i.  It attaches the entire package namespace to the *search path*, 
 ii.  It can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.
@@ -90,9 +128,9 @@ detach(package : pkg)
 Be minded that `library()` function still potentially silently fails, even though it will throw an error, unlike `require()` where silent fails are always prominent. 
 :::
 
-## Bundles with **{pacman}**
+## The pro boxer: **{pacman}** {#pacman}
 
-The `{pacman}` package tries to streamline package management with functions like `p_load()`.
+This guy will punch you to death. Just kidding, Manny Pacquiao is a great boxer :). The `{pacman}` package tries to streamline package management with functions like `p_load()`.
 
 Do you know this?
 
@@ -103,7 +141,7 @@ if (!require(pkg)) {
 }
 ```
 
-With `pacman::p_load()`:
+Well, they made a shortcut, with `pacman::p_load()`:
 
 ``` r
 pacman::p_load(pkg)
@@ -117,19 +155,30 @@ Here's how:
 pacman::p_load(pkg1, pkg2, pkg3)
 ```
 
-This is definitely not the worst solution ever made, but my take is that it still doesn't solve the problem I had: Lack of granular imports and importing the packages WITHOUT attaching the entire namespace. 
+Sounds convenient, right? 
 
-What I don't like about this package and why I don't recommend this
+![](trap.gif)
 
-- Violates the [single responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), where in `{pacman}`'s case, mixing installation and loading. 
-- Installation should be a deliberate, one-time setup step, not hidden in your analysis code
-- Can lead to unexpected behavior in production environments
-- Makes code less portable and reproducible
-- Adds an external dependency just for loading packages
+Actually mixes two completely different responsibilities:
 
-## The new **base::use()** function (v4.4.0+)
+-  Installation (one-time setup)
+-  Loading (analysis step)
 
-This function is available in R version 4.4.0 and above. It allows you to load packages in a way that minimizes namespace conflicts by only attaching the functions you explicitly use. Take note that `base::use()` is a short case of `library()`, a simple wrapper, where it keeps `include.only` and set: 
+Great for interactive playtime.
+Disastrous in scripts, packages, CI/CD, or any environment without internet.
+Also: 
+
+-   It violates the [single responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), harder than a toddler with a drum kit.
+
+-   This is like a pineapple pizza 
+
+    ![](lionfield-not-approved.gif)
+
+## The new **base::use()** function (v4.4.0+) {#base-use}
+
+I feel like R Core saw the chaos and said "fine, we’ll do something". This function is available in R version 4.4.0 and above, by the way. 
+
+It allows you to load packages in a way that minimizes namespace conflicts by only attaching the functions you explicitly use. Take note that `base::use()` is a short case of `library()`, a simple wrapper, where it keeps `include.only` and set: 
 
 1.  `lib.loc` to `NULL`
 2.  `character.only` to `TRUE`
@@ -141,7 +190,13 @@ This function is available in R version 4.4.0 and above. It allows you to load p
 use('pkg', c('obj1', 'fun1'))
 ```
 
-This is still `library()`, but granular imports are explicit. However, another problem occurs: Since it is just a simple wrapper of `library()`, therefore the import still goes to the search path. 
+This is still `library()`, but granular imports are explicit. Except...
+
+![](problem-uh-oh.gif)
+
+Another problem occurs: Remember, it is just a simple wrapper of `library()`, therefore the import still goes to the search path. 
+
+It's like putting a fancy new paint job on a 1987 Honda Civic and calling it a Ferrari. It LOOKS different, but under the hood, same old engine, baby.
 
 For example:
 
@@ -166,7 +221,9 @@ mean_data = function(.data) {
 mean_data(iris)
 ```
 
-After I execute `mean_data(iris)`, the imports are accessible *anywhere*. And `base::use()` is still broken even in the latest R versions.
+After I execute `mean_data(iris)`, the imports are accessible *everywhere*. EVERYWHERE! 
+
+And `base::use()` is still broken even in the latest R versions.
 
 ::: callout-note
 This is noted by R core team:
@@ -175,64 +232,326 @@ This is noted by R core team:
 
 :::
 
-## Fusion of **library()** and **{conflicted}** package
+## **library()** and **{conflicted}** package combo {#combo-pack}
 
-How about forcing the search path to select / deselect the imports? Introducing `{conflicted}` package. In this approach, I combine traditional `library()` with the `{conflicted}` package to explicitly handle namespace conflicts.
+How about forcing the search path to select / deselect the imports? Introducing `{conflicted}` package. 
 
-How good? For example, I prefer using `dplyr::filter()` over `stats::filter()`, but a bit later on, I want to use `stats::filter()` since I want to run time series. The `conflicted::conflict_prefer()` handles which you want to declare "winners" of conflicts.
+![](meme2.jpg)
 
-I'll make a scenario: 
+In this approach, I combine traditional `library()` with the `{conflicted}` package to explicitly handle namespace conflicts.
 
-i.  I have no use with `stats::filter()` because I only want to keep the data frame based on the condition using `dplyr::filter()`. Here, I declare `dplyr::filter()` as "winner" of the conflict: 
+How good? For example, I prefer using `dplyr::filter()` over `stats::filter()`, but a bit later on, I want to use `stats::filter()` when I want to run time series. The `conflicted::conflict_prefer()` handles which you want to declare "winners" of conflicts.
+
+I'll make a scenario to make you understand: 
+
+1.  I have no use with `stats::filter()` because I only want to keep the data frame based on the condition using `dplyr::filter()`, and I want to load the entire `{dplyr}` namespace. Here, I declare `dplyr::filter()` as "winner" of the conflict: 
+
+    ```{r}
+    #| eval: false
+    library(dplyr)
+    
+    conflicted::conflict_prefer('filter', 'dplyr', 'stats')
+    filter(mtcars, cyl == 8)
+    ```
+
+2.  Then, I stopped using `dplyr::filter()` because I want to perform time series modelling with linear filtering using `stats::filter()`. Re-state `stats::filter()` as the "winner" of the conflict:
+
+    ```{r}
+    #| eval: false
+    conflicted::conflict_prefer('filter', 'stats', 'dplyr')
+    filter(1:10, rep(1, 3))
+    ```
+
+Still loads everything. Still global. Still manual work. In my standard, this is actually good, but still not enough because it never allows granular imports and import aliasing, and besides, I've had better. 
+
+## Tedious but Explicit: The **::** Operator {#double-colon}
+
+![](everywhere-meme.jpg)
+
+Before packages like `{box}` and `{import}` introduced alternative import systems to R, the `::` operator was (and still is) R's built-in way to explicitly reference functions from specific namespaces without loading entire packages.
+
+The `::` operator is the most explicit base R solution for calling package functions. It's part of R's namespace system and requires no external dependencies - just base R.
+
+Here's how:  
+
+-   The syntax is `package::function()`, which tells R exactly which package to pull the function from without attaching that package to your search path.
+
+Most of us using R are definitely using this (I am reusing an example from [base::use](#base-use)): 
 
 ```{r}
-#| eval: false
-library(dplyr)
+mean_data = function(.data) {
+    dplyr::summarise(
+        .data, across(
+            where(is.numeric), 
+            \(col) mean(col, na.rm = TRUE)
+        )
+    ) |> 
+        tidyr::pivot_longer(
+            cols = where(is.numeric), 
+            names_to = "Variable", 
+            values_to = "Ave"
+        )
+}
 
-conflicted::conflict_prefer('filter', 'dplyr', 'stats')
-filter(mtcars, cyl == 8)
+mean_data(iris)
 ```
 
-ii.  Then, I stopped using `dplyr::filter()` because I want to perform time series modelling with linear filtering using `stats::filter()`. Re-state `stats::filter()` as the "winner" of the conflict:
+::: {.callout-note title="Notice"}
+> Noticed that I don't call `dplyr::` for `across()` and `where()`? I have a [blog](https://joshuamarie.github.io/joshuamarie/posts/04-tidyselect-helpers/) talking about this. 
 
-```{r}
-#| eval: false
-conflicted::conflict_prefer('filter', 'stats', 'dplyr')
-filter(1:10, rep(1, 3))
+:::
+
+This is great, compared to the previous solutions, no external packages needed and works mostly in any R version. The problem is this is way too verbose and repetitive, especially with many function calls:
+
+``` r
+ggplot2::ggplot(data, ggplot2::aes(date, y)) +
+    ggplot2::geom_point() + 
+    ggplot2::geom_line() + 
+    ggplot2::theme_minimal() + 
+    ggplot2::labs(
+        x = "Date (by month)",
+        y = "Value (in dollars)", 
+        title = "Monthly Value in Dollar"
+    )
 ```
 
-In my standard, this is actually good, but still not enough because it never allows granular imports and import aliasing, and besides, I've had better. 
+Being typing-intensive is why I called this solution "tedious". 
 
-## Tedious but Explicit **::** operator
+![](everywhere-meme.jpg)
 
-Using the `::` operator may be tedious, but this is the most explicit solution in R to call package functions without loading packages into your namespace.
+Respectable, but I bet nobody wants to type that many in 2025.
 
-## Second to best: **{import}** package
+## Second to best: **{import}** package {#import-pack}
 
-## The ergonomically superior **{box}** package
+*It is so close!*
 
-Finally, some good food. In 2021, this package introduced a new module system for R by Konrad Rudolph. It allows you to load packages and their functions in a modular way, similar to how modules work in other programming languages like Python or JavaScript. This approach helps to avoid namespace clashes and makes it clear which functions are being used from which packages.
+![](almost-there-almost.jpg)
 
-Here's what it looks like to use `{box}` to load a package:
+This package is made before `{box}`. So, before `{box}`, the `{import}` package is the best solution ever made, arrived to fix `library()`'s most egregious issues. Created by Stefan Milton Bache (of pipe fame), it brings selective imports to R without requiring a complete paradigm shift.
+
+::: panel-tabset
+
+### First Example
+
+The first example is simple: Normal imports with aliases. 
 
 ```{r}
+import::from(
+    dplyr, 
+    select, rename, keep_when = filter, mutate, summarise, n
+)
+import::from(tidyr, long = pivot_longer, wide = pivot_wider, drop_na)
+import::from(ggplot2, diamonds, cut_width)
+
+diamonds |> 
+    keep_when(
+        cut %in% c("Ideal", "Premium"), 
+        carat > 1
+    ) |> 
+    drop_na() |> 
+    mutate(
+        price_per_carat = price / carat,
+        size_category = cut_width(carat, 0.5)
+    ) |> 
+    select(carat, cut, color, price, price_per_carat, size_category) |> 
+    wide(
+        names_from = cut,
+        values_from = price_per_carat,
+        values_fn = median
+    ) |> 
+    summarise(
+        across(c(Ideal, Premium), \(col) mean(col, na.rm = TRUE)),
+        n = n()
+    )
+```
+
+### Symbol binding
+
+Use backticks around `%>%` since it is under [non-syntactic names](https://adv-r.hadley.nz/names-values.html#non-syntactic). 
+
+```{r}
+import::from(dplyr, select, filter, mutate, summarise, n, relocate)
+import::from(magrittr, `%>%`) 
+import::from(tidyr, long = pivot_longer, wide = pivot_wider, drop_na)
+
+mtcars %>% 
+    filter(cyl == 6) %>% 
+    mutate(
+        hp_per_cyl = hp / cyl,
+        efficiency = mpg / disp
+    ) %>% 
+    select(mpg, disp, hp, hp_per_cyl, efficiency, everything()) %>% 
+    summarise(
+        across(
+            c(mpg, hp_per_cyl, efficiency), 
+            list(
+                mu = \(x) mean(x, na.rm = TRUE), 
+                sigma = \(x) sd(x, na.rm = TRUE)
+            ), 
+            .names = "{.col}..{.fn}"
+        ),
+        n = n()
+    ) %>% 
+    long(
+        cols = contains(c("mu", "sigma")), 
+        names_sep = "\\..", 
+        names_to = c("Variable", "Stat"), 
+        values_to = "Est"
+    ) %>% 
+    wide(
+        names_from = Stat, 
+        values_from = Est
+    ) %>% 
+    relocate(n, .after = last_col()) %>%
+    mutate(
+        se = sigma / sqrt(n), 
+        cv = sigma / mu
+    )
+```
+
+:::
+
+It's so awesome. Why?
+
+1.  No masking
+2.  Explicit at the top
+3.  Works with roxygen2 (@importFrom)
+4.  Imports the pipe like any other function
+
+There's still some limitations. Even though `{import}` provide necessities that solves my problem in R's import system - 
+
+1.  It has no unifying solution to attach the imports in the current environment. In fact, `{import}` functions still attach imported functions to the parent environment (usually global). What I mean is that they're not truly scoped to a module or function. Thus, the use of `import::here()`: 
+
+    ```{r}
+    with(iris, {
+        import::here(stats, corr = cor)
+        
+        corr(Sepal.Length, Petal.Length)
+    })
+    ```
+    
+    The expression we made, `with(iris, { ... })` creates a temporary environment that disappears immediately. So `corr()` is placed exactly there, inside that temporary environment, and you cannot reuse `corr()` somewhere in the environment, even in the global environment
+    
+    ``` r
+    corr(1:10, 2:11)
+    #> Error in corr(1:10, 2:11) : could not find function "corr"
+    ```
+    
+    This is better than loading entire packages, but not as clean as lexical scoping.
+
+2.  The package was designed primarily for **CRAN packages**. File-based modules feel like an afterthought rather than a first-class feature. 
+
+3.  It lacks support for *nested module hierarchies*. You can import from files with this package, but you can't organize modules into sophisticated directory structures with their own internal dependencies.
+
+4.  Unlike `{box}`, there's no way to import a whole package as an object without attaching names
+
+## The ergonomically superior **{box}** package {#box}
+
+![](gordon-ramsay-finally.gif)
+
+*Finally, some good food. *
+
+::: {.callout-note title="My impression"}
+In 2021, Konrad Rudolph looked at R’s prehistoric import system, said:
+
+> “This is rubbish”
+
+*Disclaimer: I don't know if he said it, I said this just for fun ;)*
+
+I strongly agree. And then dropped one of the magnum opus: `{box}` — he dropped it like Gordon Ramsay dropping a perfectly seared Wellington on the pass.
+:::
+
+This isn't "slightly nicer imports" — it's a complete rethinking of how R package should be loaded, and R code should be organized and namespaced. It brings true module systems (like Python, JavaScript, or Ruby) to R. 
+
+There's 4 of a kind to import like a sane person:
+
+``` r 
 box::use(
-    dplyr[keep_when = filter, select, mutate],
-    ggplot2[ggplot, aes, geom_point]
+    purrr,                          # 1
+    tbl = tibble,                   # 2
+    dplyr = dplyr[filter, select],  # 3
+    stats[st_filter = filter, ...]  # 4
 )
 ```
 
-You are also allowed to reuse exported namespace from an R script or a folder as a module. Let us assume that `{./my_module}` is a folder in your root directory, where it contains multiple R scripts exporting functions, and `{./utils}` is a single R script exporting utility functions. You can load them as modules like this:
+> Source: https://github.com/klmr/box
+
+1.  Attached the names? Nah, even better: 
+
+    -  Imports the entire `{dplyr}` package as an *object*.  
+    -  Nothing goes into the search path.  
+    -  You use it as `dplyr$map()`, `purrr$keep()`, etc.  
+    -  Zero risk of masking, zero pollution. Pure bliss.
+
+2.  Whole package? But make it *short*
+
+    -   Same vibe as 1, but you give the package a cute little nickname.
+    -   Now you write `tbl$tbl_df()`, `tbl$as_tibble()`, etc.  
+    -   Perfect when you hate typing `tibble::` but also hate global mess.
+
+3.  I want the whole namespace... but only some names in my face.
+
+    -   A killer move, actually: import the whole package as an object, and selectively attach only the functions you actually want to write naked.  
+    -   So your pipelines stay clean: `filter()`, `select()`, `mutate()` — all smooth, drama-free.
+    -   But when you need the weird stuff, you still have the entire namespace sitting there like:
+    
+        ```
+        dplyr$reconstruct_tibble_from_who_knows_what()
+        ```
+
+4. "I refuse to be gaslit by `stats::filter()` ever again."
+
+    -   "I want everything from `{stats}` (because base R is already everywhere), but `stats::filter()` is a war criminal that keeps fighting with `dplyr::filter()`." 
+    -   So basically, everything from `{stats}` is attached, but rename that one cursed function to `st_filter()` so it never bites me again. 
+    -   The `...` means "everything else, with their original names".
+
+But wait, there's more! 
+
+Here, watch the madness of how I apply `{box}` to load package deps:
 
 ``` r
 box::use(
-    ./my_module,
-    ./path/to/utils
+    dplyr[
+        select, rename, 
+        keep_when = filter,   # rename because we want to avoid needless fighting
+        mutate, summarise, 
+        across, everything
+    ],
+    tidyr[pivot_longer, pivot_wider, drop_na],
+    magrittr[`%>%`],          # yes, don't forget that the pipe is just another import
+    ggplot2[ggplot, aes, geom_point, theme_minimal, labs, ggsave],
+    lubridate[ymd, year, month, floor_date],
+    data.table[fread]         # because sometimes you need speed, not dignity
 )
 ```
 
-With `{box}`, you can create modules that encapsulate your code and its dependencies, another revolutionary and W move in R community. This package is making my life easier in managing and reuse code across different projects. This approach aligns well with modern programming practices and helps to keep your codebase clean and maintainable. In fact, I made a [book](https://joshuamarie.github.io/modules-in-r/) dedicated on module system with this package. 
+Less `::` spam. No `package::function()` that makes your code look like it's been hit by shrapnel. Zero `library()` / `require()`.
 
-# Conclusion
+And then, the part that makes grown R programmers cry tears of joy — You are also allowed to reuse exported namespace from an R script or a folder as a module. 
 
-While there are multiple ways to load packages in R, not all methods are created equal. The choice of method can significantly impact the readability, maintainability, and reliability of your code. I recommend using the `{box}` package for its modular approach and ability to avoid namespace clashes, making it a superior choice for loading packages in R.
+``` r
+box::use(
+    app/models/glm_fit[...],           # brings everything exported
+    app/plots/theme_pub[theme_pub],    # only the theme
+    app/utils/cleaning[clean_names, fix_dates],
+    ./secret_sauce                     # local folder / script = module
+)
+```
+
+With `{box}`, you can create modules that encapsulate your code and its dependencies — another revolutionary and W move in R community. This package is making my life easier in managing and reuse code across different projects. 
+
+This approach aligns well with modern programming practices and helps to keep your codebase clean and maintainable. 
+
+Other resources to learn more about this package:
+
+1.  https://cran.r-project.org/web/packages/box/index.html
+2.  https://joshuamarie.github.io/modules-in-r/
+
+# Remarks
+
+While there are multiple ways to load packages in R, not all methods are created equal — some were created more equal than others, and some were created as war crimes. The choice of method can significantly impact the readability, maintainability, and reliability of your code, as well as your blood pressure and willingness to live. 
+
+I strongly recommend using the `{box}` package in your projects, personal or not, for its modular approach and ability to avoid namespace clashes, making it a superior choice for loading packages in R. Like, come on, it's 2025. We have smartphones that can detect if you're about to have a heart attack. We have AI that can write poetry. We should NOT still be debugging namespace conflicts like it's 2005.
+
+
+

@@ -103,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../services.html"> 
-<span class="menu-text">Services</span></a>
+<span class="menu-text">Products and Services</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts/index.html"> 
@@ -1495,7 +1495,7 @@ h4 {
 
 
 
-/* MODIFIED: Exclude category links from global styling */
+/* Global styling - Light mode */
 
 a:not(.quarto-category):not(.listing-category),
 
@@ -1512,6 +1512,26 @@ a:visited:not(.quarto-category):not(.listing-category) {
 a:hover:not(.quarto-category):not(.listing-category) {
 
   color: #333333 !important;
+
+}
+
+
+
+/* Dark mode hyperlinks */
+
+[data-theme="dark"] a:not(.quarto-category):not(.listing-category),
+
+[data-theme="dark"] a:visited:not(.quarto-category):not(.listing-category) {
+
+  color: #8BAE66 !important;
+
+}
+
+
+
+[data-theme="dark"] a:hover:not(.quarto-category):not(.listing-category) {
+
+  color: #a8cc88 !important;
 
 }
 

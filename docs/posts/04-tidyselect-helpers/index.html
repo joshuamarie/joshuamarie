@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
     <a class="nav-link" href="../../services.html"> 
-<span class="menu-text">Services</span></a>
+<span class="menu-text">Products and Services</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts/index.html"> 
@@ -586,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["m_sl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"setosa","2":"4.968000","3":"105"},{"1":"versicolor","2":"6.012000","3":"105"},{"1":"virginica","2":"6.666667","3":"105"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["m_sl"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"setosa","2":"5.038667","3":"105"},{"1":"versicolor","2":"5.953333","3":"105"},{"1":"virginica","2":"6.633333","3":"105"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1255,7 +1255,7 @@ h4 {
    Global hyperlink styling
    ========================= */
 
-/* MODIFIED: Exclude category links from global styling */
+/* Global styling - Light mode */
 a:not(.quarto-category):not(.listing-category),
 a:visited:not(.quarto-category):not(.listing-category) {
   color: #3A6F43 !important;
@@ -1264,6 +1264,16 @@ a:visited:not(.quarto-category):not(.listing-category) {
 
 a:hover:not(.quarto-category):not(.listing-category) {
   color: #333333 !important;
+}
+
+/* Dark mode hyperlinks */
+[data-theme="dark"] a:not(.quarto-category):not(.listing-category),
+[data-theme="dark"] a:visited:not(.quarto-category):not(.listing-category) {
+  color: #8BAE66 !important;
+}
+
+[data-theme="dark"] a:hover:not(.quarto-category):not(.listing-category) {
+  color: #a8cc88 !important;
 }
 
 /* =========================

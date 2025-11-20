@@ -32,30 +32,28 @@ pre.sourceCode {
   border: none !important;
   border-radius: 0 !important;
   padding: 1.5rem !important;
-  padding-top: calc(1.5rem + 3px) !important; /* Account for accent bar */
+  padding-top: calc(1.5rem + 3px) !important; 
   margin: 0 !important;
   box-shadow: none !important;
   overflow: visible !important;
-  width: fit-content; /* CHANGED: from 100% to fit-content */
-  min-width: 100%; /* ADDED: ensure it fills container when content is narrow */
+  width: fit-content; 
+  min-width: 100%; 
   max-width: none;
   display: block;
-  position: relative; /* ADDED: needed for ::before positioning */
+  position: relative; 
 }
 
-/* Top accent bar - MOVED HERE so it scrolls with content */
 pre.sourceCode::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* CHANGED: from right: 0 to width: 100% */
+  width: 100%; 
   height: 3px;
   background: linear-gradient(90deg, #6a5acd, #ff6f61);
   border-radius: 8px 8px 0 0;
 }
 
-/* Standalone pre blocks (without div.sourceCode wrapper) */
 pre:not(.sourceCode) {
   background: #f5f5f5;
   border: 1px solid #ddd;
@@ -107,7 +105,6 @@ pre code {
   color: #FFF5F2; /* Dark mode text */
 }
 
-/* Ensure syntax highlighting works in scrollable code blocks */
 pre.sourceCode code,
 div.sourceCode code {
   display: block;
@@ -115,7 +112,6 @@ div.sourceCode code {
   background: inherit !important;
 }
 
-/* Force inheritance for all syntax tokens */
 pre.sourceCode code *,
 div.sourceCode code *,
 pre.sourceCode code span,
@@ -156,7 +152,7 @@ pre:not(.sourceCode) code * {
    Inline Code
    ========================= */
 code:not(pre code) {
-  background: #f5f5f5; /* Light mode inline */
+  background: #f5f5f5; 
   color: #19183B; 
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -167,7 +163,7 @@ code:not(pre code) {
 }
 
 [data-theme="dark"] code:not(pre code) {
-  background: #19183B; /* Dark mode inline */
+  background: #19183B; 
   color: #FFF5F2;
   border: 1px solid #333;
 }
