@@ -1,5 +1,6 @@
 ---
 title: "Contact Me"
+subtitle: "My social accounts"
 comments: false
 filters: 
     - social-share
@@ -22,13 +23,11 @@ share:
 
 :::: hero-section
 
-# Here is my social account
+::: info-cards
 
-::: info-card
-
--   Email: joshua.marie.k@gmail.com
--   GitHub: github.com/joshuamarie
--   LinkedIn: linkedin.com/in/joshuamarie/
+-   Email: [joshua.marie.k@gmail.com](joshua.marie.k@gmail.com)
+-   GitHub: [github.com/joshuamarie](github.com/joshuamarie)
+-   LinkedIn: [linkedin.com/in/joshuamarie/](linkedin.com/in/joshuamarie/)
 
 :::
 
