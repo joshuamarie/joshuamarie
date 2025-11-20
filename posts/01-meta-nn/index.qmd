@@ -23,6 +23,21 @@ execute:
   echo: true
   message: false
   warning: false
+filters: 
+    - social-share
+share:
+  permalink: "https://joshuamarie.com/01-meta-nn/"
+  description: "Neural Networks generator - Joshua Marie"
+  twitter: true
+  facebook: true
+  reddit: true
+  stumble: true
+  tumblr: true
+  linkedin: true
+  email: true
+  mastodon: true
+  bsky: true
+  location: "before-body"
 ---
 
 # Generating torch DFFNN expression

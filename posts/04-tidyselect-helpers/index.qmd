@@ -26,6 +26,21 @@ execute:
   fig-align: center
   fig-width: 10
   fig-height: 6
+filters: 
+    - social-share
+share:
+  permalink: "https://joshuamarie.com/posts/04-tidyselect-helpers/"
+  description: "<tidyselect> helpers in R - Joshua Marie"
+  twitter: true
+  facebook: true
+  reddit: true
+  stumble: true
+  tumblr: true
+  linkedin: true
+  email: true
+  mastodon: true
+  bsky: true
+  location: "before-body"
 ---
 
 # Introduction

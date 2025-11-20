@@ -23,6 +23,21 @@ execute:
   echo: true
   message: false
   warning: false
+filters: 
+    - social-share
+share:
+  permalink: "https://joshuamarie.com/posts/03-modules-in-r/"
+  description: "Module System in R - Joshua Marie"
+  twitter: true
+  facebook: true
+  reddit: true
+  stumble: true
+  tumblr: true
+  linkedin: true
+  email: true
+  mastodon: true
+  bsky: true
+  location: "before-body"
 ---
 
 # Welcome!

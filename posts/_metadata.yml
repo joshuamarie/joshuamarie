@@ -14,9 +14,6 @@ author: "Joshua Marie"
 toc: true
 toc-depth: 3
 
-website: 
-  page-footer: false
-
 format:
   html:
     include-in-header:
@@ -35,4 +32,3 @@ format:
     css: 
       - Theme/code.css
       - Theme/table.css
-      

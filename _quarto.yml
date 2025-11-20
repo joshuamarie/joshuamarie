@@ -10,8 +10,10 @@ website:
   navbar:
     background: light
     left:
-      - text: "Products and Services"
+      - text: "Services"
         href: services.qmd
+      - text: "Contact"
+        href: contacts.qmd
       - text: "Posts"
         href: posts/index.qmd
     right:
@@ -19,7 +21,7 @@ website:
         href: https://github.com/joshuamarie
         aria-label: "GitHub"
       - icon: linkedin
-        href: https://www.linkedin.com/in/joshua-marie-388979360/
+        href: https://www.linkedin.com/in/joshuamarie/
         aria-label: "LinkedIn"
   page-footer:
     center: "Design inspired by [Geeky Hugo](https://github.com/statichunt/geeky-hugo)"

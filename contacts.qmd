@@ -1,0 +1,35 @@
+---
+title: "Contact Me"
+comments: false
+filters: 
+    - social-share
+share:
+  permalink: "https://joshuamarie.com/contacts.html"
+  description: "Contact me"
+  twitter: true
+  facebook: true
+  reddit: true
+  stumble: true
+  tumblr: true
+  linkedin: true
+  email: true
+  mastodon: true
+  bsky: true
+  location: "before-body"
+---
+
+---
+
+:::: hero-section
+
+# Here is my social account
+
+::: info-card
+
+-   Email: joshua.marie.k@gmail.com
+-   GitHub: github.com/joshuamarie
+-   LinkedIn: linkedin.com/in/joshuamarie/
+
+:::
+
+::::
