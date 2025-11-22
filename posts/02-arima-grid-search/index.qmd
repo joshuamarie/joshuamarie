@@ -1,8 +1,8 @@
 ---
-title: 'First level of time series modelling: Basic ARIMA model hyperparameter tuning'
-subtitle: 'With plots'
+title: 'First level of time series modelling: Basic ARIMA model hyperparameter tuning and grid search in R'
+subtitle: 'Basics of grid search for ARIMA with plots in R'
 date: "2025-09-27"
-categories: [R, time-series, machine-learning]
+categories: [R, time-series, machine-learning, grid-search]
 image: "image.png"
 # navbar: true
 format:
