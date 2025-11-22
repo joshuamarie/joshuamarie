@@ -56,125 +56,19 @@ This is how I rank them from worst to best:
 
 | Rank | Method                                      | Verdict                                      |
 |------|---------------------------------------------|----------------------------------------------|
-| 9    | [`require()`](#require)                     | War criminal                                 |
-| 8    | [`library()`](#library-classic)             | Boomer energy                                |
+| 9    | [`base::use()`](#base-use)                  | Experimental copium (now officially dead last) |
+| 8    | [`require()`](#require)                     | War criminal                                 |
 | 7    | [`{pacman}`](#pacman)                       | Convenience trap                             |
-| 6    | [`base::use()`](#base-use)                  | Experimental copium                          |
-| 5    | [`library() + conflicted`](#combo-pack)     | Manual gearbox                               |
+| 6    | [`library()`](#library-classic)             | Boomer energy                                |
+| 5    | [`library() + conflicted`](#combo-pack)     | Manual gearbox in 2025                       |
 | 4    | [`::` everywhere](#double-colon)            | Professional wrist pain                      |
 | 3    | [`{import}`](#import-pack)                  | Extremely polite gentleman                   |
 | 2    | [`{box}`](#box)                             | The chosen one                               |
-| 1    | [`{box}` + coffee](#box)                    | Ascended plane of existence                  | 
-
-## Worst: Using **require()** {#require}
-
-![](meme1.jpg)
-
-Just...no. I'll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages. 
-
-This function returns a Boolean value: 
-
-```{r}
-require(pkg) |> 
-    suppressMessages() |> 
-    suppressWarnings() |> 
-    print()
-```
-
-It returns `TRUE` if the package is successfully loaded and `FALSE` otherwise. 
-
-And should only be applicable inside functions to check if a package is available. 
-
-```{r}
-check_package = function() {
-    if (require(pkg, quietly = TRUE)) {
-        print("Package loaded successfully")
-    } else {
-        print("Package not available")
-    }
-}
-check_package()
-```
-
-Using `require()` at the top of a script is how you get mysterious errors 50 lines later.
-Only acceptable inside functions when you actually check the return value.
-
-Seriously, this is just `library()` where you can place it at the top level of your script, but add another extra steps. 
-
-## The classic **library()** {#library-classic}
-
-Such a classic function, isn't it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if `pkg` is not installed. This function is traditional and simple:
-
-``` r
-library(pkg)
-```
-
-That's it, right? 
-
-I hope it was that simple, but it has some serious downsides: 
-
-i.  It attaches the entire package namespace to the *search path*, 
-ii.  It can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.
-iii.  It makes the imports unclear which functions come from which packages
-iv.  All exported functions are available, even if you only need one or two
-
-To detach the attached package namespace in the search path, use `detach()` function with `package : ` keyword:
-
-``` r
-detach(package : pkg)
-```
-
-::: callout-warning
-Be minded that `library()` function still potentially silently fails, even though it will throw an error, unlike `require()` where silent fails are always prominent. 
-:::
-
-## The pro boxer: **{pacman}** {#pacman}
-
-This guy will punch you to death. Just kidding, Manny Pacquiao is a great boxer :). The `{pacman}` package tries to streamline package management with functions like `p_load()`.
-
-Do you know this?
-
-``` r
-if (!require(pkg)) {
-    install.packages("pkg")
-    library(pkg)
-}
-```
-
-Well, they made a shortcut, with `pacman::p_load()`:
-
-``` r
-pacman::p_load(pkg)
-```
-
-You can do the same as above, except you can do this for multiple packages. 
-
-Here's how:
-
-``` r
-pacman::p_load(pkg1, pkg2, pkg3)
-```
-
-Sounds convenient, right? 
-
-![](trap.gif)
-
-Actually mixes two completely different responsibilities:
-
--  Installation (one-time setup)
--  Loading (analysis step)
-
-Great for interactive playtime.
-Disastrous in scripts, packages, CI/CD, or any environment without internet.
-Also: 
-
--   It violates the [single responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), harder than a toddler with a drum kit.
-
--   This is like a pineapple pizza 
-
-    ![](lionfield-not-approved.gif)
+| 1    | [`{box}` + coffee](#box)                    | Ascended plane of existence                  |                            |
 
 ## The new **base::use()** function (v4.4.0+) {#base-use}
+
+Update: When I discover the bug, thanks to [u/guepier](https://www.reddit.com/user/guepier/) and his [comment](https://www.reddit.com/r/rstats/comments/1p1y89p/comment/nptplse/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button), this changes my mind. Now, I put this in the worst place amongst the solution I listed here. 
 
 I feel like R Core saw the chaos and said "fine, we’ll do something". This function is available in R version 4.4.0 and above, by the way. 
 
@@ -225,11 +119,132 @@ After I execute `mean_data(iris)`, the imports are accessible *everywhere*. EVER
 
 And `base::use()` is still broken even in the latest R versions.
 
+Like, it is so completely broken:
+
+``` r 
+use('dplyr', 'mutate')
+iris |> mutate(Petal.Area = Petal.Length * Petal.Width)
+#> Error in mutate(iris, Petal.Area = Petal.Length * Petal.Width) : 
+#>   could not find function "mutate"
+```
+
+> The issue is that subsequent `library()` calls for an identical package are ignored, and the same is true for `base::use()`. Bananas. Completely broken.
+
 ::: callout-note
 This is noted by R core team:
 
 > This functionality is still experimental: interfaces may change in future versions.
 
+:::
+
+## Worst: Using **require()** {#require}
+
+![](meme1.jpg)
+
+~Just...no. I'll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages. ~
+
+Update: This solution may be bad, but at least not worse than `base::use()`. 
+
+This function returns a Boolean value: 
+
+```{r}
+require(pkg) |> 
+    suppressMessages() |> 
+    suppressWarnings() |> 
+    print()
+```
+
+It returns `TRUE` if the package is successfully loaded and `FALSE` otherwise. 
+
+And should only be applicable inside functions to check if a package is available. 
+
+```{r}
+check_package = function() {
+    if (require(pkg, quietly = TRUE)) {
+        print("Package loaded successfully")
+    } else {
+        print("Package not available")
+    }
+}
+check_package()
+```
+
+Using `require()` at the top of a script is how you get mysterious errors 50 lines later.
+Only acceptable inside functions when you actually check the return value.
+
+Seriously, this is just `library()` where you can place it at the top level of your script, but add another extra steps. 
+
+## The pro boxer: **{pacman}** {#pacman}
+
+This guy will punch you to death. Just kidding, Manny Pacquiao is a great boxer :). The `{pacman}` package tries to streamline package management with functions like `p_load()`.
+
+Do you know this?
+
+``` r
+if (!require(pkg)) {
+    install.packages("pkg")
+    library(pkg)
+}
+```
+
+Well, they made a shortcut, with `pacman::p_load()`:
+
+``` r
+pacman::p_load(pkg)
+```
+
+You can do the same as above, except you can do this for multiple packages. 
+
+Here's how:
+
+``` r
+pacman::p_load(pkg1, pkg2, pkg3)
+```
+
+Sounds convenient, right? 
+
+![](trap.gif)
+
+Actually mixes two completely different responsibilities:
+
+-  Installation (one-time setup)
+-  Loading (analysis step)
+
+Great for interactive playtime.
+Disastrous in scripts, packages, CI/CD, or any environment without internet.
+Also: 
+
+-   It violates the [single responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle), harder than a toddler with a drum kit.
+
+-   This is like a pineapple pizza 
+
+    ![](lionfield-not-approved.gif)
+
+## The classic **library()** {#library-classic}
+
+Such a classic function, isn't it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if `pkg` is not installed. This function is traditional and simple:
+
+``` r
+library(pkg)
+```
+
+That's it, right? 
+
+I hope it was that simple, but it has some serious downsides: 
+
+i.  It attaches the entire package namespace to the *search path*, 
+ii.  It can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.
+iii.  It makes the imports unclear which functions come from which packages
+iv.  All exported functions are available, even if you only need one or two
+
+To detach the attached package namespace in the search path, use `detach()` function with `package : ` keyword:
+
+``` r
+detach(package : pkg)
+```
+
+::: callout-warning
+Be minded that `library()` function still potentially silently fails, even though it will throw an error, unlike `require()` where silent fails are always prominent. 
 :::
 
 ## **library()** and **{conflicted}** package combo {#combo-pack}

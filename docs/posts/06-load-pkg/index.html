@@ -203,10 +203,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>
 <a href="#different-ways-to-load-attach-packages-in-r" id="toc-different-ways-to-load-attach-packages-in-r" class="nav-link active" data-scroll-target="#different-ways-to-load-attach-packages-in-r"><span class="header-section-number">1</span> Different ways to load / attach packages in R</a>
   <ul class="collapse">
-<li><a href="#require" id="toc-require" class="nav-link" data-scroll-target="#require"><span class="header-section-number">1.1</span> Worst: Using <strong>require()</strong></a></li>
-  <li><a href="#library-classic" id="toc-library-classic" class="nav-link" data-scroll-target="#library-classic"><span class="header-section-number">1.2</span> The classic <strong>library()</strong></a></li>
+<li><a href="#base-use" id="toc-base-use" class="nav-link" data-scroll-target="#base-use"><span class="header-section-number">1.1</span> The new <strong>base::use()</strong> function (v4.4.0+)</a></li>
+  <li><a href="#require" id="toc-require" class="nav-link" data-scroll-target="#require"><span class="header-section-number">1.2</span> Worst: Using <strong>require()</strong></a></li>
   <li><a href="#pacman" id="toc-pacman" class="nav-link" data-scroll-target="#pacman"><span class="header-section-number">1.3</span> The pro boxer: <strong>{pacman}</strong></a></li>
-  <li><a href="#base-use" id="toc-base-use" class="nav-link" data-scroll-target="#base-use"><span class="header-section-number">1.4</span> The new <strong>base::use()</strong> function (v4.4.0+)</a></li>
+  <li><a href="#library-classic" id="toc-library-classic" class="nav-link" data-scroll-target="#library-classic"><span class="header-section-number">1.4</span> The classic <strong>library()</strong></a></li>
   <li><a href="#combo-pack" id="toc-combo-pack" class="nav-link" data-scroll-target="#combo-pack"><span class="header-section-number">1.5</span> <strong>library()</strong> and <strong>{conflicted}</strong> package combo</a></li>
   <li><a href="#double-colon" id="toc-double-colon" class="nav-link" data-scroll-target="#double-colon"><span class="header-section-number">1.6</span> Tedious but Explicit: The <strong>::</strong> Operator</a></li>
   <li><a href="#import-pack" id="toc-import-pack" class="nav-link" data-scroll-target="#import-pack"><span class="header-section-number">1.7</span> Second to best: <strong>{import}</strong> package</a></li>
@@ -243,13 +243,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>9</td>
-<td><a href="#require"><code>require()</code></a></td>
-<td>War criminal</td>
+<td><a href="#base-use"><code>base::use()</code></a></td>
+<td>Experimental copium (now officially dead last)</td>
 </tr>
 <tr class="even">
 <td>8</td>
-<td><a href="#library-classic"><code>library()</code></a></td>
-<td>Boomer energy</td>
+<td><a href="#require"><code>require()</code></a></td>
+<td>War criminal</td>
 </tr>
 <tr class="odd">
 <td>7</td>
@@ -258,13 +258,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>6</td>
-<td><a href="#base-use"><code>base::use()</code></a></td>
-<td>Experimental copium</td>
+<td><a href="#library-classic"><code>library()</code></a></td>
+<td>Boomer energy</td>
 </tr>
 <tr class="odd">
 <td>5</td>
 <td><a href="#combo-pack"><code>library() + conflicted</code></a></td>
-<td>Manual gearbox</td>
+<td>Manual gearbox in 2025</td>
 </tr>
 <tr class="even">
 <td>4</td>
@@ -288,96 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<section id="require" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="require">
-<span class="header-section-number">1.1</span> Worst: Using <strong>require()</strong>
-</h2>
-<p><img src="meme1.jpg" class="img-fluid"></p>
-<p>Just…no. I’ll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages.</p>
-<p>This function returns a Boolean value:</p>
-<div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE</code></pre>
-</div>
-</div>
-<p>It returns <code>TRUE</code> if the package is successfully loaded and <code>FALSE</code> otherwise.</p>
-<p>And should only be applicable inside functions to check if a package is available.</p>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">check_package</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">pkg</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Package loaded successfully"</span><span class="op">)</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Package not available"</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">check_package</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Package not available"</code></pre>
-</div>
-</div>
-<p>Using <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> at the top of a script is how you get mysterious errors 50 lines later. Only acceptable inside functions when you actually check the return value.</p>
-<p>Seriously, this is just <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> where you can place it at the top level of your script, but add another extra steps.</p>
-</section><section id="library-classic" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="library-classic">
-<span class="header-section-number">1.2</span> The classic <strong>library()</strong>
-</h2>
-<p>Such a classic function, isn’t it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if <code>pkg</code> is not installed. This function is traditional and simple:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>That’s it, right?</p>
-<p>I hope it was that simple, but it has some serious downsides:</p>
-<ol type="i">
-<li>It attaches the entire package namespace to the <em>search path</em>,</li>
-<li>It can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.</li>
-<li>It makes the imports unclear which functions come from which packages</li>
-<li>All exported functions are available, even if you only need one or two</li>
-</ol>
-<p>To detach the attached package namespace in the search path, use <code><a href="https://rdrr.io/r/base/detach.html">detach()</a></code> function with <code>package :</code> keyword:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op">(</span><span class="va">package</span> <span class="op">:</span> <span class="va">pkg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Be minded that <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function still potentially silently fails, even though it will throw an error, unlike <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> where silent fails are always prominent.</p>
-</div>
-</div>
-</section><section id="pacman" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="pacman">
-<span class="header-section-number">1.3</span> The pro boxer: <strong>{pacman}</strong>
-</h2>
-<p>This guy will punch you to death. Just kidding, Manny Pacquiao is a great boxer :). The <a href="https://github.com/trinker/pacman">pacman</a> package tries to streamline package management with functions like <code>p_load()</code>.</p>
-<p>Do you know this?</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pkg"</span><span class="op">)</span></span>
-<span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Well, they made a shortcut, with <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can do the same as above, except you can do this for multiple packages.</p>
-<p>Here’s how:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">pkg1</span>, <span class="va">pkg2</span>, <span class="va">pkg3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Sounds convenient, right?</p>
-<p><img src="trap.gif" class="img-fluid"></p>
-<p>Actually mixes two completely different responsibilities:</p>
-<ul>
-<li>Installation (one-time setup)</li>
-<li>Loading (analysis step)</li>
-</ul>
-<p>Great for interactive playtime. Disastrous in scripts, packages, CI/CD, or any environment without internet. Also:</p>
-<ul>
-<li><p>It violates the <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">single responsibility principle</a>, harder than a toddler with a drum kit.</p></li>
-<li>
-<p>This is like a pineapple pizza</p>
-<p><img src="lionfield-not-approved.gif" class="img-fluid"></p>
-</li>
-</ul></section><section id="base-use" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="base-use">
-<span class="header-section-number">1.4</span> The new <strong>base::use()</strong> function (v4.4.0+)</h2>
+<section id="base-use" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="base-use">
+<span class="header-section-number">1.1</span> The new <strong>base::use()</strong> function (v4.4.0+)</h2>
+<p>Update: When I discover the bug, thanks to <a href="https://www.reddit.com/user/guepier/">u/guepier</a> and his <a href="https://www.reddit.com/r/rstats/comments/1p1y89p/comment/nptplse/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button">comment</a>, this changes my mind. Now, I put this in the worst place amongst the solution I listed here.</p>
 <p>I feel like R Core saw the chaos and said “fine, we’ll do something”. This function is available in R version 4.4.0 and above, by the way.</p>
 <p>It allows you to load packages in a way that minimizes namespace conflicts by only attaching the functions you explicitly use. Take note that <code><a href="https://rdrr.io/r/base/use.html">base::use()</a></code> is a short case of <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, a simple wrapper, where it keeps <code>include.only</code> and set:</p>
 <ol type="1">
@@ -395,7 +308,7 @@ Warning
 </li>
 </ol>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op">(</span><span class="st">'pkg'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'obj1'</span>, <span class="st">'fun1'</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op">(</span><span class="st">'pkg'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'obj1'</span>, <span class="st">'fun1'</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is still <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, but granular imports are explicit. Except…</p>
 <p><img src="problem-uh-oh.gif" class="img-fluid"></p>
@@ -403,7 +316,7 @@ Warning
 <p>It’s like putting a fancy new paint job on a 1987 Honda Civic and calling it a Ferrari. It LOOKS different, but under the hood, same old engine, baby.</p>
 <p>For example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mean_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mean_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op">(</span><span class="st">'dplyr'</span>, <span class="st">'summarise'</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op">(</span><span class="st">'tidyr'</span>, <span class="st">'pivot_longer'</span><span class="op">)</span></span>
 <span>    </span>
@@ -433,6 +346,14 @@ Warning
 </div>
 <p>After I execute <code>mean_data(iris)</code>, the imports are accessible <em>everywhere</em>. EVERYWHERE!</p>
 <p>And <code><a href="https://rdrr.io/r/base/use.html">base::use()</a></code> is still broken even in the latest R versions.</p>
+<p>Like, it is so completely broken:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/use.html">use</a></span><span class="op">(</span><span class="st">'dplyr'</span>, <span class="st">'mutate'</span><span class="op">)</span></span>
+<span><span class="va">iris</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span>Petal.Area <span class="op">=</span> <span class="va">Petal.Length</span> <span class="op">*</span> <span class="va">Petal.Width</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in mutate(iris, Petal.Area = Petal.Length * Petal.Width) : </span></span>
+<span><span class="co">#&gt;   could not find function "mutate"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>The issue is that subsequent <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> calls for an identical package are ignored, and the same is true for <code><a href="https://rdrr.io/r/base/use.html">base::use()</a></code>. Bananas. Completely broken.</p>
+</blockquote>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -449,6 +370,95 @@ Note
 </blockquote>
 </div>
 </div>
+</section><section id="require" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="require">
+<span class="header-section-number">1.2</span> Worst: Using <strong>require()</strong>
+</h2>
+<p><img src="meme1.jpg" class="img-fluid"></p>
+<p>~Just…no. I’ll be making a hot take here that sounds controversial, but this solution is the worst thing ever existed in R to attach the packages. ~</p>
+<p>Update: This solution may be bad, but at least not worse than <code><a href="https://rdrr.io/r/base/use.html">base::use()</a></code>.</p>
+<p>This function returns a Boolean value:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>It returns <code>TRUE</code> if the package is successfully loaded and <code>FALSE</code> otherwise.</p>
+<p>And should only be applicable inside functions to check if a package is available.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">check_package</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">pkg</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Package loaded successfully"</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Package not available"</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">check_package</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Package not available"</code></pre>
+</div>
+</div>
+<p>Using <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> at the top of a script is how you get mysterious errors 50 lines later. Only acceptable inside functions when you actually check the return value.</p>
+<p>Seriously, this is just <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> where you can place it at the top level of your script, but add another extra steps.</p>
+</section><section id="pacman" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="pacman">
+<span class="header-section-number">1.3</span> The pro boxer: <strong>{pacman}</strong>
+</h2>
+<p>This guy will punch you to death. Just kidding, Manny Pacquiao is a great boxer :). The <a href="https://github.com/trinker/pacman">pacman</a> package tries to streamline package management with functions like <code>p_load()</code>.</p>
+<p>Do you know this?</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pkg"</span><span class="op">)</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Well, they made a shortcut, with <code><a href="https://rdrr.io/pkg/pacman/man/p_load.html">pacman::p_load()</a></code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can do the same as above, except you can do this for multiple packages.</p>
+<p>Here’s how:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html">p_load</a></span><span class="op">(</span><span class="va">pkg1</span>, <span class="va">pkg2</span>, <span class="va">pkg3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Sounds convenient, right?</p>
+<p><img src="trap.gif" class="img-fluid"></p>
+<p>Actually mixes two completely different responsibilities:</p>
+<ul>
+<li>Installation (one-time setup)</li>
+<li>Loading (analysis step)</li>
+</ul>
+<p>Great for interactive playtime. Disastrous in scripts, packages, CI/CD, or any environment without internet. Also:</p>
+<ul>
+<li><p>It violates the <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">single responsibility principle</a>, harder than a toddler with a drum kit.</p></li>
+<li>
+<p>This is like a pineapple pizza</p>
+<p><img src="lionfield-not-approved.gif" class="img-fluid"></p>
+</li>
+</ul></section><section id="library-classic" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="library-classic">
+<span class="header-section-number">1.4</span> The classic <strong>library()</strong>
+</h2>
+<p>Such a classic function, isn’t it? After all, this is the most used function to attach R package namespace. It is a standard practice that most R users use, and it is safe: It will throw an error if <code>pkg</code> is not installed. This function is traditional and simple:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That’s it, right?</p>
+<p>I hope it was that simple, but it has some serious downsides:</p>
+<ol type="i">
+<li>It attaches the entire package namespace to the <em>search path</em>,</li>
+<li>It can lead to namespace clash, particularly if multiple packages have functions with the same name. This can make debugging difficult and lead to unexpected behaviors in your code.</li>
+<li>It makes the imports unclear which functions come from which packages</li>
+<li>All exported functions are available, even if you only need one or two</li>
+</ol>
+<p>To detach the attached package namespace in the search path, use <code><a href="https://rdrr.io/r/base/detach.html">detach()</a></code> function with <code>package :</code> keyword:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/detach.html">detach</a></span><span class="op">(</span><span class="va">package</span> <span class="op">:</span> <span class="va">pkg</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Be minded that <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function still potentially silently fails, even though it will throw an error, unlike <code><a href="https://rdrr.io/r/base/library.html">require()</a></code> where silent fails are always prominent.</p>
+</div>
+</div>
 </section><section id="combo-pack" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="combo-pack">
 <span class="header-section-number">1.5</span> <strong>library()</strong> and <strong>{conflicted}</strong> package combo</h2>
 <p>How about forcing the search path to select / deselect the imports? Introducing <a href="https://conflicted.r-lib.org/">conflicted</a> package.</p>
@@ -460,7 +470,7 @@ Note
 <li>
 <p>I have no use with <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> because I only want to keep the data frame based on the condition using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code>, and I want to load the entire <a href="https://dplyr.tidyverse.org">dplyr</a> namespace. Here, I declare <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> as “winner” of the conflict:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">conflicted</span><span class="fu">::</span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">'filter'</span>, <span class="st">'dplyr'</span>, <span class="st">'stats'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">cyl</span> <span class="op">==</span> <span class="fl">8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -469,7 +479,7 @@ Note
 <li>
 <p>Then, I stopped using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> because I want to perform time series modelling with linear filtering using <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code>. Re-state <code><a href="https://rdrr.io/r/stats/filter.html">stats::filter()</a></code> as the “winner” of the conflict:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conflicted</span><span class="fu">::</span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">'filter'</span>, <span class="st">'stats'</span>, <span class="st">'dplyr'</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">conflicted</span><span class="fu">::</span><span class="fu"><a href="https://conflicted.r-lib.org/reference/conflict_prefer.html">conflict_prefer</a></span><span class="op">(</span><span class="st">'filter'</span>, <span class="st">'stats'</span>, <span class="st">'dplyr'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </li>
@@ -486,7 +496,7 @@ Note
 </ul>
 <p>Most of us using R are definitely using this (I am reusing an example from <a href="#base-use">base::use</a>):</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mean_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mean_data</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>        <span class="va">.data</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
 <span>            <span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, </span>
@@ -527,7 +537,7 @@ Notice
 </div>
 </div>
 <p>This is great, compared to the previous solutions, no external packages needed and works mostly in any R version. The problem is this is way too verbose and repetitive, especially with many function calls:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -553,7 +563,7 @@ Notice
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>The first example is simple: Normal imports with aliases.</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">from</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">from</a></span><span class="op">(</span></span>
 <span>    <span class="va">dplyr</span>, </span>
 <span>    <span class="va">select</span>, <span class="va">rename</span>, keep_when <span class="op">=</span> <span class="va">filter</span>, <span class="va">mutate</span>, <span class="va">summarise</span>, <span class="va">n</span></span>
 <span><span class="op">)</span></span>
@@ -591,7 +601,7 @@ Notice
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Use backticks around <code>%&gt;%</code> since it is under <a href="https://adv-r.hadley.nz/names-values.html#non-syntactic">non-syntactic names</a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">from</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">select</span>, <span class="va">filter</span>, <span class="va">mutate</span>, <span class="va">summarise</span>, <span class="va">n</span>, <span class="va">relocate</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">from</a></span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">select</span>, <span class="va">filter</span>, <span class="va">mutate</span>, <span class="va">summarise</span>, <span class="va">n</span>, <span class="va">relocate</span><span class="op">)</span></span>
 <span><span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">from</a></span><span class="op">(</span><span class="va">magrittr</span>, <span class="va">`%&gt;%`</span><span class="op">)</span> </span>
 <span><span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">from</a></span><span class="op">(</span><span class="va">tidyr</span>, long <span class="op">=</span> <span class="va">pivot_longer</span>, wide <span class="op">=</span> <span class="va">pivot_wider</span>, <span class="va">drop_na</span><span class="op">)</span></span>
 <span></span>
@@ -652,7 +662,7 @@ Notice
 <li>
 <p>It has no unifying solution to attach the imports in the current environment. In fact, <a href="https://rticulate.github.io/import/">import</a> functions still attach imported functions to the parent environment (usually global). What I mean is that they’re not truly scoped to a module or function. Thus, the use of <code><a href="https://import.rticulate.org/reference/importfunctions.html">import::here()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">iris</span>, <span class="op">{</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">iris</span>, <span class="op">{</span></span>
 <span>    <span class="fu">import</span><span class="fu">::</span><span class="fu"><a href="https://import.rticulate.org/reference/importfunctions.html">here</a></span><span class="op">(</span><span class="va">stats</span>, corr <span class="op">=</span> <span class="va">cor</span><span class="op">)</span></span>
 <span></span>
 <span>    <span class="fu">corr</span><span class="op">(</span><span class="va">Sepal.Length</span>, <span class="va">Petal.Length</span><span class="op">)</span></span>
@@ -662,7 +672,7 @@ Notice
 </div>
 </div>
 <p>The expression we made, <code>with(iris, { ... })</code> creates a temporary environment that disappears immediately. So <code>corr()</code> is placed exactly there, inside that temporary environment, and you cannot reuse <code>corr()</code> somewhere in the environment, even in the global environment</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">corr</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">corr</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in corr(1:10, 2:11) : could not find function "corr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This is better than loading entire packages, but not as clean as lexical scoping.</p>
 </li>
@@ -693,7 +703,7 @@ My impression
 </div>
 <p>This isn’t “slightly nicer imports” — it’s a complete rethinking of how R package should be loaded, and R code should be organized and namespaced. It brings true module systems (like Python, JavaScript, or Ruby) to R.</p>
 <p>There’s 4 of a kind to import like a sane person:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
 <span>    <span class="va">purrr</span>,                          <span class="co"># 1</span></span>
 <span>    tbl <span class="op">=</span> <span class="va">tibble</span>,                   <span class="co"># 2</span></span>
 <span>    dplyr <span class="op">=</span> <span class="va">dplyr</span><span class="op">[</span><span class="va">filter</span>, <span class="va">select</span><span class="op">]</span>,  <span class="co"># 3</span></span>
@@ -746,7 +756,7 @@ My impression
 </ol>
 <p>But wait, there’s more!</p>
 <p>Here, watch the madness of how I apply <a href="https://klmr.me/box/">box</a> to load package deps:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
 <span>    <span class="va">dplyr</span><span class="op">[</span></span>
 <span>        <span class="va">select</span>, <span class="va">rename</span>, </span>
 <span>        keep_when <span class="op">=</span> <span class="va">filter</span>,   <span class="co"># rename because we want to avoid needless fighting</span></span>
@@ -761,7 +771,7 @@ My impression
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Less <code>::</code> spam. No <code>package::function()</code> that makes your code look like it’s been hit by shrapnel. Zero <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> / <code><a href="https://rdrr.io/r/base/library.html">require()</a></code>.</p>
 <p>And then, the part that makes grown R programmers cry tears of joy — You are also allowed to reuse exported namespace from an R script or a folder as a module.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
 <span>    <span class="va">app</span><span class="op">/</span><span class="va">models</span><span class="op">/</span><span class="va">glm_fit</span><span class="op">[</span><span class="va">...</span><span class="op">]</span>,           <span class="co"># brings everything exported</span></span>
 <span>    <span class="va">app</span><span class="op">/</span><span class="va">plots</span><span class="op">/</span><span class="va">theme_pub</span><span class="op">[</span><span class="va">theme_pub</span><span class="op">]</span>,    <span class="co"># only the theme</span></span>
 <span>    <span class="va">app</span><span class="op">/</span><span class="va">utils</span><span class="op">/</span><span class="va">cleaning</span><span class="op">[</span><span class="va">clean_names</span>, <span class="va">fix_dates</span><span class="op">]</span>,</span>
