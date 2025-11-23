@@ -9,7 +9,7 @@ listing:
     filter-ui: false
     categories: false
     #type: grid
-    page-size: 7
+    page-size: 5
     fields: [image, title, description, date, categories]
     contents: 
       - "/posts*/!(index).*md"

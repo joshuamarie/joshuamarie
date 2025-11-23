@@ -7,6 +7,7 @@ listing:
   sort: "date desc"
   filter-ui: true
   sort-ui: true
+  page-size: 5
 comments: false
 format: 
   html: 
