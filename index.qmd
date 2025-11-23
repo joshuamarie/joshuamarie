@@ -1,4 +1,9 @@
 ---
+format: 
+  html: 
+    theme: 
+      light: [cosmo, theming.scss]
+      dark: [darkly, theming.scss]
 comments: false
 # page-layout: full
 # title-block-banner: false

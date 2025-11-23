@@ -1,6 +1,6 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/posts/index.html",
     "items": [
       "/posts/06-load-pkg/index.html",
       "/posts/05-pipes/index.html",
@@ -11,7 +11,7 @@
     ]
   },
   {
-    "listing": "/posts/index.html",
+    "listing": "/index.html",
     "items": [
       "/posts/06-load-pkg/index.html",
       "/posts/05-pipes/index.html",

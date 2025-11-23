@@ -2,6 +2,11 @@
 title: "Contact Me"
 subtitle: "My social accounts"
 comments: false
+format: 
+  html: 
+    theme: 
+      light: [cosmo, theming.scss]
+      dark: [darkly, theming.scss]
 filters: 
     - social-share
 share:

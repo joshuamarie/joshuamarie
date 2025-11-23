@@ -15,6 +15,8 @@ website:
         href: services.qmd
       - text: "Contact"
         href: contacts.qmd
+      - text: "My resources"
+        href: resources.qmd
       - text: "Posts"
         href: posts/index.qmd
     right:
@@ -48,11 +50,14 @@ format:
     reference-location: margin
     footnotes-hover: true
     fontsize: 1.1em
-    theme: 
-        - theming.scss
+    theme: theming.scss
     css: 
       - styles/base.css
-      - styles/components.css
       - styles/layout.css
+      - styles/hero.css
+      - styles/cards.css
+      - styles/about.css
+      - styles/dark-mode.css
+      # - styles/components.css
     mainfont: "Mulish"
   

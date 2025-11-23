@@ -1,0 +1,56 @@
+---
+title: "My resources"
+format: 
+  html: 
+    theme: 
+      light: [cosmo, theming.scss]
+      dark: [darkly, theming.scss]
+comments: false
+filters: 
+    - social-share
+share:
+  permalink: "https://joshuamarie.com/resources.html"
+  description: "Contact me"
+  twitter: true
+  facebook: true
+  reddit: true
+  stumble: true
+  tumblr: true
+  linkedin: true
+  email: true
+  mastodon: true
+  bsky: true
+  location: "before-body"
+---
+
+---
+
+:::: hero-section
+
+## Main Website
+
+::: info-cards
+
+-  [Home: ](https://joshuamarie.com/) [https://joshuamarie.com/](https://joshuamarie.com/)
+-  [Services](https://joshuamarie.com/services.html)
+-  [Blog Posts: ](https://joshuamarie.com/posts/) [https://joshuamarie.com/posts/](https://joshuamarie.com/posts/)
+
+:::
+
+## Books
+
+::: info-cards
+
+-  [Box: Placing module system into R](https://modules-in-r.joshuamarie.com/)
+
+:::
+
+## Slides
+
+::: info-cards
+
+-  [Curation of slides](https://slides.joshuamarie.com/)
+
+:::
+
+::::

@@ -1,6 +1,11 @@
 ---
 title: "Work with Me — Consulting & Teaching"
 comments: false
+format: 
+  html: 
+    theme: 
+      light: [cosmo, theming.scss]
+      dark: [darkly, theming.scss]
 ---
 
 ---

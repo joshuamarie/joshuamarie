@@ -127,3 +127,67 @@ a:hover {
   background-color: #2ecc71;
   color: white;
 }
+
+/* ========================================
+   DARK MODE OVERRIDES
+   ======================================== */
+
+// Body text dark mode
+html.dark body,
+body.quarto-dark {
+  color: #bbb;
+}
+
+// All headings in dark mode
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6,
+body.quarto-dark h1,
+body.quarto-dark h2,
+body.quarto-dark h3,
+body.quarto-dark h4,
+body.quarto-dark h5,
+body.quarto-dark h6 {
+  color: #f0f0f0 !important;
+}
+
+// Page title specifically
+html.dark .title,
+body.quarto-dark .title {
+  color: #f0f0f0 !important;
+}
+
+// Navbar dark mode
+html.dark .navbar,
+body.quarto-dark .navbar {
+  border-bottom: 1px solid #333;
+}
+
+html.dark .navbar-brand,
+body.quarto-dark .navbar-brand {
+  color: #f0f0f0 !important;
+}
+
+html.dark .navbar-nav .nav-link,
+body.quarto-dark .navbar-nav .nav-link {
+  color: #bbb !important;
+}
+
+html.dark .navbar-nav .nav-link:hover,
+body.quarto-dark .navbar-nav .nav-link:hover {
+  color: #2ecc71 !important;
+}
+
+// Links in dark mode
+html.dark a,
+body.quarto-dark a {
+  color: #2ecc71;
+}
+
+html.dark a:hover,
+body.quarto-dark a:hover {
+  color: #27ae60;
+}
