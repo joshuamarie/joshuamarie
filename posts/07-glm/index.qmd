@@ -1,0 +1,58 @@
+---
+title: "Tutorial on Generalized Linear Model from scratch"
+subtitle: "Dogmatic statistics for fun series"
+description: "Finally understand what a link function actually does instead of copy-pasting glm() and praying"
+date: "2025-11-25"
+image: "image.png"
+categories: [R, statistics, regression, unhinged-stats, coping-mechanisms, machine-learning]
+format:
+    html:
+        toc: true
+        toc-float: true
+        toc-depth: 3
+        number-sections: true
+        code-fold: false
+        code-tools: false
+        theme: default
+        highlight-style: tango
+        fig-width: 10
+        fig-height: 6
+        fig-cap-location: bottom
+execute:
+    echo: true
+    message: false
+    warning: false
+    fig-align: center
+    fig-width: 10
+    fig-height: 6
+filters: 
+    - social-share
+share:
+    permalink: "https://joshuamarie.com/posts/07-glm/"
+    description: "Tutorial on Generalized Linear Model - Joshua Marie"
+    twitter: true
+    facebook: true
+    reddit: true
+    stumble: true
+    tumblr: true
+    linkedin: true
+    email: true
+    mastodon: true
+    bsky: true
+    location: "before-body"
+---
+
+*Post under construction*
+
+Stop asking:
+
+- "What test do I need to use?"
+- "Do my data need to be normally distributed?"
+- "Can I just use linear regression on counts lol?"
+
+Kidding~
+
+I have no such problem of you guys asking these questions. This type of question, however, is a type of question that I heard many times already. 
+
+I have no problems with tutorials and blogs online about teaching statistics, like predicting what species of iris is gonna be. There are ten thousand blog posts teaching you how to predict iris species with `glm()`, or Python's `sklearn.linear_model.LogisticRegression()`
+

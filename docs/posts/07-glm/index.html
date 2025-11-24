@@ -7,9 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua Marie">
-<meta name="dcterms.date" content="2025-10-08">
+<meta name="dcterms.date" content="2025-11-25">
+<meta name="description" content="Finally understand what a link function actually does instead of copy-pasting glm() and praying">
 
-<title>Box: Placing module system into R – Joshua Marie</title>
+<title>Tutorial on Generalized Linear Model from scratch – Joshua Marie</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,11 +83,9 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../../styles/dark-mode.css">
 <link rel="stylesheet" href="../Theme/code.css">
 <link rel="stylesheet" href="../Theme/table.css">
-<meta name="twitter:title" content="Box: Placing module system into R – Joshua Marie">
-<meta name="twitter:description" content="Definitive Guide">
-<meta name="twitter:image" content="https://joshuamarie.com/posts/03-modules-in-r/tmbnl.png">
-<meta name="twitter:image-height" content="277">
-<meta name="twitter:image-width" content="240">
+<meta name="twitter:title" content="Tutorial on Generalized Linear Model from scratch – Joshua Marie">
+<meta name="twitter:description" content="Finally understand what a link function actually does instead of copy-pasting glm() and praying">
+<meta name="twitter:image" content="https://joshuamarie.com/posts/07-glm/image.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -146,11 +145,20 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Box: Placing module system into R</h1>
-            <p class="subtitle lead">Definitive Guide</p>
-                                <div class="quarto-categories">
+      <h1 class="title">Tutorial on Generalized Linear Model from scratch</h1>
+            <p class="subtitle lead">Dogmatic statistics for fun series</p>
+                  <div>
+        <div class="description">
+          Finally understand what a link function actually does instead of copy-pasting glm() and praying
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">R</div>
-                <div class="quarto-category">book</div>
+                <div class="quarto-category">statistics</div>
+                <div class="quarto-category">regression</div>
+                <div class="quarto-category">unhinged-stats</div>
+                <div class="quarto-category">coping-mechanisms</div>
+                <div class="quarto-category">machine-learning</div>
               </div>
                   </div>
   </div>
@@ -168,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 8, 2025</p>
+        <p class="date">November 25, 2025</p>
       </div>
     </div>
     
@@ -179,83 +187,29 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="header-section-number">1</span> Welcome!</a>
-  <ul class="collapse">
-  <li><a href="#what-youll-find-here" id="toc-what-youll-find-here" class="nav-link" data-scroll-target="#what-youll-find-here"><span class="header-section-number">1.1</span> What You’ll Find Here</a></li>
-  <li><a href="#why-this-book" id="toc-why-this-book" class="nav-link" data-scroll-target="#why-this-book"><span class="header-section-number">1.2</span> Why this book</a></li>
-  <li><a href="#how-to-use-this-guide" id="toc-how-to-use-this-guide" class="nav-link" data-scroll-target="#how-to-use-this-guide"><span class="header-section-number">1.3</span> How to Use This Guide</a></li>
-  <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing"><span class="header-section-number">1.4</span> Contributing</a></li>
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license"><span class="header-section-number">1.5</span> License</a></li>
-  <li><a href="#credits" id="toc-credits" class="nav-link" data-scroll-target="#credits"><span class="header-section-number">1.6</span> Credits</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/03-modules-in-r/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
-<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://joshuamarie.com/posts/03-modules-in-r/&amp;text=Module System in R - Joshua Marie" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://joshuamarie.com/posts/03-modules-in-r/&amp;title=Module System in R - Joshua Marie" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=Module System in R - Joshua Marie&amp;body=Check out this link:https://joshuamarie.com/posts/03-modules-in-r/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://www.facebook.com/sharer.php?u=https://joshuamarie.com/posts/03-modules-in-r/" target="_blank" class="facebook"><i class="fab fa-facebook-f fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://joshuamarie.com/posts/03-modules-in-r/&amp;title=Module System in R - Joshua Marie" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="https://www.stumbleupon.com/submit?url=https://joshuamarie.com/posts/03-modules-in-r/&amp;title=Module System in R - Joshua Marie" target="_blank" class="stumbleupon"><i class="fa-brands fa-stumbleupon fa-fw fa-lg"></i></a><a href="https://www.tumblr.com/share/link?url=https://joshuamarie.com/posts/03-modules-in-r/&amp;name=Module System in R - Joshua Marie" target="_blank" class="tumblr"><i class="fa-brands fa-tumblr fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text=Module System in R - Joshua Marie https://joshuamarie.com/posts/03-modules-in-r/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a><a href="https://bsky.app/intent/compose?text=https://joshuamarie.com/posts/03-modules-in-r/ Module System in R - Joshua Marie" target="_blank" class="bsky"><i class="fa-brands fa-bluesky"></i></a></div></div>
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://joshuamarie.com/posts/07-glm/&amp;text=Tutorial on Generalized Linear Model - Joshua Marie" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://joshuamarie.com/posts/07-glm/&amp;title=Tutorial on Generalized Linear Model - Joshua Marie" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=Tutorial on Generalized Linear Model - Joshua Marie&amp;body=Check out this link:https://joshuamarie.com/posts/07-glm/" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://www.facebook.com/sharer.php?u=https://joshuamarie.com/posts/07-glm/" target="_blank" class="facebook"><i class="fab fa-facebook-f fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://joshuamarie.com/posts/07-glm/&amp;title=Tutorial on Generalized Linear Model - Joshua Marie" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="https://www.stumbleupon.com/submit?url=https://joshuamarie.com/posts/07-glm/&amp;title=Tutorial on Generalized Linear Model - Joshua Marie" target="_blank" class="stumbleupon"><i class="fa-brands fa-stumbleupon fa-fw fa-lg"></i></a><a href="https://www.tumblr.com/share/link?url=https://joshuamarie.com/posts/07-glm/&amp;name=Tutorial on Generalized Linear Model - Joshua Marie" target="_blank" class="tumblr"><i class="fa-brands fa-tumblr fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text=Tutorial on Generalized Linear Model - Joshua Marie https://joshuamarie.com/posts/07-glm/'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a><a href="https://bsky.app/intent/compose?text=https://joshuamarie.com/posts/07-glm/ Tutorial on Generalized Linear Model - Joshua Marie" target="_blank" class="bsky"><i class="fa-brands fa-bluesky"></i></a></div></div>
 
 
 
 
 
-<section id="welcome" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Welcome!</h1>
-<p><em>Click <a href="https://joshuamarie.github.io/modules-in-r/">here</a> to read the actual book. </em></p>
-<p>Welcome to the definitive guide to module system in R using box!</p>
-<p>Whether you want another way to import R packages, or simply seeking better ways to organize your code, this guide helps you to reimagine something did not exist in R for quite a long time: module system. This book introduces you the package that I discovered few years ago, it is called <a href="https://github.com/klmr/box">box</a>, initially <strong>modules</strong> package, by Konrad Rudolph. This package provides a clean, straightforward API to define and manage modules. R, especially its users, suffers from managing huge R pipelines, because there’s no clean way to manage such complex pipelines…this problem will potentially cease to exists, as <strong>box</strong> package affords closely equivalent module system to other programming languages like Python, C#, and more.</p>
-<section id="what-youll-find-here" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="what-youll-find-here"><span class="header-section-number">1.1</span> What You’ll Find Here</h2>
-<p>A definitive guide that walks you through:</p>
+<p><em>Post under construction</em></p>
+<p>Stop asking:</p>
 <ul>
-<li>Alternative approach to import R codes (i.e.&nbsp;R packages, modules)</li>
-<li>Modern approaches to compose and organize R codes</li>
-<li>Step-by-step tutorials for using the <strong>box</strong> package</li>
-<li>Best practices for maintainable R code</li>
+<li>“What test do I need to use?”</li>
+<li>“Do my data need to be normally distributed?”</li>
+<li>“Can I just use linear regression on counts lol?”</li>
 </ul>
-</section>
-<section id="why-this-book" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="why-this-book"><span class="header-section-number">1.2</span> Why this book</h2>
-<p>Only little to no books teach you to correctly write reusable, composable, and modular R codes :). Most of the books maybe teaches you about R, particularly application of R in different fields, but little to none explains one of the best practices. Most of them uses <code>library()</code> anyways, so you won’t certainly find similar book like this.</p>
-<p>Consequently, while R offers various ways to organize code, the <strong>box</strong> package manages to be superior among them (I am bias) by introducing a fresh, modern approach to module system that may significantly improve your R development workflow, similar to the workflow made by other developers, particularly Python devs. This book bridges the gap between basic R programming and professional-grade code organization.</p>
-</section>
-<section id="how-to-use-this-guide" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="how-to-use-this-guide"><span class="header-section-number">1.3</span> How to Use This Guide</h2>
-<p><em>Click <a href="https://joshuamarie.github.io/modules-in-r/">here</a> and it will send you to the actual book. </em></p>
-<p>The content is structured progressively, building from foundational concepts to deep applications. For the best learning experience:</p>
-<ol type="1">
-<li>Start with the introduction to understand the core concepts</li>
-<li>Learning the fundamentals of import system with <strong>{box}</strong> package</li>
-<li>Learning the structures and constructions of reusability of modules, treating them like R packages, and supplied with documentation</li>
-<li>Learning unit testing the modules</li>
-</ol>
-</section>
-<section id="contributing" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="contributing"><span class="header-section-number">1.4</span> Contributing</h2>
-<p>Contributions are welcome! If you have suggestions or improvements, please open an <a href="https://github.com/joshuamarie/modules-in-r/issues">issue</a> or submit a pull request on the <a href="https://github.com/joshuamarie/modules-in-r">GitHub repository</a>.</p>
-</section>
-<section id="license" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="license"><span class="header-section-number">1.5</span> License</h2>
-<p>This book is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). See the <a href="https://github.com/joshuamarie/modules-in-r/blob/main/LICENSE.md">LICENSE</a> file for details.</p>
-</section>
-<section id="credits" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="credits"><span class="header-section-number">1.6</span> Credits</h2>
-<p>This book was created by <a href="https://github.com/joshuamarie">Joshua Marie</a>.</p>
-<p>Special thanks to:</p>
-<ul>
-<li><a href="https://github.com/klmr">Konrad Rudolph</a> for creating and maintaining the <a href="https://github.com/klmr/box">box</a> package</li>
-<li>The R community for their continued support and feedback</li>
-</ul>
-<p>The book is built with <a href="https://quarto.org/">Quarto</a>, hosted on GitHub Pages.</p>
+<p>Kidding~</p>
+<p>I have no such problem of you guys asking these questions. This type of question, however, is a type of question that I heard many times already.</p>
+<p>I have no problems with tutorials and blogs online about teaching statistics, like predicting what species of iris is gonna be. There are ten thousand blog posts teaching you how to predict iris species with <code>glm()</code>, or Python’s <code>sklearn.linear_model.LogisticRegression()</code></p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <style>
@@ -3535,7 +3489,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Design inspired by <a href="https://github.com/statichunt/geeky-hugo">Geeky Hugo</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/03-modules-in-r/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/07-glm/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

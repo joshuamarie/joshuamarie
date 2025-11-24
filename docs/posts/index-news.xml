@@ -6,10 +6,10 @@
       version="2.0">
 <channel>
 <title>Joshua Marie</title>
-<link>https://joshuamarie.com/#category=python</link>
-<atom:link href="https://joshuamarie.com/index-python.xml" rel="self" type="application/rss+xml"/>
+<link>https://joshuamarie.com/posts/#category=news</link>
+<atom:link href="https://joshuamarie.com/posts/index-news.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.42</generator>
-<lastBuildDate>Mon, 24 Nov 2025 05:19:35 GMT</lastBuildDate>
+<lastBuildDate>Mon, 24 Nov 2025 05:19:39 GMT</lastBuildDate>
 </channel>
 </rss>

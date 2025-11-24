@@ -6,8 +6,8 @@
       version="2.0">
 <channel>
 <title>Joshua Marie</title>
-<link>https://joshuamarie.com/</link>
-<atom:link href="https://joshuamarie.com/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://joshuamarie.com/posts/</link>
+<atom:link href="https://joshuamarie.com/posts/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.42</generator>
 <lastBuildDate>Mon, 24 Nov 2025 16:00:00 GMT</lastBuildDate>

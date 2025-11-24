@@ -2,6 +2,7 @@
   {
     "listing": "/posts/index.html",
     "items": [
+      "/posts/07-glm/index.html",
       "/posts/06-load-pkg/index.html",
       "/posts/05-pipes/index.html",
       "/posts/04-tidyselect-helpers/index.html",
@@ -13,6 +14,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/07-glm/index.html",
       "/posts/06-load-pkg/index.html",
       "/posts/05-pipes/index.html",
       "/posts/04-tidyselect-helpers/index.html",
