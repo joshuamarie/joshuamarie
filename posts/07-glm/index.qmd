@@ -2,7 +2,7 @@
 title: "Tutorial on Generalized Linear Model from scratch"
 subtitle: "Dogmatic statistics for fun series"
 description: "Finally understand what a link function actually does instead of copy-pasting glm() and praying"
-date: "2025-11-25"
+date: "2025-11-23"
 image: "image.png"
 categories: [R, statistics, regression, unhinged-stats, coping-mechanisms, machine-learning]
 format:
