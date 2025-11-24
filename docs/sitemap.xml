@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://joshuamarie.com/services.html</loc>
-    <lastmod>2025-11-23T05:19:34.848Z</lastmod>
+    <lastmod>2025-11-24T08:46:19.161Z</lastmod>
   </url>
   <url>
     <loc>https://joshuamarie.com/posts/index.html</loc>
-    <lastmod>2025-11-24T05:23:59.016Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/posts/05-pipes/index.html</loc>
-    <lastmod>2025-11-20T09:24:50.369Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/posts/03-modules-in-r/index.html</loc>
-    <lastmod>2025-11-20T09:23:29.911Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/posts/01-meta-nn/index.html</loc>
-    <lastmod>2025-11-20T09:22:32.057Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/contacts.html</loc>
-    <lastmod>2025-11-23T05:19:31.337Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/index.html</loc>
-    <lastmod>2025-11-23T05:56:53.127Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/posts/02-arima-grid-search/index.html</loc>
-    <lastmod>2025-11-22T06:01:12.312Z</lastmod>
-  </url>
-  <url>
-    <loc>https://joshuamarie.com/posts/04-tidyselect-helpers/index.html</loc>
-    <lastmod>2025-11-20T09:24:08.283Z</lastmod>
+    <lastmod>2025-11-24T08:30:02.712Z</lastmod>
   </url>
   <url>
     <loc>https://joshuamarie.com/posts/06-load-pkg/index.html</loc>
     <lastmod>2025-11-22T04:00:24.003Z</lastmod>
   </url>
   <url>
-    <loc>https://joshuamarie.com/resources.html</loc>
-    <lastmod>2025-11-23T05:52:36.064Z</lastmod>
+    <loc>https://joshuamarie.com/posts/04-tidyselect-helpers/index.html</loc>
+    <lastmod>2025-11-20T09:24:08.283Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/posts/02-arima-grid-search/index.html</loc>
+    <lastmod>2025-11-22T06:01:12.312Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/index.html</loc>
+    <lastmod>2025-11-24T08:24:29.278Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/contacts.html</loc>
+    <lastmod>2025-11-23T05:19:31.337Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/posts/01-meta-nn/index.html</loc>
+    <lastmod>2025-11-20T09:22:32.057Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/posts/03-modules-in-r/index.html</loc>
+    <lastmod>2025-11-20T09:23:29.911Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/posts/05-pipes/index.html</loc>
+    <lastmod>2025-11-20T09:24:50.369Z</lastmod>
   </url>
   <url>
     <loc>https://joshuamarie.com/posts/07-glm/index.html</loc>
     <lastmod>2025-11-24T05:21:52.903Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joshuamarie.com/resources.html</loc>
+    <lastmod>2025-11-23T05:52:36.064Z</lastmod>
   </url>
 </urlset>

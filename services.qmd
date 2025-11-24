@@ -1,5 +1,6 @@
 ---
-title: "Work with Me — Consulting & Teaching"
+title: "Work with Me"
+subtitle: "Consulting, Development & Teaching"
 comments: false
 format: 
   html: 
@@ -36,9 +37,13 @@ format:
 -   Longitudinal study and time series analysis & forecasting
 -   Applications with Python and R
 
-***Research & Development Consultation***
+### Research & Methods Consultation
 
--  Research study consultation
+-   **Study design** and methodology review
+-   **Statistical analysis** plan development
+-   **Longitudinal studies** and panel data
+-   **Power analysis** and sample size calculation
+-   **Manuscript review** (methods & results sections)
 
 :::
 
@@ -74,7 +79,7 @@ format:
 
 -   **Retainer packages available** for ongoing work
 -   [Book the consultation firm in Calendly](https://calendly.com/joshua-marie-k/consulting-firm)
--   Or email me at: joshua.marie.k@gmail.com
+-   Or email me at: [joshua.marie.k@gmail.com](joshua.marie.k@gmail.com)
 
 :::
 

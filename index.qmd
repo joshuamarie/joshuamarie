@@ -19,11 +19,12 @@ listing:
     contents: 
       - "/posts*/!(index).*md"
       - "/posts/*/*.qmd"
-    feed:
-      categories:
-        - r
-        - python
-        - julia
+    feed: true
+    # feed:
+    #   categories:
+    #     - r
+    #     - python
+    #     - julia
 ---
 
 ::::::: {.hero-section}

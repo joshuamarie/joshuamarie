@@ -8,8 +8,7 @@ listing:
   filter-ui: true
   sort-ui: true
   page-size: 5
-  feed:
-    categories: [news, posts]
+  feed: true
 comments: false
 format: 
   html: 

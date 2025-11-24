@@ -26,6 +26,12 @@ website:
       - icon: linkedin
         href: https://www.linkedin.com/in/joshuamarie/
         aria-label: "LinkedIn"
+      - icon: envelope              # Email icon
+        href: mailto:joshua.marie.k@gmail.com
+        aria-label: "Email"
+      - icon: rss  
+        href: index.xml
+        aria-label: "RSS Feed"
   page-footer:
     center: "Design inspired by [Geeky Hugo](https://github.com/statichunt/geeky-hugo)"
   twitter-card: true
