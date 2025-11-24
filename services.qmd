@@ -1,6 +1,6 @@
 ---
 title: "Work with Me"
-subtitle: "Consulting, Development & Teaching"
+subtitle: "Consulting, Development, Teaching & Freelancing"
 comments: false
 format: 
   html: 
