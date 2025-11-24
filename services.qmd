@@ -11,7 +11,13 @@ format:
 
 ---
 
-## Consultation Firm
+## Consultation Firm {#firm}
+
+::: callout-important
+### Terms and Condition
+
+Read [terms & and conditions](#tac) first before booking. 
+:::
 
 :::: {.info-grid}
 
@@ -85,9 +91,15 @@ format:
 
 ::::
 
-## Course Tutorial
+## Course Tutorial {#course-tutorial}
 
 This is a live session with me, prepared with interactive slides. 
+
+::: callout-important
+### Terms and Condition
+
+Read [terms & and conditions](#tac) first before booking. 
+:::
 
 ### Available Now
 
@@ -104,11 +116,94 @@ This is a live session with me, prepared with interactive slides.
 <!-- -  High-performance numerical computing -->
 <!-- -  Building C/Rust extensions -->
 
-**Bayesian Inference with Stan**
+### ***Bayesian Inference with Stan***
+
 -   Course section 1: Probabilistic programming fundamentals
 -   Course section 2: Stan mechanics
 -   Course section 3: Model building and diagnostics
 
-## Products
+### ***A/B Testing***
 
-### Not available for now
+-   Course section 1: Fundamentals of Experimental Design
+-   Course section 2: Statistical Methods
+-   Course section 3: Advanced Topics & Real-World Implementation
+
+**Primary softwares: **
+
+-   ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
+-   ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+**Back-ups: **
+
+![Julia](https://img.shields.io/badge/Julia-3776AB?style=for-the-badge&logo=julia&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+
+## Products {#prods}
+
+### < Not available for now > 
+
+## Terms & Conditions {#tac}
+
+::: {.callout-note title="Engagement & Pricing" collapse="false"}
+All service fees are determined based on project scope, complexity, and timeline. Rates will be clearly communicated and agreed upon in writing before any work commences. Custom quotes are provided following an initial consultation or discovery call.
+
+**Academic Discount**: Graduate students and non-profit research institutions qualify for a 20% discount on consulting services.
+:::
+
+::: {.callout-note title="Payment Terms" collapse="false"}
+**Consulting & Development**: A 50% deposit is required before project initiation, with the remaining balance due upon completion. Hourly consulting can be billed monthly for ongoing retainers.
+
+**Courses**: Full payment is required at registration. Course materials include a 14-day satisfaction guarantee from the first session date.
+
+**Freelance Projects**: Payment terms are negotiated per project, typically 30-50% upfront with milestone-based payments for larger engagements.
+
+PayPal: International clients can pay via PayPal for added convenience. Link provided in invoice.
+
+:::
+
+::: {.callout-note title="Payment Methods" collapse="false"}
+**Calendly Bookings**: For consultation sessions and course registrations, payment is processed directly through Calendly at the time of booking.
+
+**PayPal**: International clients can pay via PayPal for added convenience. Link provided in invoice.
+
+**Wise (TransferWise)**: Preferred for international transfers with lower fees. Details shared upon request.
+
+**Invoicing**: All project-based work is formally invoiced via email with payment instructions and due dates.
+:::
+
+::: {.callout-note title="Scope & Revisions" collapse="false"}
+Each project includes reasonable revisions as outlined in the initial agreement. Minor adjustments and clarifications are provided at no additional charge. Significant scope changes, additional analyses, or new deliverables will require a revised quote and written approval before proceeding.
+:::
+
+::: {.callout-note title="Confidentiality & Data Security" collapse="false"}
+All client data, project details, and proprietary information are treated with strict confidentiality. I adhere to industry-standard data protection practices and will not disclose any information without explicit written consent. Upon request, a Non-Disclosure Agreement (NDA) can be executed prior to engagement.
+:::
+
+::: {.callout-note title="Project Timelines" collapse="false"}
+Timelines are established during the initial consultation and confirmed in the project agreement. I commit to meeting agreed-upon deadlines and will communicate proactively if unforeseen circumstances arise. 
+
+**Client Responsibilities**: Timely provision of data, feedback, and necessary resources is essential. Delays in client-side deliverables may impact project timelines and will be addressed collaboratively.
+:::
+
+::: {.callout-note title="Intellectual Property" collapse="false"}
+**Client Work**: All custom deliverables, analyses, and reports created specifically for a client become the client's property upon full payment. 
+
+**Reusable Components**: I retain the right to reuse general methodologies, code frameworks, and non-proprietary techniques developed during projects.
+
+**Open Source**: For package development projects, licensing terms (MIT, GPL, etc.) will be agreed upon in advance.
+:::
+
+::: {.callout-note title="Cancellation Policy" collapse="false"}
+**Consulting Sessions**: Cancellations with less than 24 hours notice will be charged at 50% of the session fee. No-shows will be charged the full amount.
+
+**Courses**: Cancellations made 7+ days before the first session receive a full refund. Cancellations within 7 days are non-refundable but can be transferred to a future cohort.
+
+**Project Work**: Cancellation terms are negotiated per project. Completed work up to the cancellation point will be invoiced.
+:::
+
+::: {.callout-note title="Limitation of Liability" collapse="false"}
+Services are provided with professional care and expertise. However, I cannot guarantee specific outcomes or results. Liability is limited to the total fees paid for the specific engagement. Clients are responsible for validating all analyses and recommendations within their specific context before implementation.
+:::
+
+**Questions about these terms?** Contact me at [joshua.marie.k@gmail.com](mailto:joshua.marie.k@gmail.com?subject=Terms%20and%20Conditions%20Inquiry)
+

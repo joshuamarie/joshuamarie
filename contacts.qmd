@@ -1,6 +1,6 @@
 ---
-title: "Contact Me"
-subtitle: "My social accounts"
+# title: "Contact Me"
+# subtitle: "My social accounts — Let's Connect"
 comments: false
 format: 
   html: 
@@ -30,9 +30,12 @@ share:
 
 ::: info-cards
 
--   Email: [joshua.marie.k@gmail.com](joshua.marie.k@gmail.com)
--   GitHub: [github.com/joshuamarie](github.com/joshuamarie)
--   LinkedIn: [linkedin.com/in/joshuamarie/](linkedin.com/in/joshuamarie/)
+## Let's Connect
+
+-   **Quick call**: [Book 15-min discovery call](https://calendly.com/joshua-marie-k/discovery-call)
+-   **Email**: [joshua.marie.k@gmail.com](mailto:joshua.marie.k@gmail.com)
+-   **LinkedIn**: [linkedin.com/in/joshuamarie/](linkedin.com/in/joshuamarie/)
+-   **GitHub**: [github.com/joshuamarie](github.com/joshuamarie)
 
 :::
 

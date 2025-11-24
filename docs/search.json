@@ -11,7 +11,7 @@
     "href": "services.html#course-tutorial",
     "title": "Work with Me",
     "section": "Course Tutorial",
-    "text": "Course Tutorial\nThis is a live session with me, prepared with interactive slides.\n\nAvailable Now\nCore of R Programming\n\nCourse section 1: Functional programming\nCourse section 2: Performance optimization\nCourse section 3: Metaprogramming\n\n\n\nComing Soon\n\n\n\n\nBayesian Inference with Stan - Course section 1: Probabilistic programming fundamentals - Course section 2: Stan mechanics - Course section 3: Model building and diagnostics"
+    "text": "Course Tutorial\nThis is a live session with me, prepared with interactive slides.\n\n\n\n\n\n\nTerms and Condition\n\n\n\nRead terms & and conditions first before booking.\n\n\n\nAvailable Now\nCore of R Programming\n\nCourse section 1: Functional programming\nCourse section 2: Performance optimization\nCourse section 3: Metaprogramming\n\n\n\nComing Soon\n\n\n\n\n\n\nBayesian Inference with Stan\n\nCourse section 1: Probabilistic programming fundamentals\nCourse section 2: Stan mechanics\nCourse section 3: Model building and diagnostics\n\n\n\nA/B Testing\n\nCourse section 1: Fundamentals of Experimental Design\nCourse section 2: Statistical Methods\nCourse section 3: Advanced Topics & Real-World Implementation\n\nPrimary softwares: \n\n\n\n\nR\n\n\n\n\n\nPython\n\n\n\nBack-ups:"
   },
   {
     "objectID": "services.html#products",
@@ -313,5 +313,33 @@
     "title": "My resources",
     "section": "Slides",
     "text": "Slides\n\n\nCuration of slides"
+  },
+  {
+    "objectID": "services.html#firm",
+    "href": "services.html#firm",
+    "title": "Work with Me",
+    "section": "Consultation Firm",
+    "text": "Consultation Firm\n\n\n\n\n\n\nTerms and Condition\n\n\n\nRead terms & and conditions first before booking.\n\n\n\n\n\nWhat I Offer\nMathematics & statistics foundation\n\nCalculus\nLinear Algebra\nProbability and statistics theory\n\nStatistical modelling & Machine Learning 1\n\nStatistical inference and simulation\nBayesian inference with Stan/CmdStan\nCustom model development and validation\n\nStatistical modelling & Machine Learning 2\n\nExperimental design and causal inference\nLongitudinal study and time series analysis & forecasting\nApplications with Python and R\n\n\n\nResearch & Methods Consultation\n\nStudy design and methodology review\nStatistical analysis plan development\nLongitudinal studies and panel data\nPower analysis and sample size calculation\nManuscript review (methods & results sections)\n\n\n\n\nWhat I Offer\nData Science\n\nData Visualization ({ggplot2}, {altair})\nShiny app development\nData manipulation and relational algebra with SQL and {tidyverse}\nGeospatial data analysis\n\nPackage Development\n\nR/Python package development\nAPI design and documentation\nTesting frameworks\nOpen-source maintenance strategies\n\n\n\n\n\n\n\nRates, Inquiry & Engagement\n\n\nRetainer packages available for ongoing work\nBook the consultation firm in Calendly\nOr email me at: joshua.marie.k@gmail.com"
+  },
+  {
+    "objectID": "services.html#prods",
+    "href": "services.html#prods",
+    "title": "Work with Me",
+    "section": "Products",
+    "text": "Products\n\n&lt; Not available for now &gt;"
+  },
+  {
+    "objectID": "services.html#tac",
+    "href": "services.html#tac",
+    "title": "Work with Me",
+    "section": "Terms & Conditions",
+    "text": "Terms & Conditions\n\n\n\n\n\n\nEngagement & Pricing\n\n\n\n\n\nAll service fees are determined based on project scope, complexity, and timeline. Rates will be clearly communicated and agreed upon in writing before any work commences. Custom quotes are provided following an initial consultation or discovery call.\nAcademic Discount: Graduate students and non-profit research institutions qualify for a 20% discount on consulting services.\n\n\n\n\n\n\n\n\n\nPayment Terms\n\n\n\n\n\nConsulting & Development: A 50% deposit is required before project initiation, with the remaining balance due upon completion. Hourly consulting can be billed monthly for ongoing retainers.\nCourses: Full payment is required at registration. Course materials include a 14-day satisfaction guarantee from the first session date.\nFreelance Projects: Payment terms are negotiated per project, typically 30-50% upfront with milestone-based payments for larger engagements.\nPayPal: International clients can pay via PayPal for added convenience. Link provided in invoice.\n\n\n\n\n\n\n\n\n\nPayment Methods\n\n\n\n\n\nCalendly Bookings: For consultation sessions and course registrations, payment is processed directly through Calendly at the time of booking.\nPayPal: International clients can pay via PayPal for added convenience. Link provided in invoice.\nWise (TransferWise): Preferred for international transfers with lower fees. Details shared upon request.\nInvoicing: All project-based work is formally invoiced via email with payment instructions and due dates.\n\n\n\n\n\n\n\n\n\nScope & Revisions\n\n\n\n\n\nEach project includes reasonable revisions as outlined in the initial agreement. Minor adjustments and clarifications are provided at no additional charge. Significant scope changes, additional analyses, or new deliverables will require a revised quote and written approval before proceeding.\n\n\n\n\n\n\n\n\n\nConfidentiality & Data Security\n\n\n\n\n\nAll client data, project details, and proprietary information are treated with strict confidentiality. I adhere to industry-standard data protection practices and will not disclose any information without explicit written consent. Upon request, a Non-Disclosure Agreement (NDA) can be executed prior to engagement.\n\n\n\n\n\n\n\n\n\nProject Timelines\n\n\n\n\n\nTimelines are established during the initial consultation and confirmed in the project agreement. I commit to meeting agreed-upon deadlines and will communicate proactively if unforeseen circumstances arise.\nClient Responsibilities: Timely provision of data, feedback, and necessary resources is essential. Delays in client-side deliverables may impact project timelines and will be addressed collaboratively.\n\n\n\n\n\n\n\n\n\nIntellectual Property\n\n\n\n\n\nClient Work: All custom deliverables, analyses, and reports created specifically for a client become the client’s property upon full payment.\nReusable Components: I retain the right to reuse general methodologies, code frameworks, and non-proprietary techniques developed during projects.\nOpen Source: For package development projects, licensing terms (MIT, GPL, etc.) will be agreed upon in advance.\n\n\n\n\n\n\n\n\n\nCancellation Policy\n\n\n\n\n\nConsulting Sessions: Cancellations with less than 24 hours notice will be charged at 50% of the session fee. No-shows will be charged the full amount.\nCourses: Cancellations made 7+ days before the first session receive a full refund. Cancellations within 7 days are non-refundable but can be transferred to a future cohort.\nProject Work: Cancellation terms are negotiated per project. Completed work up to the cancellation point will be invoiced.\n\n\n\n\n\n\n\n\n\nLimitation of Liability\n\n\n\n\n\nServices are provided with professional care and expertise. However, I cannot guarantee specific outcomes or results. Liability is limited to the total fees paid for the specific engagement. Clients are responsible for validating all analyses and recommendations within their specific context before implementation.\n\n\n\nQuestions about these terms? Contact me at joshua.marie.k@gmail.com"
+  },
+  {
+    "objectID": "contacts.html#lets-connect",
+    "href": "contacts.html#lets-connect",
+    "title": "Joshua Marie",
+    "section": "Let’s Connect",
+    "text": "Let’s Connect\n\nQuick call: Book 15-min discovery call\nEmail: joshua.marie.k@gmail.com\nLinkedIn: linkedin.com/in/joshuamarie/\nGitHub: github.com/joshuamarie"
   }
 ]
