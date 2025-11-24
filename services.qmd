@@ -103,7 +103,7 @@ Read [terms & and conditions](#tac) first before booking.
 
 ### Available Now
 
-[Core of R Programming](https://calendly.com/joshua-marie-k/course-tutorial-1)
+#### [***Core of R Programming***](https://calendly.com/joshua-marie-k/course-tutorial-1)
 
 -   Course section 1: Functional programming
 -   Course section 2: Performance optimization
@@ -116,28 +116,25 @@ Read [terms & and conditions](#tac) first before booking.
 <!-- -  High-performance numerical computing -->
 <!-- -  Building C/Rust extensions -->
 
-### ***Bayesian Inference with Stan***
+#### ***Bayesian Inference with Stan***
 
 -   Course section 1: Probabilistic programming fundamentals
 -   Course section 2: Stan mechanics
 -   Course section 3: Model building and diagnostics
 
-### ***A/B Testing***
+#### ***A/B Testing***
 
 -   Course section 1: Fundamentals of Experimental Design
 -   Course section 2: Statistical Methods
 -   Course section 3: Advanced Topics & Real-World Implementation
 
-**Primary softwares: **
+    ***Primary softwares: ***
 
-![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge)
+    ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge)
 
-**Back-ups: **
-
-![Julia](https://img.shields.io/badge/Julia-3776AB?style=for-the-badge&logo=julia&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+    ***Back-ups: ***
+    
+    ![Julia](https://img.shields.io/badge/Julia-3776AB?style=for-the-badge&logo=julia&logoColor=white) ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white) 
 
 ## Products {#prods}
 
@@ -157,9 +154,6 @@ All service fees are determined based on project scope, complexity, and timeline
 **Courses**: Full payment is required at registration. Course materials include a 14-day satisfaction guarantee from the first session date.
 
 **Freelance Projects**: Payment terms are negotiated per project, typically 30-50% upfront with milestone-based payments for larger engagements.
-
-PayPal: International clients can pay via PayPal for added convenience. Link provided in invoice.
-
 :::
 
 ::: {.callout-note title="Payment Methods" collapse="false"}
