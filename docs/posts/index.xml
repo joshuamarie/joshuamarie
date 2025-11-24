@@ -10,7 +10,7 @@
 <atom:link href="https://joshuamarie.com/posts/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.42</generator>
-<lastBuildDate>Mon, 24 Nov 2025 16:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 22 Nov 2025 16:00:00 GMT</lastBuildDate>
 <item>
   <title>Tutorial on Generalized Linear Model from scratch</title>
   <dc:creator>Joshua Marie</dc:creator>
@@ -43,7 +43,7 @@
   <category>coping-mechanisms</category>
   <category>machine-learning</category>
   <guid>https://joshuamarie.com/posts/07-glm/</guid>
-  <pubDate>Mon, 24 Nov 2025 16:00:00 GMT</pubDate>
+  <pubDate>Sat, 22 Nov 2025 16:00:00 GMT</pubDate>
   <media:content url="https://joshuamarie.com/posts/07-glm/image.png" medium="image" type="image/png"/>
 </item>
 <item>
