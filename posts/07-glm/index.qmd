@@ -4,7 +4,7 @@ subtitle: "Dogmatic statistics for fun series"
 description: "Finally understand what a link function actually does instead of copy-pasting glm() and praying"
 date: "2025-11-23"
 image: "image.png"
-categories: [R, statistics, regression, unhinged-stats, coping-mechanisms, machine-learning]
+categories: [R, Python, statistics, regression, machine-learning]
 format:
     html:
         toc: true
@@ -27,8 +27,9 @@ execute:
     fig-height: 6
 filters: 
     - social-share
+    # - collapse-output
 share:
-    permalink: "https://joshuamarie.com/posts/07-glm/"
+    permalink: "https://joshuamarie.com/posts/07-glm"
     description: "Tutorial on Generalized Linear Model - Joshua Marie"
     twitter: true
     facebook: true
@@ -40,9 +41,8 @@ share:
     mastodon: true
     bsky: true
     location: "before-body"
+engine: knitr
 ---
-
-*Post under construction*
 
 Stop asking:
 
@@ -52,7 +52,527 @@ Stop asking:
 
 Kidding~
 
-I have no such problem of you guys asking these questions. This type of question, however, is a type of question that I heard many times already. 
+I have no such problem of you guys asking these questions. This type of question, however, is a type of question that I heard many times already. I mean, I understand why there's so many misconceptions, and it could be they are not properly taught or...I don't know.
 
-I have no problems with tutorials and blogs online about teaching statistics, like predicting what species of iris is gonna be. There are ten thousand blog posts teaching you how to predict iris species with `glm()`, or Python's `sklearn.linear_model.LogisticRegression()`
+I have no problems with tutorials and blogs online about teaching statistics, like predicting what species of iris is gonna be, or how likely you'll get ebola. There are ten thousand blog posts teaching you how to predict iris species with `glm()`, or Python's `sklearn.linear_model.LogisticRegression()`
 
+Today we’re going **full math gremlin mode** and actually understanding why GLMs exist, why linear regression is a lie for most real data, and why the link function is the most genius hack in 20th-century statistics.
+
+## Let's start with an overview
+
+What did you observe on the mathematical model formula of linear regression and generalized linear model (GLM)? 
+
+Take a look:
+
+***Linear Regression:***
+
+$$Y = \mathbf{X}\beta\ +\ \epsilon$$
+
+where $\mathbf{X}\beta$ expands to:
+$$\beta_0 + x_1\beta_1 + x_2\beta_2 + x_3\beta_3 + \dots + x_n\beta_n$$
+
+How about on GLM?
+
+$$
+g(\mu_i) = \mathbf{x}_i^\top \boldsymbol{\beta} = \eta_i \quad \text{(linear predictor)}
+$$
+
+$$g(\mu)=\eta=\mathbf{X}\beta$$
+
+both are taking the account of the linear model, where the response have linear relationship with the predictors, taken account by $\mathbf{X}\beta$. 
+
+There are few exceptions:
+
+1.  GLMs can take handle of the range not only lies on the real number, but with some strict intervals, unlike Linear regression who has always a range lies on the real number. 
+
+2.  GLMs doesn't have an error term. Why is that? GLMs takes considerations on the *expected value* of the linear model, and when you take the expected value like this: 
+
+    $$E(Y)=E(\mathbf{X}\beta\ + \ \epsilon)$$
+
+    The expected values $E(\mathbf{X}\beta) = \mathbf{X}\beta$ (assuming no randomness in both terms here) and $E(\epsilon) = 0$. Hence: 
+
+    $$E(Y)=\mathbf{X}\beta$$
+
+    and GLMs only care about the expected value
+    
+
+### But wait, what's this $g(\mu)$ doing here?
+
+Yes, it's odd, but hey, it just works. 
+
+There's this thing called **link function**, and it's the reason GLMs exist. Let me break down why we need this weird little function:
+
+In linear regression, the mean of the model would be:
+$$\mu = E(Y) = \mathbf{X}\beta$$
+
+Okay, this definitely feels like "Hey, it works, okay?", but that's my intuition about GLMs. I hope you understood a little in this part. Anyways, that's the mean of the linear regression that we know of, and this works great when $y$ can be any real number. But, I am asking you a question:
+
+What if your outcome isn’t allowed to be just any real number?
+
+-   What if $Y$ is a *count* $(0, 1, 2, 3, ...)$? Let's say *number of kids in a family* — $\mathbf{X}\beta$ could give you -3.7 customers
+-   What if $Y$ is a *probability* (0 to 1)? Probability of rain? Between 0 and 1, inclusive, you monster
+-   What if $Y$ is *binary* (0 or 1)? Let's say "whether someone clicks your ad" —  $\mathbf{X}\beta$ could give you 0.3, and it can't be 1.337, you know. 
+
+This strange thing-y in GLMs, link function $g(\cdot)$, solves this by transforming the mean so that the linear predictor $\eta = \mathbf{X}\beta$ can be any real number, while $\mu$ stays in the valid range. 
+
+Understand? No? Alright, let's say, the output of $\eta$, which is an equivalent of $\mathbf{X}\beta$, should be at least close to the value in $g(\mu)$, which is an equivalent of $g(E(y))$. 
+
+Mathematically:
+$$g(\mu) = \eta = \mathbf{X}\beta$$
+
+So the inverse is:
+$$\mu = g^{-1}(\eta) = g^{-1}(\mathbf{X}\beta)$$
+
+Again, to understand, we fit the model in "transformed space" where everything is linear, then transform back to get predictions in the correct range.
+
+**List of common link functions:**
+
+| Link | $g(\mu)$ | $\mu = g^{-1}(\eta)$ | Used for | Why |
+|------|----------|---------------------|----------|-----|
+| Identity | $\mu$ | $\eta$ | Normal/Gaussian | No transformation needed |
+| Logit | $\log\left(\frac{\mu}{1-\mu}\right)$ | $\frac{1}{1+e^{-\eta}}$ | Binomial/Binary | Maps $(0,1) \to (-\infty, \infty)$ |
+| Log | $\log(\mu)$ | $e^{\eta}$ | Poisson/Counts | Maps $(0, \infty) \to (-\infty, \infty)$ |
+| Probit | $\Phi^{-1}(\mu)$ | $\Phi(\eta)$ | Binomial | For masochists |
+
+### Why Can't We Just Minimize Squared Errors?
+
+In linear regression, we minimize the sum of squared residuals (SSR):
+$$SSR = \sum_{i}(Y_i - \hat{Y}_i)^2 = \sum_{i}(Y_i - \mathbf{X}\beta)^2$$
+
+This has a nice closed-form solution and works because:
+
+-   The errors are approximately normally distributed
+-   The variance is constant (a.k.a. homoscedasticity)
+-   Minimizing SSR is equivalent to maximum likelihood estimation
+
+But in GLMs, these assumptions break down:
+
+-   Binomial data has variance $\mu(1-\mu)$, which depends on the mean
+-   Poisson data has variance equal to the mean $\mu$
+-   The response isn't always in real number or approximately normally distributed (even with the presence of CLT)
+
+So we need the alternative approach: **Maximum Likelihood Estimation** — this is the alternative estimation method for Linear regression. 
+
+In GLM, it will be proven difficult to estimate the optimal solution as the use case will become different. You see the table above? There are actually plenty of them. 
+
+### The Three Sacred Components of GLM
+
+Every GLM has exactly three components. Forget one at your dissertation defense, I dare you:
+
+**1. Random Component (Distribution Family)**
+
+Your response $Y$ has a likelihood function, expressed in an **exponential family distribution**. The fancy math looks like:
+$$f(Y; \theta, \phi) = \exp\left\{\frac{Y\theta - b(\theta)}{a(\phi)} + c(Y, \phi)\right\}$$
+
+Translation: Normal, Binomial, Poisson, Gamma — they're all in this family because they can be written in this form. 
+
+Why do we care? Because exponential family distributions have nice properties:
+
+-   $E[Y] = b'(\theta)$ (the mean is the derivative of that $b$ function)
+-   $\text{Var}(Y) = b''(\theta) \cdot a(\phi)$ (variance is also derived from $b$)
+
+**2. Systematic Component (Linear Predictor)**
+
+$$\eta = \mathbf{X}\beta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots$$
+
+This is just your boring linear combination of predictors. Nothing fancy. We're still doing regression.
+
+**3. Link Function**
+
+$$g(\mu) = \eta$$
+
+Connects your linear predictor $\eta$ (which lives in $(-\infty, \infty)$) to your mean response $\mu$ (which might live in $(0, 1)$ or $[0, \infty)$ or wherever your response is allowed to be).
+
+### Why Linear Regression is Just a Special Case
+
+Notice that if you:
+
+-   Use the **Normal distribution** (random component)
+-   Use the *identity link* $g(\mu) = \mu$ (link function)
+-   Keep the linear predictor $\eta = \mathbf{X}\beta$ (systematic component)
+
+You get just it:
+
+$$\mu = \mathbf{X}\beta$$
+
+which itself is equivalent to $E(y)$
+
+Which is just...your good old ordinary regression: 
+
+::: {.callout-note collapse="false"}
+
+#### In R
+
+``` r
+lm(y ~ x, data = data)
+```
+
+:::
+
+::: {.callout-note collapse="false"}
+
+#### In Python
+
+``` python 
+import statsmodels.formula.api as smf
+
+smf. \ 
+    ols("y ~ x", data = data). \
+    fit(). \ 
+    summary()
+```
+
+::: 
+
+Linear regression is a GLM with no identity, literally and figuratively. 
+
+---
+
+## In-depth mathematics and computation {#math}
+
+*What mathematics do I need to know more?*
+
+Now, you know it takes a lot to optimize the GLM. What are the things you need to know? 
+
+First, in Linear regression, we have two ways to estimate the coefficients: MLE and ordinary least squares (OLS), which is also derived and closed form from the maximum likelihood of the normal distribution. In GLM, we cannot use OLS, thus the MLE is the only main solution. 
+
+Then for the extra part, which we talk about the deviance. Imagine this as the residual sum of squares in GLMs. 
+
+### Maximum Likelihood Estimation
+
+But how do we actually estimate $\beta$? We use *maximum likelihood estimation* (MLE), but considering there are many forms of likelihood functions, derived from several probability distributions came from exponential family, and so there's several link functions to be used, we have to <continue this>
+
+The likelihood for a GLM is:
+
+$$L(\beta) = \prod_{i=1}^n f(y_i; \theta_i, \phi)=\prod_{i=1}^n\exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a(\phi)} + c(y_i, \phi)\right\}$$
+
+Fancy, isn't it? SIKE!! You don't want this, trust me. This thing is so hard to calculate, even the computer starts to act crazy if you really direcly executed a program for this. Direct maximization of this product is computationally difficult. Taking logarithms simplifies things enormously (thanks, John Napier!). 
+
+A sane person would only like what's the easier to eat — The log-likelihood function for the GLM instead:
+
+$$\ell(\beta) = \sum_{i=1}^n \left\{\frac{y_i\theta_i - b(\theta_i)}{a(\phi)} + c(y_i, \phi)\right\}$$
+
+Now, this is much easier to work with because:
+
+-   Products become sums
+-   It's numerically more stable
+-   The maximum is the same (logarithm is monotonic, after all)
+
+### Fisher Scoring / IRLS Algorithm (The Actual Work) {#irls}
+
+Since, there's no actual closed form to calculate the coefficients, we can't solve $U(\beta) = 0$ directly. There's a method we can use called **Iteratively Reweighted Least Squares (IRLS)**, which is just Newton-Raphson but with the Fisher Information Matrix.
+
+Before starting, we need to assign a variable that arbitrarily assigns design matrix `X`, the response vector `y`, and then determines the number of predictors `p`, the number of observations `n`, the maximum iteration `max_iter`, and the tolerance `eps`. 
+
+:::: panel-tabset
+
+#### In R
+
+``` r
+n = nrow(X)
+p = ncol(X)
+max_iter = 100
+eps = 1e-7
+```
+
+#### In Python
+
+``` python
+n = X.shape[0]
+p = X.shape[1]
+max_iter = 100
+eps = 1e-7  
+```
+
+::::
+
+Here are the steps:
+
+#### 1.  **The Algorithm:** 
+
+Start with initial values $\beta^{(0)}$ (usually from an unweighted regression or just zeros).
+
+This is how you program it in R and Python: 
+
+:::: panel-tabset
+
+##### R
+
+``` r
+beta = matrix(0, nrow = p, ncol = 1)
+```
+
+##### Python
+
+``` python
+import numpy as np
+
+beta = np.zeros((p, 1))
+```
+
+::::
+
+#### 2.  **Repeat until convergence:** 
+
+In this step, the extra steps, i.e.: 
+
+-   Calculate linear predictor: $\eta^{(t)} = \mathbf{X}\beta^{(t)}$
+-   Calculate fitted values: $\mu^{(t)} = g^{-1}(\eta^{(t)})$
+-   Calculate weights: 
+
+    $$w_i^{(t)} = \frac{1}{\text{Var}(Y_i)} \left(\frac{\partial \mu_i}{\partial \eta_i}\right)^2$$
+
+-   Calculate working response:
+
+    $$z_i^{(t)} = \eta_i^{(t)} + (y_i - \mu_i^{(t)}) \frac{\partial \eta_i}{\partial \mu_i}$$
+
+-   Update coefficients by solving weighted least squares:
+
+    $$\beta^{(t+1)} = (\mathbf{X}^T W^{(t)} \mathbf{X})^{-1} \mathbf{X}^T W^{(t)} z^{(t)}$$
+
+-   Check convergence: If $|\beta^{(t+1)} - \beta^{(t)}| < \epsilon$, stop. Else, go back to step 1.
+
+:::: panel-tabset
+
+##### R
+
+``` r
+for (i in 1:max_iter) {
+    # 1. Calculate linear predictor
+    eta = X %*% beta
+    
+    # 2. Calculate fitted values
+    mu = family$linkinv(eta)
+    
+    # 3. Calculate weights
+    V = as.vector(family$variance(mu))
+    gradient = as.vector(family$mu.eta(eta))
+    w_vec = (gradient^2) / V
+    
+    # 4. Working response
+    z = as.vector(eta) + (as.vector(y) - mu) / gradient
+    
+    # 5. Update coefficients by solving weighted least squares
+    W = diag(as.vector(w_vec), n, n)
+    beta_new = solve(t(X) %*% W %*% X) %*% t(X) %*% W %*% z
+    
+    # 6. Check convergence
+    if (max(abs(beta_new - beta)) < tol) {
+        beta = beta_new
+        converged = TRUE
+        break
+    }
+    
+    # Final beta
+    beta = beta_new
+}
+```
+
+##### Python
+
+``` python
+for i in range(max_iter):
+    # 1. Calculate linear predictor
+    eta = X @ beta
+    
+    # 2. Calculate fitted values
+    mu = family.linkinv(eta)
+    
+    # 3. Calculate weights
+    V = family.variance(mu).flatten()
+    gradient = family.mu_eta(eta).flatten()
+    w_vec = (gradient ** 2) / V
+    
+    # 4. Working response
+    z = eta + (y - mu) / gp
+    
+    # 5. Update coefficients by solving weighted least squares
+    W = np.diag(w_vec)
+    beta_new = np.linalg.inv(X.T @ W @ X) @ (X.T @ W @ z)
+    
+    # 6. Check convergence
+    if np.max(np.abs(beta_new - beta)) < tol:
+        beta = beta_new
+        converged = True
+        break
+    
+    # Final beta
+    beta = beta_new
+```
+
+::::
+
+### Be deviant: Deviance (GLM's Version of Sum of Squares) <continue this part>
+
+I am not planning to include this, but I was thinking if anyone is curious on how the fitness in GLM is being measured. In Linear regression, we measure model fit using Residual Sum of Squares (RSS). It is so odd for GLM to use other way to measure (well, the key term is "Generalized", after all) — Instead, GLMs use **deviance**:
+
+$$D = 2[\ell(\text{saturated model}) - \ell(\text{fitted model})]$$
+
+The saturated model has $\hat{\mu}_i = y_i$ (perfect fit). Deviance measures how much worse your model is than this.
+
+**For specific families:**
+
+- **Normal / Gaussian**: $D = \sum(y_i - \hat{\mu}_i)^2$ (literally just RSS)
+- **Poisson**: $D = 2\sum\left[y_i\log\left(\frac{y_i}{\hat{\mu}_i}\right) - (y_i - \hat{\mu}_i)\right]$
+- **Binomial**: $D = 2\sum\left[y_i\log\left(\frac{y_i}{\hat{\mu}_i}\right) + (n_i-y_i)\log\left(\frac{n_i-y_i}{n_i-\hat{\mu}_i}\right)\right]$
+
+Lower deviance = better fit.
+
+## Full Function implementation program
+
+The main programming languages are still R and Python. The functions I'll implement below expects to be brittle and not applicable for some cases. 
+
+*The functions are implemented in this [source code](https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm)*.
+
+
+--- 
+
+## Show Me the Money: mtcars Logistic Regression Showdown
+
+*Okay, enough theory — show me the money!*
+
+Now, we can implement a full function only from [*In-depth mathematics and computation*](#math). That is, if you only need the coefficients. Use any dataset you want, but on our example, we'll use the `mtcars` dataset for the simpletons.
+
+Why `mtcars`? Because every R tutorial on earth has used it at least once, and I’m not about to break tradition, am I? We’ll predict whether a car has an automatic (0) or manual (1) transmission (`am`) using horsepower (`hp`), and weight (`wt`). Classic binary outcome -> logistic regression -> GLM with binomial family and logit link.
+
+We’ll do it three ways so you can flex at parties:
+
+1. The lazy way (`stats::glm()` in R / `{statsmodels}` in Python)
+2. The "I swear I'm not crazy" way (calling our own IRLS function in this [part](#irls))
+
+### Tier 1: The lazy way (everyone does this)
+
+This is the "why should I bother making myself one if there's one existed already" part. R has built-in `glm()` from `{stats}` package, while Python has `{statsmodels}` package, ideally under `statsmodels.api`, not under `statsmodels.formula.api`, but for our example, we can use that instead. 
+
+:::: panel-tabset
+
+#### R
+
+```{r}
+fit_r = glm(am ~ hp + wt, data = mtcars, family = binomial(link = "logit"))
+summary(fit_r)
+```
+
+#### Python
+
+```{python}
+import statsmodels.api as sm
+from statsmodels.genmod.families import Binomial
+from statsmodels.genmod.families.links import Logit
+import statsmodels.formula.api as smf
+
+# mtcars = sm.datasets.get_rdataset("mtcars").data
+mtcars = r.mtcars
+
+fit_py = smf \
+    .glm(
+        "am ~ hp + wt",
+        data=mtcars,
+        family=Binomial(link=Logit())
+    ) \
+    .fit()
+
+print(fit_py.summary())
+```
+
+::::
+
+### Tier 2: The “I read the math section” way
+
+:::: panel-tabset
+
+> View the [source code](https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm/glm.r)
+
+#### R
+
+```{r}
+box::use(
+    ./glm[glm_custom]
+)
+
+glm_custom(am ~ hp + wt, data = mtcars, family = binomial())
+```
+
+#### Python
+
+> View the [source code](https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm/glm.py)
+
+```{python}
+from glm import glm_custom
+import glm
+
+print(glm_custom('am ~ hp + wt', data = mtcars, family = glm.Binomial()))
+```
+
+::::
+
+---
+
+## When Things Go Wrong (Trust me, they Will)
+
+### "My model won't converge!"
+
+-   Check for complete separation in logistic regression
+-   Try scaling your predictors
+-   Check for perfect multicollinearity
+-   Or just accept that your data is cursed
+
+### "My coefficients are huge!"
+
+-   You forgot to scale your variables
+-   Or you have a separation issue
+-   Or your data really is that dramatic
+
+### "The deviance is gigantic!"
+
+-   Maybe your model actually sucks?
+-   Or you have outliers
+-   Check if you're using the right family
+-   Consider adding interaction terms or polynomial terms
+
+### "I'm getting warnings about fitted probabilities of 0 or 1"
+
+-   This is actually okay sometimes! It means you have very confident predictions
+-   But if you're getting tons of these, you might have separation issues
+-   Check your data for extreme values
+
+---
+
+## Final Boss Wisdom
+
+- Linear regression is a GLM that forgot it was a GLM
+- The link function is the reason you’re not predicting negative counts
+- IRLS is just weighted least squares that updates itself until it stops crying
+- Deviance is RSS for adults
+
+Go forth and model responsibly.
+
+## References
+
+- McCullagh & Nelder (1989) – The Bible. Dense. Bring coffee and a therapist.
+- Dobson & Barnett – Actually readable introduction
+- Faraway – Practical R examples, minimal pain
+- Nelder & Wedderburn (1972) – The original paper. Short, brilliant, life-changing
+- The UCLA stats page on GLMs – Still the best free resource in 2025
+
+And remember:
+
+> “All models are wrong. But GLMs are wrong in the most elegant way possible.”
+
+Now go write some proper models, you beautiful statistician.
+
+## Appendix — Cheat Sheet
+
+*Which GLM Should I Use?*
+
+| Your Y looks like... | Distribution | Link | R Code | Python Code |
+|---------------------|--------------|------|---------|-------------|
+| 0, 1, 2, 3... (counts) | Poisson | log | `family = poisson()` | `sm.families.Poisson()` |
+| Yes/No (binary) | Binomial | logit | `family = binomial()` | `sm.families.Binomial()` |
+| 0.2, 0.7, 0.4... (proportions) | Binomial | logit | `family = binomial()` | `sm.families.Binomial()` |
+| Always positive, right-skewed | Gamma | log | `family = Gamma()` | `sm.families.Gamma()` |
+| Any real number | Gaussian | identity | `family = gaussian()` or `lm()` | `sm.families.Gaussian()` |
+
+*Oh wait, the overdispersion in count data? R pre-installs `{MASS}` anyways, so bother use `glm.nb()` yourself. *
+
+**Pro tip**: When in doubt, plot your residuals. If they look like a crime scene, you chose wrong.

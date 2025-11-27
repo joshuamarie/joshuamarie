@@ -4,3 +4,7 @@
 .Ruserdata
 
 /.quarto/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
