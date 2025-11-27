@@ -1,7 +1,7 @@
 ---
 title: "Tutorial on Generalized Linear Model from scratch"
 subtitle: "Dogmatic statistics for fun series"
-description: "Finally understand what a link function actually does instead of copy-pasting glm() and praying"
+description: "Finally understand what a link function actually does instead of just copy-pasting glm()"
 date: "2025-11-23"
 image: "image.png"
 categories: [R, Python, statistics, regression, machine-learning]
@@ -481,9 +481,9 @@ print(fit_py.summary())
 
 :::: panel-tabset
 
-> View the [source code](https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm/glm.r)
-
 #### R
+
+> View the [source code](https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm/glm.r)
 
 ```{r}
 box::use(

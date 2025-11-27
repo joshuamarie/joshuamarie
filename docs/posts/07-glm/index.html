@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Joshua Marie">
 <meta name="dcterms.date" content="2025-11-23">
-<meta name="description" content="Finally understand what a link function actually does instead of copy-pasting glm() and praying">
+<meta name="description" content="Finally understand what a link function actually does instead of just copy-pasting glm()">
 <title>Tutorial on Generalized Linear Model from scratch – Joshua Marie</title>
 <style>
 code{white-space: pre-wrap;}
@@ -134,7 +134,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../Theme/code.css">
 <link rel="stylesheet" href="../Theme/table.css">
 <meta name="twitter:title" content="Tutorial on Generalized Linear Model from scratch – Joshua Marie">
-<meta name="twitter:description" content="Finally understand what a link function actually does instead of copy-pasting glm() and praying">
+<meta name="twitter:description" content="Finally understand what a link function actually does instead of just copy-pasting glm()">
 <meta name="twitter:image" content="https://joshuamarie.com/posts/07-glm/image.png">
 <meta name="twitter:image-height" content="1024">
 <meta name="twitter:image-width" content="1536">
@@ -204,7 +204,7 @@ window.Quarto = {
             <p class="subtitle lead">Dogmatic statistics for fun series</p>
                   <div>
         <div class="description">
-          Finally understand what a link function actually does instead of copy-pasting glm() and praying
+          Finally understand what a link function actually does instead of just copy-pasting glm()
         </div>
       </div>
                           <div class="quarto-categories">
@@ -727,7 +727,7 @@ Model Family:                Binomial   Df Model:                            2
 Link Function:                  Logit   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -5.0296
 Date:                Thu, 27 Nov 2025   Deviance:                       10.059
-Time:                        19:51:19   Pearson chi2:                     15.0
+Time:                        19:55:57   Pearson chi2:                     15.0
 No. Iterations:                     8   Pseudo R-squ. (CS):             0.6453
 Covariance Type:            nonrobust                                         
 ==============================================================================
@@ -751,6 +751,9 @@ wt            -8.0835      3.069     -2.634      0.008     -14.098      -2.069
 </ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<blockquote class="blockquote">
+<p>View the <a href="https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm/glm.r">source code</a></p>
+</blockquote>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html">use</a></span><span class="op">(</span></span>
 <span>    <span class="va">.</span><span class="op">/</span><span class="va">glm</span><span class="op">[</span><span class="va">glm_custom</span><span class="op">]</span></span>

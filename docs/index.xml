@@ -1003,7 +1003,7 @@ Model Family:                Binomial   Df Model:                            2
 Link Function:                  Logit   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -5.0296
 Date:                Thu, 27 Nov 2025   Deviance:                       10.059
-Time:                        19:51:19   Pearson chi2:                     15.0
+Time:                        19:55:57   Pearson chi2:                     15.0
 No. Iterations:                     8   Pseudo R-squ. (CS):             0.6453
 Covariance Type:            nonrobust                                         
 ==============================================================================
@@ -1027,6 +1027,9 @@ wt            -8.0835      3.069     -2.634      0.008     -14.098      -2.069
 </ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" aria-labelledby="tabset-5-1-tab">
+<blockquote class="blockquote">
+<p>View the <a href="https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm/glm.r">source code</a></p>
+</blockquote>
 <div class="cell">
 <div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
