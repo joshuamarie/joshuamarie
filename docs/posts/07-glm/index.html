@@ -257,17 +257,17 @@ window.Quarto = {
   <li>
 <a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">2</span> In-depth mathematics and computation</a>
   <ul class="collapse">
-<li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#maximum-likelihood-estimation"><span class="header-section-number">2.1</span> Maximum Likelihood Estimation</a></li>
+<li><a href="#mle" id="toc-mle" class="nav-link" data-scroll-target="#mle"><span class="header-section-number">2.1</span> Maximum Likelihood Estimation</a></li>
   <li><a href="#irls" id="toc-irls" class="nav-link" data-scroll-target="#irls"><span class="header-section-number">2.2</span> Fisher Scoring / IRLS Algorithm (The Actual Work)</a></li>
-  <li><a href="#be-deviant-deviance-glms-version-of-sum-of-squares" id="toc-be-deviant-deviance-glms-version-of-sum-of-squares" class="nav-link" data-scroll-target="#be-deviant-deviance-glms-version-of-sum-of-squares"><span class="header-section-number">2.3</span> Be deviant: Deviance (GLM’s Version of Sum of Squares) <continue this="" part=""></continue></a></li>
+  <li><a href="#deviance" id="toc-deviance" class="nav-link" data-scroll-target="#deviance"><span class="header-section-number">2.3</span> Be deviant: Deviance (GLM’s Version of Sum of Squares)</a></li>
   </ul>
 </li>
-  <li><a href="#full-function-implementation-program" id="toc-full-function-implementation-program" class="nav-link" data-scroll-target="#full-function-implementation-program"><span class="header-section-number">3</span> Full Function implementation program</a></li>
+  <li><a href="#full-function-implementation" id="toc-full-function-implementation" class="nav-link" data-scroll-target="#full-function-implementation"><span class="header-section-number">3</span> Full Function implementation</a></li>
   <li>
 <a href="#show-me-the-money-mtcars-logistic-regression-showdown" id="toc-show-me-the-money-mtcars-logistic-regression-showdown" class="nav-link" data-scroll-target="#show-me-the-money-mtcars-logistic-regression-showdown"><span class="header-section-number">4</span> Show Me the Money: mtcars Logistic Regression Showdown</a>
   <ul class="collapse">
 <li><a href="#tier-1-the-lazy-way-everyone-does-this" id="toc-tier-1-the-lazy-way-everyone-does-this" class="nav-link" data-scroll-target="#tier-1-the-lazy-way-everyone-does-this"><span class="header-section-number">4.1</span> Tier 1: The lazy way (everyone does this)</a></li>
-  <li><a href="#tier-2-the-i-read-the-math-section-way" id="toc-tier-2-the-i-read-the-math-section-way" class="nav-link" data-scroll-target="#tier-2-the-i-read-the-math-section-way"><span class="header-section-number">4.2</span> Tier 2: The “I read the math section” way</a></li>
+  <li><a href="#tier-2-the-i-implemented-irls-at-3-am-way" id="toc-tier-2-the-i-implemented-irls-at-3-am-way" class="nav-link" data-scroll-target="#tier-2-the-i-implemented-irls-at-3-am-way"><span class="header-section-number">4.2</span> Tier 2: The “I Implemented IRLS at 3 AM” way</a></li>
   </ul>
 </li>
   <li>
@@ -280,7 +280,7 @@ window.Quarto = {
   </ul>
 </li>
   <li><a href="#final-boss-wisdom" id="toc-final-boss-wisdom" class="nav-link" data-scroll-target="#final-boss-wisdom"><span class="header-section-number">6</span> Final Boss Wisdom</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
+  <li><a href="#some-good-references" id="toc-some-good-references" class="nav-link" data-scroll-target="#some-good-references"><span class="header-section-number">7</span> Some good references</a></li>
   <li><a href="#appendix-cheat-sheet" id="toc-appendix-cheat-sheet" class="nav-link" data-scroll-target="#appendix-cheat-sheet"><span class="header-section-number">8</span> Appendix — Cheat Sheet</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/07-glm/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -296,12 +296,14 @@ window.Quarto = {
 <li>“Do my data need to be normally distributed?”</li>
 <li>“Can I just use linear regression on counts lol?”</li>
 </ul>
+<p><img src="spongebob-brain-on-fire.gif" class="img-fluid"></p>
 <p>Kidding~</p>
 <p>I have no such problem of you guys asking these questions. This type of question, however, is a type of question that I heard many times already. I mean, I understand why there’s so many misconceptions, and it could be they are not properly taught or…I don’t know.</p>
 <p>I have no problems with tutorials and blogs online about teaching statistics, like predicting what species of iris is gonna be, or how likely you’ll get ebola. There are ten thousand blog posts teaching you how to predict iris species with <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>, or Python’s <code>sklearn.linear_model.LogisticRegression()</code></p>
 <p>Today we’re going <strong>full math gremlin mode</strong> and actually understanding why GLMs exist, why linear regression is a lie for most real data, and why the link function is the most genius hack in 20th-century statistics.</p>
 <section id="lets-start-with-an-overview" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="lets-start-with-an-overview">
 <span class="header-section-number">1</span> Let’s start with an overview</h2>
+<p><img src="lr.jpg" class="img-fluid"></p>
 <p>What did you observe on the mathematical model formula of linear regression and generalized linear model (GLM)?</p>
 <p>Take a look:</p>
 <p><strong><em>Linear Regression:</em></strong></p>
@@ -410,7 +412,9 @@ g(\mu_i) = \mathbf{x}_i^\top \boldsymbol{\beta} = \eta_i \quad \text{(linear pre
 </section><section id="the-three-sacred-components-of-glm" class="level3" data-number="1.3"><h3 data-number="1.3" class="anchored" data-anchor-id="the-three-sacred-components-of-glm">
 <span class="header-section-number">1.3</span> The Three Sacred Components of GLM</h3>
 <p>Every GLM has exactly three components. Forget one at your dissertation defense, I dare you:</p>
-<p><strong>1. Random Component (Distribution Family)</strong></p>
+<ol type="1">
+<li>
+<p>Random Component (Distribution Family)</p>
 <p>Your response <span class="math inline">\(Y\)</span> has a likelihood function, expressed in an <strong>exponential family distribution</strong>. The fancy math looks like: <span class="math display">\[f(Y; \theta, \phi) = \exp\left\{\frac{Y\theta - b(\theta)}{a(\phi)} + c(Y, \phi)\right\}\]</span></p>
 <p>Translation: Normal, Binomial, Poisson, Gamma — they’re all in this family because they can be written in this form.</p>
 <p>Why do we care? Because exponential family distributions have nice properties:</p>
@@ -420,18 +424,23 @@ g(\mu_i) = \mathbf{x}_i^\top \boldsymbol{\beta} = \eta_i \quad \text{(linear pre
 <li>
 <span class="math inline">\(\text{Var}(Y) = b''(\theta) \cdot a(\phi)\)</span> (variance is also derived from <span class="math inline">\(b\)</span>)</li>
 </ul>
-<p><strong>2. Systematic Component (Linear Predictor)</strong></p>
+</li>
+<li>
+<p>Systematic Component (Linear Predictor)</p>
 <p><span class="math display">\[\eta = \mathbf{X}\beta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots\]</span></p>
 <p>This is just your boring linear combination of predictors. Nothing fancy. We’re still doing regression.</p>
-<p><strong>3. Link Function</strong></p>
+</li>
+<li>
+<p>Link Function</p>
 <p><span class="math display">\[g(\mu) = \eta\]</span></p>
 <p>Connects your linear predictor <span class="math inline">\(\eta\)</span> (which lives in <span class="math inline">\((-\infty, \infty)\)</span>) to your mean response <span class="math inline">\(\mu\)</span> (which might live in <span class="math inline">\((0, 1)\)</span> or <span class="math inline">\([0, \infty)\)</span> or wherever your response is allowed to be).</p>
-</section><section id="why-linear-regression-is-just-a-special-case" class="level3" data-number="1.4"><h3 data-number="1.4" class="anchored" data-anchor-id="why-linear-regression-is-just-a-special-case">
+</li>
+</ol></section><section id="why-linear-regression-is-just-a-special-case" class="level3" data-number="1.4"><h3 data-number="1.4" class="anchored" data-anchor-id="why-linear-regression-is-just-a-special-case">
 <span class="header-section-number">1.4</span> Why Linear Regression is Just a Special Case</h3>
 <p>Notice that if you:</p>
 <ul>
 <li>Use the <strong>Normal distribution</strong> (random component)</li>
-<li>Use the <em>identity link</em> <span class="math inline">\(g(\mu) = \mu\)</span> (link function)</li>
+<li>Its <em>identity link</em> <span class="math inline">\(g(\mu) = \mu\)</span> (link function)</li>
 <li>Keep the linear predictor <span class="math inline">\(\eta = \mathbf{X}\beta\)</span> (systematic component)</li>
 </ul>
 <p>You get just it:</p>
@@ -478,16 +487,20 @@ In Python
 <p>Linear regression is a GLM with no identity, literally and figuratively.</p>
 <hr></section></section><section id="math" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="math">
 <span class="header-section-number">2</span> In-depth mathematics and computation</h2>
+<p><img src="math.gif" class="img-fluid"></p>
 <p><em>What mathematics do I need to know more?</em></p>
 <p>Now, you know it takes a lot to optimize the GLM. What are the things you need to know?</p>
-<p>First, in Linear regression, we have two ways to estimate the coefficients: MLE and ordinary least squares (OLS), which is also derived and closed form from the maximum likelihood of the normal distribution. In GLM, we cannot use OLS, thus the MLE is the only main solution.</p>
-<p>Then for the extra part, which we talk about the deviance. Imagine this as the residual sum of squares in GLMs.</p>
-<section id="maximum-likelihood-estimation" class="level3" data-number="2.1"><h3 data-number="2.1" class="anchored" data-anchor-id="maximum-likelihood-estimation">
+<p>First, in Linear regression, we have two ways to estimate the coefficients: MLE and ordinary least squares (OLS), which also can be derived and closed form from the maximum likelihood of the normal distribution. In GLM, we cannot use OLS, thus no closed form solution and <a href="#mle">MLE</a> is the only main solution.</p>
+<p>Then for the extra part, which we talk about the <a href="#deviance">deviance</a>. Imagine this as the residual sum of squares in GLMs.</p>
+<section id="mle" class="level3" data-number="2.1"><h3 data-number="2.1" class="anchored" data-anchor-id="mle">
 <span class="header-section-number">2.1</span> Maximum Likelihood Estimation</h3>
-<p>But how do we actually estimate <span class="math inline">\(\beta\)</span>? We use <em>maximum likelihood estimation</em> (MLE), but considering there are many forms of likelihood functions, derived from several probability distributions came from exponential family, and so there’s several link functions to be used, we have to <continue this=""></continue></p>
+<p>But how do we actually estimate <span class="math inline">\(\beta\)</span>? We use <em>maximum likelihood estimation</em> (MLE), but considering there are many forms of likelihood functions, derived from several probability distributions came from exponential family, and so there’s several link functions to be derived.</p>
 <p>The likelihood for a GLM is:</p>
 <p><span class="math display">\[L(\beta) = \prod_{i=1}^n f(y_i; \theta_i, \phi)=\prod_{i=1}^n\exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a(\phi)} + c(y_i, \phi)\right\}\]</span></p>
-<p>Fancy, isn’t it? SIKE!! You don’t want this, trust me. This thing is so hard to calculate, even the computer starts to act crazy if you really direcly executed a program for this. Direct maximization of this product is computationally difficult. Taking logarithms simplifies things enormously (thanks, John Napier!).</p>
+<p>Fancy, isn’t it?</p>
+<p>SIKE!!</p>
+<p><img src="sike.gif" class="img-fluid"></p>
+<p>You don’t want this, trust me. This thing is so hard to calculate, even the computer starts to act crazy if you really direcly executed a program for this. Direct maximization of this product is computationally difficult. Taking logarithms simplifies things enormously (thanks, John Napier!).</p>
 <p>A sane person would only like what’s the easier to eat — The log-likelihood function for the GLM instead:</p>
 <p><span class="math display">\[\ell(\beta) = \sum_{i=1}^n \left\{\frac{y_i\theta_i - b(\theta_i)}{a(\phi)} + c(y_i, \phi)\right\}\]</span></p>
 <p>Now, this is much easier to work with because:</p>
@@ -497,7 +510,7 @@ In Python
 <li>The maximum is the same (logarithm is monotonic, after all)</li>
 </ul></section><section id="irls" class="level3" data-number="2.2"><h3 data-number="2.2" class="anchored" data-anchor-id="irls">
 <span class="header-section-number">2.2</span> Fisher Scoring / IRLS Algorithm (The Actual Work)</h3>
-<p>Since, there’s no actual closed form to calculate the coefficients, we can’t solve <span class="math inline">\(U(\beta) = 0\)</span> directly. There’s a method we can use called <strong>Iteratively Reweighted Least Squares (IRLS)</strong>, which is just Newton-Raphson but with the Fisher Information Matrix.</p>
+<p>Since, there’s no actual closed form to calculate the coefficients, we can’t solve <span class="math inline">\(U(\beta) = 0\)</span> directly. There’s a method we can use called <strong>Iteratively Reweighted Least Squares (IRLS)</strong>, which is just Newton-Raphson but with the Fisher Information Matrix, denoted as <span class="math inline">\(W\)</span>.</p>
 <p>Before starting, we need to assign a variable that arbitrarily assigns design matrix <code>X</code>, the response vector <code>y</code>, and then determines the number of predictors <code>p</code>, the number of observations <code>n</code>, the maximum iteration <code>max_iter</code>, and the tolerance <code>eps</code>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
@@ -630,10 +643,9 @@ In Python
 </div>
 </div>
 </div>
-</section></section><section id="be-deviant-deviance-glms-version-of-sum-of-squares" class="level3" data-number="2.3"><h3 data-number="2.3" class="anchored" data-anchor-id="be-deviant-deviance-glms-version-of-sum-of-squares">
-<span class="header-section-number">2.3</span> Be deviant: Deviance (GLM’s Version of Sum of Squares) <continue this="" part=""></continue>
-</h3>
-<p>I am not planning to include this, but I was thinking if anyone is curious on how the fitness in GLM is being measured. In Linear regression, we measure model fit using Residual Sum of Squares (RSS). It is so odd for GLM to use other way to measure (well, the key term is “Generalized”, after all) — Instead, GLMs use <strong>deviance</strong>:</p>
+</section></section><section id="deviance" class="level3" data-number="2.3"><h3 data-number="2.3" class="anchored" data-anchor-id="deviance">
+<span class="header-section-number">2.3</span> Be deviant: Deviance (GLM’s Version of Sum of Squares)</h3>
+<p>To be frank, I am not planning to include this, but I was thinking if anyone is curious on how the fitness in GLMs is being measured. In Linear regression, we measure model fit by summarizing the residuals using Residual Sum of Squares (RSS). It is so odd for GLM to use other way to measure (well, the key term is “Generalized”, after all) — Instead, GLMs use <strong>deviance</strong>:</p>
 <p><span class="math display">\[D = 2[\ell(\text{saturated model}) - \ell(\text{fitted model})]\]</span></p>
 <p>The saturated model has <span class="math inline">\(\hat{\mu}_i = y_i\)</span> (perfect fit). Deviance measures how much worse your model is than this.</p>
 <p><strong>For specific families:</strong></p>
@@ -648,9 +660,9 @@ In Python
 </li>
 </ul>
 <p>Lower deviance = better fit.</p>
-</section></section><section id="full-function-implementation-program" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="full-function-implementation-program">
-<span class="header-section-number">3</span> Full Function implementation program</h2>
-<p>The main programming languages are still R and Python. The functions I’ll implement below expects to be brittle and not applicable for some cases.</p>
+</section></section><section id="full-function-implementation" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="full-function-implementation">
+<span class="header-section-number">3</span> Full Function implementation</h2>
+<p>The main programming languages are still R and Python. The functions I implemented expects to be brittle and not applicable for some cases.</p>
 <p><em>The functions are implemented in this <a href="https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm">source code</a></em>.</p>
 <hr></section><section id="show-me-the-money-mtcars-logistic-regression-showdown" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="show-me-the-money-mtcars-logistic-regression-showdown">
 <span class="header-section-number">4</span> Show Me the Money: mtcars Logistic Regression Showdown</h2>
@@ -660,7 +672,7 @@ In Python
 <p>We’ll do it three ways so you can flex at parties:</p>
 <ol type="1">
 <li>The lazy way (<code><a href="https://rdrr.io/r/stats/glm.html">stats::glm()</a></code> in R / <code>{statsmodels}</code> in Python)</li>
-<li>The “I swear I’m not crazy” way (calling our own IRLS function in this <a href="#irls">part</a>)</li>
+<li>The “I Implemented IRLS at 3 AM” way (calling our own IRLS function in this <a href="#irls">part</a>)</li>
 </ol>
 <section id="tier-1-the-lazy-way-everyone-does-this" class="level3" data-number="4.1"><h3 data-number="4.1" class="anchored" data-anchor-id="tier-1-the-lazy-way-everyone-does-this">
 <span class="header-section-number">4.1</span> Tier 1: The lazy way (everyone does this)</h3>
@@ -726,8 +738,8 @@ Model:                            GLM   Df Residuals:                       29
 Model Family:                Binomial   Df Model:                            2
 Link Function:                  Logit   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -5.0296
-Date:                Thu, 27 Nov 2025   Deviance:                       10.059
-Time:                        19:55:57   Pearson chi2:                     15.0
+Date:                Fri, 28 Nov 2025   Deviance:                       10.059
+Time:                        12:18:15   Pearson chi2:                     15.0
 No. Iterations:                     8   Pseudo R-squ. (CS):             0.6453
 Covariance Type:            nonrobust                                         
 ==============================================================================
@@ -742,8 +754,8 @@ wt            -8.0835      3.069     -2.634      0.008     -14.098      -2.069
 </div>
 </div>
 </div>
-</section><section id="tier-2-the-i-read-the-math-section-way" class="level3" data-number="4.2"><h3 data-number="4.2" class="anchored" data-anchor-id="tier-2-the-i-read-the-math-section-way">
-<span class="header-section-number">4.2</span> Tier 2: The “I read the math section” way</h3>
+</section><section id="tier-2-the-i-implemented-irls-at-3-am-way" class="level3" data-number="4.2"><h3 data-number="4.2" class="anchored" data-anchor-id="tier-2-the-i-implemented-irls-at-3-am-way">
+<span class="header-section-number">4.2</span> Tier 2: The “I Implemented IRLS at 3 AM” way</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">R</a></li>
@@ -828,8 +840,8 @@ $iterations
 <li>Deviance is RSS for adults</li>
 </ul>
 <p>Go forth and model responsibly.</p>
-</section><section id="references" class="level2" data-number="7"><h2 data-number="7" class="anchored" data-anchor-id="references">
-<span class="header-section-number">7</span> References</h2>
+</section><section id="some-good-references" class="level2" data-number="7"><h2 data-number="7" class="anchored" data-anchor-id="some-good-references">
+<span class="header-section-number">7</span> Some good references</h2>
 <ul>
 <li>McCullagh &amp; Nelder (1989) – The Bible. Dense. Bring coffee and a therapist.</li>
 <li>Dobson &amp; Barnett – Actually readable introduction</li>

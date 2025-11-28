@@ -50,6 +50,8 @@ Stop asking:
 - "Do my data need to be normally distributed?"
 - "Can I just use linear regression on counts lol?"
 
+![](spongebob-brain-on-fire.gif)
+
 Kidding~
 
 I have no such problem of you guys asking these questions. This type of question, however, is a type of question that I heard many times already. I mean, I understand why there's so many misconceptions, and it could be they are not properly taught or...I don't know.
@@ -59,6 +61,8 @@ I have no problems with tutorials and blogs online about teaching statistics, li
 Today we’re going **full math gremlin mode** and actually understanding why GLMs exist, why linear regression is a lie for most real data, and why the link function is the most genius hack in 20th-century statistics.
 
 ## Let's start with an overview
+
+![](lr.jpg)
 
 What did you observe on the mathematical model formula of linear regression and generalized linear model (GLM)? 
 
@@ -159,36 +163,36 @@ In GLM, it will be proven difficult to estimate the optimal solution as the use 
 
 Every GLM has exactly three components. Forget one at your dissertation defense, I dare you:
 
-**1. Random Component (Distribution Family)**
+1.  Random Component (Distribution Family)
 
-Your response $Y$ has a likelihood function, expressed in an **exponential family distribution**. The fancy math looks like:
-$$f(Y; \theta, \phi) = \exp\left\{\frac{Y\theta - b(\theta)}{a(\phi)} + c(Y, \phi)\right\}$$
+    Your response $Y$ has a likelihood function, expressed in an **exponential family distribution**. The fancy math looks like:
+    $$f(Y; \theta, \phi) = \exp\left\{\frac{Y\theta - b(\theta)}{a(\phi)} + c(Y, \phi)\right\}$$
+    
+    Translation: Normal, Binomial, Poisson, Gamma — they're all in this family because they can be written in this form. 
+    
+    Why do we care? Because exponential family distributions have nice properties:
+    
+    -   $E[Y] = b'(\theta)$ (the mean is the derivative of that $b$ function)
+    -   $\text{Var}(Y) = b''(\theta) \cdot a(\phi)$ (variance is also derived from $b$)
 
-Translation: Normal, Binomial, Poisson, Gamma — they're all in this family because they can be written in this form. 
+2.  Systematic Component (Linear Predictor)
 
-Why do we care? Because exponential family distributions have nice properties:
+    $$\eta = \mathbf{X}\beta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots$$
+    
+    This is just your boring linear combination of predictors. Nothing fancy. We're still doing regression.
 
--   $E[Y] = b'(\theta)$ (the mean is the derivative of that $b$ function)
--   $\text{Var}(Y) = b''(\theta) \cdot a(\phi)$ (variance is also derived from $b$)
+3.  Link Function
 
-**2. Systematic Component (Linear Predictor)**
-
-$$\eta = \mathbf{X}\beta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots$$
-
-This is just your boring linear combination of predictors. Nothing fancy. We're still doing regression.
-
-**3. Link Function**
-
-$$g(\mu) = \eta$$
-
-Connects your linear predictor $\eta$ (which lives in $(-\infty, \infty)$) to your mean response $\mu$ (which might live in $(0, 1)$ or $[0, \infty)$ or wherever your response is allowed to be).
+    $$g(\mu) = \eta$$
+    
+    Connects your linear predictor $\eta$ (which lives in $(-\infty, \infty)$) to your mean response $\mu$ (which might live in $(0, 1)$ or $[0, \infty)$ or wherever your response is allowed to be).
 
 ### Why Linear Regression is Just a Special Case
 
 Notice that if you:
 
 -   Use the **Normal distribution** (random component)
--   Use the *identity link* $g(\mu) = \mu$ (link function)
+-   Its *identity link* $g(\mu) = \mu$ (link function)
 -   Keep the linear predictor $\eta = \mathbf{X}\beta$ (systematic component)
 
 You get just it:
@@ -230,23 +234,31 @@ Linear regression is a GLM with no identity, literally and figuratively.
 
 ## In-depth mathematics and computation {#math}
 
+![](math.gif)
+
 *What mathematics do I need to know more?*
 
 Now, you know it takes a lot to optimize the GLM. What are the things you need to know? 
 
-First, in Linear regression, we have two ways to estimate the coefficients: MLE and ordinary least squares (OLS), which is also derived and closed form from the maximum likelihood of the normal distribution. In GLM, we cannot use OLS, thus the MLE is the only main solution. 
+First, in Linear regression, we have two ways to estimate the coefficients: MLE and ordinary least squares (OLS), which also can be derived and closed form from the maximum likelihood of the normal distribution. In GLM, we cannot use OLS, thus no closed form solution and [MLE](#mle) is the only main solution. 
 
-Then for the extra part, which we talk about the deviance. Imagine this as the residual sum of squares in GLMs. 
+Then for the extra part, which we talk about the [deviance](#deviance). Imagine this as the residual sum of squares in GLMs. 
 
-### Maximum Likelihood Estimation
+### Maximum Likelihood Estimation {#mle}
 
-But how do we actually estimate $\beta$? We use *maximum likelihood estimation* (MLE), but considering there are many forms of likelihood functions, derived from several probability distributions came from exponential family, and so there's several link functions to be used, we have to <continue this>
+But how do we actually estimate $\beta$? We use *maximum likelihood estimation* (MLE), but considering there are many forms of likelihood functions, derived from several probability distributions came from exponential family, and so there's several link functions to be derived.
 
 The likelihood for a GLM is:
 
 $$L(\beta) = \prod_{i=1}^n f(y_i; \theta_i, \phi)=\prod_{i=1}^n\exp\left\{\frac{y_i\theta_i - b(\theta_i)}{a(\phi)} + c(y_i, \phi)\right\}$$
 
-Fancy, isn't it? SIKE!! You don't want this, trust me. This thing is so hard to calculate, even the computer starts to act crazy if you really direcly executed a program for this. Direct maximization of this product is computationally difficult. Taking logarithms simplifies things enormously (thanks, John Napier!). 
+Fancy, isn't it? 
+
+SIKE!! 
+
+![](sike.gif)
+
+You don't want this, trust me. This thing is so hard to calculate, even the computer starts to act crazy if you really direcly executed a program for this. Direct maximization of this product is computationally difficult. Taking logarithms simplifies things enormously (thanks, John Napier!). 
 
 A sane person would only like what's the easier to eat — The log-likelihood function for the GLM instead:
 
@@ -260,7 +272,7 @@ Now, this is much easier to work with because:
 
 ### Fisher Scoring / IRLS Algorithm (The Actual Work) {#irls}
 
-Since, there's no actual closed form to calculate the coefficients, we can't solve $U(\beta) = 0$ directly. There's a method we can use called **Iteratively Reweighted Least Squares (IRLS)**, which is just Newton-Raphson but with the Fisher Information Matrix.
+Since, there's no actual closed form to calculate the coefficients, we can't solve $U(\beta) = 0$ directly. There's a method we can use called **Iteratively Reweighted Least Squares (IRLS)**, which is just Newton-Raphson but with the Fisher Information Matrix, denoted as $W$.
 
 Before starting, we need to assign a variable that arbitrarily assigns design matrix `X`, the response vector `y`, and then determines the number of predictors `p`, the number of observations `n`, the maximum iteration `max_iter`, and the tolerance `eps`. 
 
@@ -402,9 +414,9 @@ for i in range(max_iter):
 
 ::::
 
-### Be deviant: Deviance (GLM's Version of Sum of Squares) <continue this part>
+### Be deviant: Deviance (GLM's Version of Sum of Squares) {#deviance}
 
-I am not planning to include this, but I was thinking if anyone is curious on how the fitness in GLM is being measured. In Linear regression, we measure model fit using Residual Sum of Squares (RSS). It is so odd for GLM to use other way to measure (well, the key term is "Generalized", after all) — Instead, GLMs use **deviance**:
+To be frank, I am not planning to include this, but I was thinking if anyone is curious on how the fitness in GLMs is being measured. In Linear regression, we measure model fit by summarizing the residuals using Residual Sum of Squares (RSS). It is so odd for GLM to use other way to measure (well, the key term is "Generalized", after all) — Instead, GLMs use **deviance**:
 
 $$D = 2[\ell(\text{saturated model}) - \ell(\text{fitted model})]$$
 
@@ -418,12 +430,11 @@ The saturated model has $\hat{\mu}_i = y_i$ (perfect fit). Deviance measures how
 
 Lower deviance = better fit.
 
-## Full Function implementation program
+## Full Function implementation
 
-The main programming languages are still R and Python. The functions I'll implement below expects to be brittle and not applicable for some cases. 
+The main programming languages are still R and Python. The functions I implemented expects to be brittle and not applicable for some cases.
 
 *The functions are implemented in this [source code](https://github.com/joshuamarie/joshuamarie/tree/main/posts/07-glm)*.
-
 
 --- 
 
@@ -438,7 +449,7 @@ Why `mtcars`? Because every R tutorial on earth has used it at least once, and I
 We’ll do it three ways so you can flex at parties:
 
 1. The lazy way (`stats::glm()` in R / `{statsmodels}` in Python)
-2. The "I swear I'm not crazy" way (calling our own IRLS function in this [part](#irls))
+2. The "I Implemented IRLS at 3 AM" way (calling our own IRLS function in this [part](#irls))
 
 ### Tier 1: The lazy way (everyone does this)
 
@@ -477,7 +488,7 @@ print(fit_py.summary())
 
 ::::
 
-### Tier 2: The “I read the math section” way
+### Tier 2: The “I Implemented IRLS at 3 AM” way
 
 :::: panel-tabset
 
@@ -547,7 +558,7 @@ print(glm_custom('am ~ hp + wt', data = mtcars, family = glm.Binomial()))
 
 Go forth and model responsibly.
 
-## References
+## Some good references
 
 - McCullagh & Nelder (1989) – The Bible. Dense. Bring coffee and a therapist.
 - Dobson & Barnett – Actually readable introduction
