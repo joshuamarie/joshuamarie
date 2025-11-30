@@ -2,7 +2,7 @@
 title: "Why SQL + R is an affable combo when I start learning SQL?"
 date: "2025-11-28"
 image: "image.png"
-categories: [R, SQL, data-science, analytics]
+categories: [R, SQL, data-science, analytics, tidyverse]
 description: "Learn mastering both — and how to make them work together seamlessly."
 format:
     html:

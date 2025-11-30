@@ -1527,6 +1527,7 @@ FROM (
   <category>SQL</category>
   <category>data-science</category>
   <category>analytics</category>
+  <category>tidyverse</category>
   <guid>https://joshuamarie.com/posts/08-sql-r/</guid>
   <pubDate>Thu, 27 Nov 2025 16:00:00 GMT</pubDate>
   <media:content url="https://joshuamarie.com/posts/08-sql-r/image.png" medium="image" type="image/png" height="121" width="144"/>
