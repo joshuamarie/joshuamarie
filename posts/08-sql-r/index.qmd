@@ -1,0 +1,357 @@
+---
+title: "Why SQL + R is an affable combo when I start learning SQL?"
+date: "2025-11-28"
+image: "image.png"
+categories: [R, SQL, data-science, analytics]
+description: "Learn mastering both — and how to make them work together seamlessly."
+format:
+    html:
+        toc: true
+        toc-float: true
+        toc-depth: 3
+        number-sections: true
+        code-fold: false
+        code-tools: false
+        theme: default
+        highlight-style: tango
+        fig-width: 10
+        fig-height: 6
+        fig-cap-location: bottom
+        code-annotations: hover
+execute:
+    echo: true
+    warning: false
+    message: false
+filters:
+    - social-share
+share:
+    permalink: "https://joshuamarie.com/posts/08-sql-r"
+    description: "Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie"
+    twitter: true
+    facebook: true
+    reddit: true
+    stumble: true
+    tumblr: true
+    linkedin: true
+    email: true
+    mastodon: true
+    bsky: true
+    location: "before-body"
+engine: knitr
+---
+
+## Introduction
+
+I am already using R since 2018, and uses SQL since around 2022-2023. Way back in 2023, I am learning one of the most valuable feature in R, and that's the ability to integrate R into other software. That's because I only use softwares independently, i.e. R only, Python only, etc. This is how I first learn SQL, and I learn few frameworks that integrates R and SQL databases. 
+
+If you've spent any time in data science, I am sure you encountered language wars and such debates — there's like hundreds or maybe thousands of blogs spread in the community comparing which languages is better or worse. I am not talking about that in this blog post, however, here's the thing — it's not really a versus situation. SQL and R are like peanut butter and jelly. Each is good on its own, but why not both? *Flavorful*. 
+
+<!-- ![](why-not-both.gif) -->
+
+Regardless, SQL excels at what databases do best: storing, organizing, and retrieving massive amounts of data with lightning speed. R, on the other hand, shines where creativity and complexity matter: statistical modeling, advanced visualizations, and transforming raw data into insights that actually mean something. 
+
+In this post, I'll show you why combo-ing R and SQL isn't just nice to have — it's my stack. And more importantly, I'll show you what I know how to make them work together so seamlessly you'll wonder how you ever worked any other way.
+
+## Why Learn SQL Through R?
+
+Before we dive into the technical details, let me explain why R is actually a fantastic environment for learning SQL:
+
+1.  Immediate Feedback Loop
+
+    When you're learning SQL in a traditional database environment, you often need to set up servers, configure connections, and deal with authentication. With R, you can start writing queries in seconds and see results immediately in your familiar R environment.
+
+2.  Best of Both Worlds
+
+    You can write pure SQL when you want to practice, or use `{dplyr}` syntax and see the generated SQL. This dual approach accelerates learning because you can:
+    
+    -   Write `{dplyr}` code and inspect the SQL it produces
+    -   Compare your hand-written SQL with `{dbplyr}`'s output
+    -   Gradually transition from `{dplyr}` comfort to SQL mastery
+
+3.  Visualization Integration
+
+    The moment you query data, you can pipe it directly into `{ggplot2}` or other R visualization tools. No export/import cycles, no switching between applications—just seamless analysis.
+
+4.  Reproducible Workflows  
+
+    Everything lives in a script or R Markdown document. Your queries, analysis, and visualizations are all version-controlled and reproducible.
+
+## Tools and Packages
+
+I can name few tools and packages on working with SQL databases in R, most especially when you just started. I don't have any database in my own device, but did you know you can simulate databases? These are the tools and packages to start:
+
+1.  `{tidyverse}` — Why this? This is a package that holds the complete set of tools in data science, and that includes working with databases. Speaking of which, this is a *meta-package* that also contains what we need: `{dbplyr}`, which also contains `{DBI}` package dependency. 
+2.  `{box}` — I already talked about this package in my previous blog posts. Please, take a look at them if you have some time:
+
+    - [Box: Placing module system into R](https://joshuamarie.com/posts/03-modules-in-r/)
+    - [In my "Ways to load / attach packages in R" blog post ](https://joshuamarie.com/posts/06-load-pkg/#box)
+
+3.  `{dbplyr}` — This is the magic translator. It converts your familiar `{dplyr}` code into SQL queries behind the scenes. You write R, it speaks SQL to the database. The best part? You can inspect the SQL it generates, which makes it a fantastic learning tool.
+4.  `{DBI}` — Think of this as the universal adapter for database connections. It provides a consistent interface whether you're connecting to SQLite, PostgreSQL, MySQL, or other databases. It handles the connection, sending queries, and fetching results.
+5.  `{RSQLite}` — This is the R interface to SQLite databases. SQLite is perfect for learning because it's lightweight, requires no server setup, and the entire database is just a single file on your computer.
+
+Install them through this:
+
+::: panel-tabset
+
+### Native R
+
+``` r
+install.packages(c('tidyverse', 'box', 'RSQLite'))
+```
+
+### Using **{pak}**
+
+Install them directly
+
+``` r
+pak::pak(c(
+    'tidyverse', 
+    'box', 
+    'RSQLite'
+))
+```
+
+When you preferred the development version
+
+``` r
+pak::pak(c(
+    "tidyverse/tidyverse", 
+    "klmr/box", 
+    "r-dbi/RSQLite"
+))
+```
+
+:::
+
+## With existing database
+
+I learn SQL thanks to SQLite. This is a language-agnostic library, written in C, that acts like a database while being lightweight. You can use it literally everywhere! It is also used to built into everywhere, it could be mobile phones and most computers. 
+
+Thanks to SQLite, I made a first move to learn SQL without installing heavy softwares, such as PostgreSQL and MySQL, just to learn SQL. Additionally, SQLite is an open-source, but not open for contribution (I believe this is designed for good purpose). 
+
+### Why SQLite is Perfect for Learning
+
+Here's why SQLite is the ideal training ground:
+
+- **No server required** — It's just a file on your computer
+- **Zero configuration** — No ports, users, or permissions to set up
+- **Lightweight** — Databases can be megabytes instead of gigabytes
+- **Production-ready** — Despite being "lite," it's used in production by major applications
+- **SQL standard** — You learn real SQL that transfers to other databases
+
+In a positive sense, R and SQL is a great combo. Maybe R and SQL is not a great combo for software development as Python and SQL combo, R and SQL can make a place in data analysis instead. As long as you have `{DBI}` and `{RSQLite}` installed in your R, you can now make a first move on integrating R and SQL, and you're good to go. 
+
+### SQLite in R
+
+Oh, you can definitely learn SQL and R at the same time, considering that SQLite is portable and lightweight. The only primary requirements are `{DBI}` and `{RSQLite}`. If you know how to write a query, you don't need a compatible set of packages in `{tidyverse}` and `{dbplyr}`, otherwise, as long as you know how to use `{tidyverse}` packages, namely `{dplyr}`, `{tidyr}`, etc., you can use it instead. 
+
+Let me show you how to connect to a SQLite database and work with it:
+
+```{r}
+#| code-fold: true
+box::use(
+    DBI[dbConnect, dbWriteTable, dbDisconnect], 
+    RSQLite[SQLite]
+)
+
+# <1>
+con = dbConnect(SQLite(), "first_database.sqlite")
+
+# <2>
+df = data.frame(
+    id = 1:5,
+    name = c("Alice", "Bob", "Charlie", "Diana", "Eve"),
+    age = c(25, 30, 35, 28, 42),
+    city = c("New York", "London", "Tokyo", "Paris", "Sydney")
+)
+
+# <3>
+dbWriteTable(
+    con, 
+    "customers",
+    df, 
+    overwrite = TRUE
+)
+```
+
+1.  Create a connection (this creates the database file if it doesn't exist)
+2.  Create some sample data
+3.  Write the data as a *table* to the database 
+
+::: {.callout-note title="Explanation" collapse="true"}
+
+1.  Create a connection (this creates the database file if it doesn't exist)
+2.  Create some sample data
+3.  Write the data as a *table* to the database 
+:::
+
+**What just happened?**  
+We created a SQLite database file called `first_database.sqlite` in your working directory. Inside it, we created a table called `customers` with our sample data. If the file already exists, R simply connects to it.
+
+### Two Ways to Query: Pure SQL vs {dplyr}
+
+Now comes the fun part—you can query this database in two different ways, and each has its benefits for learning.
+
+:::: panel-tabset
+
+#### Just SQL
+
+Did you know that with `{knitr}`, you can write SQL code chunks directly in your R Markdown or Quarto documents? This is incredibly handy for mixing SQL queries with your data analysis in R.
+
+```` 
+```\{sql connection=con\}
+SELECT name, age, city 
+FROM customers 
+WHERE age > 30
+```
+````
+
+> Kindly remove the `\` when you copy the code chunk above.
+
+Alright, I wrote the SQL code chunk above again here for your reference:
+
+```{sql connection=con}
+SELECT name, age, city 
+FROM customers 
+WHERE age > 30
+```
+
+Or you can store the query into a string, and send it via `DBI::dbSendQuery()`, placed in `statement` argument. 
+
+```{r}
+DBI::dbSendQuery(
+    con, 
+    "SELECT name, age, city \nFROM customers \nWHERE age > 30"
+)
+```
+
+**Why this matters for learning:**  
+You're writing actual SQL. No training wheels. This builds muscle memory for SQL syntax and helps you think in terms of SQL operations: SELECT, FROM, WHERE, JOIN, GROUP BY, etc.
+
+#### **{dplyr}** API
+
+Nothing can make it so easy to work with databases using a familiar syntax with `{dplyr}`. Yes, with `{dbplyr}`, you can use `{dplyr}` functions to interact with your database tables as if they were regular data frames in R. Here's how you can perform the same query using `{dplyr}`:
+
+```{r}
+box::use(
+    dplyr[filter, select, tbl, collect, show_query]
+)
+
+customers_tbl = tbl(con, "customers")
+
+out = customers_tbl |> 
+    filter(age > 30) |> 
+    select(name, age, city)
+
+out |> collect()
+```
+
+**The magic behind this:**  
+
+When you use `{dplyr}` verbs on a database table, `{dbplyr}` doesn't immediately execute anything. It's lazy! It builds up the query and only executes it when you call `collect()`. This is efficient because:
+
+-   You can chain many operations without multiple round-trips to the database
+-   Only the final result set gets pulled into R memory
+-   The heavy computation happens in the database where it's optimized
+
+**See the generated SQL:**  
+
+How about getting the SQL query generated by `{dbplyr}`? You can use the `show_query()` function to see the SQL that `{dbplyr}` generates for your `{dplyr}` code:
+
+```{r}
+out |> 
+    show_query()
+```
+
+Easy, right? If you know R already, treat it as your SQL teacher! Write familiar `{dplyr}` code, then check the SQL translation. Over time, you'll start to intuitively understand how `filter()` becomes `WHERE`, how `select()` becomes `SELECT`, and how more complex operations translate to SQL.
+
+::::
+
+### Working with Query Results
+
+Once you have query results, you can treat them like any R data frame:
+
+```{r}
+#| code-fold: true
+box::use(
+    ggplot2[ggplot, aes, geom_col, theme_minimal, labs]
+)
+
+# 1 
+result_data = collect(out)
+
+# 2 
+result_data |>  
+    ggplot(aes(x = name, y = age, fill = city)) +
+    geom_col() +
+    theme_minimal() +
+    labs(
+        title = "Customers Over 30",
+        x = "Name",
+        y = "Age"
+    )
+```
+
+::: {.callout-note title="Explanation" collapse="true"}
+
+1.  Retrieve the data
+2.  Now you can analyze it with R
+:::
+
+This is where the R + SQL combination really shines. You use SQL's efficiency to get exactly the data you need, then R's rich ecosystem for analysis and visualization.
+
+### Database Hygiene
+
+Always remember to close your database connections once you're done:
+
+```{r}
+dbDisconnect(con)
+```
+
+This releases resources and ensures your database file isn't locked. In practice, connections are also closed automatically when your R session ends, but it's good practice to do it explicitly.
+
+## Learning SQL in R without a server
+
+But I know some of you wants to know what it looks like to use the existing database and then call it in R. 
+
+I literally said in the introduction that you can *simulate* — I have another different meaning: 
+
+    -   Use `simulate_*` family functions in `{dbplyr}` package. These functions allow you to create in-memory database tables that mimic real database behavior without needing an actual database server. This is perfect for learning and testing SQL queries in R.
+
+### What Are Simulated Connections?
+
+Simulated connections create an in-memory representation of how different database systems handle SQL. This means you can:
+
+-   See how your `{dplyr}` code translates to different SQL dialects
+-   Learn SQL without any database installation
+-   Test queries before running them on production databases
+-   Understand the quirks of different database systems
+
+### Demonstration: Simulating Microsoft SQL Server
+
+First, let me show you how it looks like to connect to a database, i.e. SQLite in this case, and work with it. Try imagine you have a SQL server, and you want to connect to it using R. Use `simulate_mssql()` function to simulate a Microsoft SQL Server database connection:
+
+```{r}
+box::use(
+    dbplyr[simulate_mssql, tbl_lazy]
+)
+
+con_sim = simulate_mssql()
+
+customers_sim = tbl_lazy(df, con_sim)
+customers_sim |> 
+    select(name, age, city) |> 
+    filter(age > 30)
+```
+
+We are performing a pure lazy evaluation in this step
+
+## Conclusion
+
+SQL and R aren't competitors—they're collaborators. SQL is your data retrieval expert, getting you exactly the data you need with incredible efficiency. R is your analysis specialist, turning that data into insights, models, and visualizations.
+
+The data scientists who succeed are the ones who can speak both languages fluently. They use SQL to ask databases the right questions, and R to find the answers that matter.
+
+So don't pick sides. Master both. Your future self (and your future employers) will thank you.
+

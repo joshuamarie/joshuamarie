@@ -7,8 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua Marie">
+<meta name="dcterms.date" content="2025-11-28">
+<meta name="description" content="Learn mastering both — and how to make them work together seamlessly.">
 
-<title>Check out my blogs – Joshua Marie</title>
+<title>Why SQL + R is an affable combo when I start learning SQL? – Joshua Marie</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,30 +23,65 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../assets/jm-favicon.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-68c8bffd90dad8f2b55c52d7b6410dc0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-51f5074e41d91c1059017abd0b6219d3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/jm-favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0a95de2c3be981c2e03029825b16c585.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4f90e7b736d88b8ae6544ef5f78d50a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/social-share-1.0.0/social-share.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/social-share-1.0.0/all.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,78 +109,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      page: 5,
-    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9842567530621468" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../styles/base.css">
-<link rel="stylesheet" href="../styles/layout.css">
-<link rel="stylesheet" href="../styles/hero.css">
-<link rel="stylesheet" href="../styles/cards.css">
-<link rel="stylesheet" href="../styles/about.css">
-<link rel="stylesheet" href="../styles/dark-mode.css">
-<link rel="stylesheet" href="Theme/code.css">
-<link rel="stylesheet" href="Theme/table.css">
-<link rel="alternate" type="application/rss+xml" title="Joshua Marie" href="index.xml" data-external="1"><meta name="twitter:title" content="Check out my blogs – Joshua Marie">
-<meta name="twitter:description" content="">
+<link rel="stylesheet" href="../../styles/base.css">
+<link rel="stylesheet" href="../../styles/layout.css">
+<link rel="stylesheet" href="../../styles/hero.css">
+<link rel="stylesheet" href="../../styles/cards.css">
+<link rel="stylesheet" href="../../styles/about.css">
+<link rel="stylesheet" href="../../styles/dark-mode.css">
+<link rel="stylesheet" href="../Theme/code.css">
+<link rel="stylesheet" href="../Theme/table.css">
+<meta name="twitter:title" content="Why SQL + R is an affable combo when I start learning SQL? – Joshua Marie">
+<meta name="twitter:description" content="Learn mastering both — and how to make them work together seamlessly.">
 <meta name="twitter:image" content="https://joshuamarie.com/posts/08-sql-r/image.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -155,7 +133,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Joshua Marie</span>
     </a>
   </div>
@@ -166,19 +144,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../services.html"> 
+    <a class="nav-link" href="../../services.html"> 
 <span class="menu-text">Services</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contacts.html"> 
+    <a class="nav-link" href="../../contacts.html"> 
 <span class="menu-text">Contact</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resources.html"> 
+    <a class="nav-link" href="../../resources.html"> 
 <span class="menu-text">My resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../posts/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../posts/index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
 </ul>
@@ -199,14 +177,13 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS Feed">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS Feed">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -215,8 +192,19 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Check out my blogs</h1>
-                      </div>
+      <h1 class="title">Why SQL + R is an affable combo when I start learning SQL?</h1>
+                  <div>
+        <div class="description">
+          Learn mastering both — and how to make them work together seamlessly.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">SQL</div>
+                <div class="quarto-category">data-science</div>
+                <div class="quarto-category">analytics</div>
+              </div>
+                  </div>
   </div>
     
   
@@ -229,6 +217,12 @@ window.Quarto = {
             </div>
     </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 28, 2025</p>
+      </div>
+    </div>
     
       
     </div>
@@ -242,365 +236,407 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#subscribe-to-my-newsletter" id="toc-subscribe-to-my-newsletter" class="nav-link active" data-scroll-target="#subscribe-to-my-newsletter">Subscribe to My Newsletter</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#why-learn-sql-through-r" id="toc-why-learn-sql-through-r" class="nav-link" data-scroll-target="#why-learn-sql-through-r"><span class="header-section-number">2</span> Why Learn SQL Through R?</a></li>
+  <li><a href="#tools-and-packages" id="toc-tools-and-packages" class="nav-link" data-scroll-target="#tools-and-packages"><span class="header-section-number">3</span> Tools and Packages</a></li>
+  <li><a href="#with-existing-database" id="toc-with-existing-database" class="nav-link" data-scroll-target="#with-existing-database"><span class="header-section-number">4</span> With existing database</a>
+  <ul class="collapse">
+  <li><a href="#why-sqlite-is-perfect-for-learning" id="toc-why-sqlite-is-perfect-for-learning" class="nav-link" data-scroll-target="#why-sqlite-is-perfect-for-learning"><span class="header-section-number">4.1</span> Why SQLite is Perfect for Learning</a></li>
+  <li><a href="#sqlite-in-r" id="toc-sqlite-in-r" class="nav-link" data-scroll-target="#sqlite-in-r"><span class="header-section-number">4.2</span> SQLite in R</a></li>
+  <li><a href="#two-ways-to-query-pure-sql-vs-dplyr" id="toc-two-ways-to-query-pure-sql-vs-dplyr" class="nav-link" data-scroll-target="#two-ways-to-query-pure-sql-vs-dplyr"><span class="header-section-number">4.3</span> Two Ways to Query: Pure SQL vs {dplyr}</a></li>
+  <li><a href="#working-with-query-results" id="toc-working-with-query-results" class="nav-link" data-scroll-target="#working-with-query-results"><span class="header-section-number">4.4</span> Working with Query Results</a></li>
+  <li><a href="#database-hygiene" id="toc-database-hygiene" class="nav-link" data-scroll-target="#database-hygiene"><span class="header-section-number">4.5</span> Database Hygiene</a></li>
+  </ul></li>
+  <li><a href="#learning-sql-in-r-without-a-server" id="toc-learning-sql-in-r-without-a-server" class="nav-link" data-scroll-target="#learning-sql-in-r-without-a-server"><span class="header-section-number">5</span> Learning SQL in R without a server</a>
+  <ul class="collapse">
+  <li><a href="#what-are-simulated-connections" id="toc-what-are-simulated-connections" class="nav-link" data-scroll-target="#what-are-simulated-connections"><span class="header-section-number">5.1</span> What Are Simulated Connections?</a></li>
+  <li><a href="#demonstration-simulating-microsoft-sql-server" id="toc-demonstration-simulating-microsoft-sql-server" class="nav-link" data-scroll-target="#demonstration-simulating-microsoft-sql-server"><span class="header-section-number">5.2</span> Demonstration: Simulating Microsoft SQL Server</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6</span> Conclusion</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(8)</span></div><div class="category" data-category="YW5hbHl0aWNz">analytics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ym9vaw==">book <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YS1zY2llbmNl">data-science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z3JpZC1zZWFyY2g=">grid-search <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFjaGluZS1sZWFybmluZw==">machine-learning <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cGFja2FnZXM=">packages <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGlwZXM=">pipes <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cG9pbnRsZXNzLWNvZGU=">pointless-code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvZ3JhbW1pbmc=">programming <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(8)</span></div><div class="category" data-category="cmVncmVzc2lvbg==">regression <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U1FM">SQL <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3RhdGlzdGljcw==">statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGlkeXNlbGVjdA==">tidyselect <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGlkeXZlcnNl">tidyverse <span class="quarto-category-count">(2)</span></div><div class="category" data-category="dGltZS1zZXJpZXM=">time-series <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dG9yY2g=">torch <span class="quarto-category-count">(1)</span></div></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/08-sql-r/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
+<div class="page-columns page-rows-contents page-layout-article"><div class="social-share"><a href="https://twitter.com/share?url=https://joshuamarie.com/posts/08-sql-r&amp;text=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie" target="_blank" class="twitter"><i class="fab fa-twitter fa-fw fa-lg"></i></a><a href="https://www.linkedin.com/shareArticle?url=https://joshuamarie.com/posts/08-sql-r&amp;title=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie" target="_blank" class="linkedin"><i class="fa-brands fa-linkedin-in fa-fw fa-lg"></i></a>  <a href="mailto:?subject=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie&amp;body=Check out this link:https://joshuamarie.com/posts/08-sql-r" target="_blank" class="email"><i class="fa-solid fa-envelope fa-fw fa-lg"></i></a><a href="https://www.facebook.com/sharer.php?u=https://joshuamarie.com/posts/08-sql-r" target="_blank" class="facebook"><i class="fab fa-facebook-f fa-fw fa-lg"></i></a><a href="https://reddit.com/submit?url=https://joshuamarie.com/posts/08-sql-r&amp;title=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie" target="_blank" class="reddit">   <i class="fa-brands fa-reddit-alien fa-fw fa-lg"></i></a><a href="https://www.stumbleupon.com/submit?url=https://joshuamarie.com/posts/08-sql-r&amp;title=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie" target="_blank" class="stumbleupon"><i class="fa-brands fa-stumbleupon fa-fw fa-lg"></i></a><a href="https://www.tumblr.com/share/link?url=https://joshuamarie.com/posts/08-sql-r&amp;name=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie" target="_blank" class="tumblr"><i class="fa-brands fa-tumblr fa-fw fa-lg"></i></a><a href="javascript:void(0);" onclick="var mastodon_instance=prompt('Mastodon Instance / Server Name?'); if(typeof mastodon_instance==='string' &amp;&amp; mastodon_instance.length){this.href='https://'+mastodon_instance+'/share?text=Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie https://joshuamarie.com/posts/08-sql-r'}else{return false;}" target="_blank" class="mastodon"><i class="fa-brands fa-mastodon fa-fw fa-lg"></i></a><a href="https://bsky.app/intent/compose?text=https://joshuamarie.com/posts/08-sql-r Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie" target="_blank" class="bsky"><i class="fa-brands fa-bluesky"></i></a></div></div>
 
 
 
 
 
-<section id="subscribe-to-my-newsletter" class="level2">
-<h2 class="anchored" data-anchor-id="subscribe-to-my-newsletter">Subscribe to My Newsletter</h2>
-<p>Get notified when I publish new posts. No spam, unsubscribe anytime</p>
-<iframe src="https://joshuamarie.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white; margin-top: 1rem; margin-bottom: 3rem;" frameborder="0" scrolling="no">
-</iframe>
-<hr>
-
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>I am already using R since 2018, and uses SQL since around 2022-2023. Way back in 2023, I am learning one of the most valuable feature in R, and that’s the ability to integrate R into other software. That’s because I only use softwares independently, i.e.&nbsp;R only, Python only, etc. This is how I first learn SQL, and I learn few frameworks that integrates R and SQL databases.</p>
+<p>If you’ve spent any time in data science, I am sure you encountered language wars and such debates — there’s like hundreds or maybe thousands of blogs spread in the community comparing which languages is better or worse. I am not talking about that in this blog post, however, here’s the thing — it’s not really a versus situation. SQL and R are like peanut butter and jelly. Each is good on its own, but why not both? <em>Flavorful</em>.</p>
+<!-- ![](why-not-both.gif) -->
+<p>Regardless, SQL excels at what databases do best: storing, organizing, and retrieving massive amounts of data with lightning speed. R, on the other hand, shines where creativity and complexity matter: statistical modeling, advanced visualizations, and transforming raw data into insights that actually mean something.</p>
+<p>In this post, I’ll show you why combo-ing R and SQL isn’t just nice to have — it’s my stack. And more importantly, I’ll show you what I know how to make them work together so seamlessly you’ll wonder how you ever worked any other way.</p>
+</section>
+<section id="why-learn-sql-through-r" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="why-learn-sql-through-r"><span class="header-section-number">2</span> Why Learn SQL Through R?</h2>
+<p>Before we dive into the technical details, let me explain why R is actually a fantastic environment for learning SQL:</p>
+<ol type="1">
+<li><p>Immediate Feedback Loop</p>
+<p>When you’re learning SQL in a traditional database environment, you often need to set up servers, configure connections, and deal with authentication. With R, you can start writing queries in seconds and see results immediately in your familiar R environment.</p></li>
+<li><p>Best of Both Worlds</p>
+<p>You can write pure SQL when you want to practice, or use <code>{dplyr}</code> syntax and see the generated SQL. This dual approach accelerates learning because you can:</p>
+<ul>
+<li>Write <code>{dplyr}</code> code and inspect the SQL it produces</li>
+<li>Compare your hand-written SQL with <code>{dbplyr}</code>’s output</li>
+<li>Gradually transition from <code>{dplyr}</code> comfort to SQL mastery</li>
+</ul></li>
+<li><p>Visualization Integration</p>
+<p>The moment you query data, you can pipe it directly into <code>{ggplot2}</code> or other R visualization tools. No export/import cycles, no switching between applications—just seamless analysis.</p></li>
+<li><p>Reproducible Workflows</p>
+<p>Everything lives in a script or R Markdown document. Your queries, analysis, and visualizations are all version-controlled and reproducible.</p></li>
+</ol>
+</section>
+<section id="tools-and-packages" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="tools-and-packages"><span class="header-section-number">3</span> Tools and Packages</h2>
+<p>I can name few tools and packages on working with SQL databases in R, most especially when you just started. I don’t have any database in my own device, but did you know you can simulate databases? These are the tools and packages to start:</p>
+<ol type="1">
+<li><p><code>{tidyverse}</code> — Why this? This is a package that holds the complete set of tools in data science, and that includes working with databases. Speaking of which, this is a <em>meta-package</em> that also contains what we need: <code>{dbplyr}</code>, which also contains <code>{DBI}</code> package dependency.</p></li>
+<li><p><code>{box}</code> — I already talked about this package in my previous blog posts. Please, take a look at them if you have some time:</p>
+<ul>
+<li><a href="https://joshuamarie.com/posts/03-modules-in-r/">Box: Placing module system into R</a></li>
+<li><a href="https://joshuamarie.com/posts/06-load-pkg/#box">In my “Ways to load / attach packages in R” blog post</a></li>
+</ul></li>
+<li><p><code>{dbplyr}</code> — This is the magic translator. It converts your familiar <code>{dplyr}</code> code into SQL queries behind the scenes. You write R, it speaks SQL to the database. The best part? You can inspect the SQL it generates, which makes it a fantastic learning tool.</p></li>
+<li><p><code>{DBI}</code> — Think of this as the universal adapter for database connections. It provides a consistent interface whether you’re connecting to SQLite, PostgreSQL, MySQL, or other databases. It handles the connection, sending queries, and fetching results.</p></li>
+<li><p><code>{RSQLite}</code> — This is the R interface to SQLite databases. SQLite is perfect for learning because it’s lightweight, requires no server setup, and the entire database is just a single file on your computer.</p></li>
+</ol>
+<p>Install them through this:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Native R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Using <strong>{pak}</strong></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'tidyverse'</span>, <span class="st">'box'</span>, <span class="st">'RSQLite'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Install them directly</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'tidyverse'</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'box'</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'RSQLite'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When you preferred the development version</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="fu">c</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tidyverse/tidyverse"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"klmr/box"</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"r-dbi/RSQLite"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="with-existing-database" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="with-existing-database"><span class="header-section-number">4</span> With existing database</h2>
+<p>I learn SQL thanks to SQLite. This is a language-agnostic library, written in C, that acts like a database while being lightweight. You can use it literally everywhere! It is also used to built into everywhere, it could be mobile phones and most computers.</p>
+<p>Thanks to SQLite, I made a first move to learn SQL without installing heavy softwares, such as PostgreSQL and MySQL, just to learn SQL. Additionally, SQLite is an open-source, but not open for contribution (I believe this is designed for good purpose).</p>
+<section id="why-sqlite-is-perfect-for-learning" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="why-sqlite-is-perfect-for-learning"><span class="header-section-number">4.1</span> Why SQLite is Perfect for Learning</h3>
+<p>Here’s why SQLite is the ideal training ground:</p>
+<ul>
+<li><strong>No server required</strong> — It’s just a file on your computer</li>
+<li><strong>Zero configuration</strong> — No ports, users, or permissions to set up</li>
+<li><strong>Lightweight</strong> — Databases can be megabytes instead of gigabytes</li>
+<li><strong>Production-ready</strong> — Despite being “lite,” it’s used in production by major applications</li>
+<li><strong>SQL standard</strong> — You learn real SQL that transfers to other databases</li>
+</ul>
+<p>In a positive sense, R and SQL is a great combo. Maybe R and SQL is not a great combo for software development as Python and SQL combo, R and SQL can make a place in data analysis instead. As long as you have <code>{DBI}</code> and <code>{RSQLite}</code> installed in your R, you can now make a first move on integrating R and SQL, and you’re good to go.</p>
+</section>
+<section id="sqlite-in-r" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="sqlite-in-r"><span class="header-section-number">4.2</span> SQLite in R</h3>
+<p>Oh, you can definitely learn SQL and R at the same time, considering that SQLite is portable and lightweight. The only primary requirements are <code>{DBI}</code> and <code>{RSQLite}</code>. If you know how to write a query, you don’t need a compatible set of packages in <code>{tidyverse}</code> and <code>{dbplyr}</code>, otherwise, as long as you know how to use <code>{tidyverse}</code> packages, namely <code>{dplyr}</code>, <code>{tidyr}</code>, etc., you can use it instead.</p>
+<p>Let me show you how to connect to a SQLite database and work with it:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>    DBI[dbConnect, dbWriteTable, dbDisconnect], </span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>    RSQLite[SQLite]</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>con <span class="ot">=</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">"first_database.sqlite"</span>)</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>, <span class="st">"Diana"</span>, <span class="st">"Eve"</span>),</span>
+<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">28</span>, <span class="dv">42</span>),</span>
+<span id="annotated-cell-1-14"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">city =</span> <span class="fu">c</span>(<span class="st">"New York"</span>, <span class="st">"London"</span>, <span class="st">"Tokyo"</span>, <span class="st">"Paris"</span>, <span class="st">"Sydney"</span>)</span>
+<span id="annotated-cell-1-15"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-17" class="code-annotation-target"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-18"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(</span>
+<span id="annotated-cell-1-19"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>    con, </span>
+<span id="annotated-cell-1-20"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"customers"</span>,</span>
+<span id="annotated-cell-1-21"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>    df, </span>
+<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">overwrite =</span> <span class="cn">TRUE</span></span>
+<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="1">Create a connection (this creates the database file if it doesn’t exist)</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="9" data-code-annotation="2">Create some sample data</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="17" data-code-annotation="3">Write the data as a <em>table</em> to the database</span>
+</dd>
+</dl>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Explanation">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Explanation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Create a connection (this creates the database file if it doesn’t exist)</li>
+<li>Create some sample data</li>
+<li>Write the data as a <em>table</em> to the database</li>
+</ol>
+</div>
+</div>
+</div>
+<p><strong>What just happened?</strong><br>
+We created a SQLite database file called <code>first_database.sqlite</code> in your working directory. Inside it, we created a table called <code>customers</code> with our sample data. If the file already exists, R simply connects to it.</p>
+</section>
+<section id="two-ways-to-query-pure-sql-vs-dplyr" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="two-ways-to-query-pure-sql-vs-dplyr"><span class="header-section-number">4.3</span> Two Ways to Query: Pure SQL vs {dplyr}</h3>
+<p>Now comes the fun part—you can query this database in two different ways, and each has its benefits for learning.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Just SQL</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><strong>{dplyr}</strong> API</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Did you know that with <code>{knitr}</code>, you can write SQL code chunks directly in your R Markdown or Quarto documents? This is incredibly handy for mixing SQL queries with your data analysis in R.</p>
+<pre><code>```\{sql connection=con\}
+SELECT name, age, city 
+FROM customers 
+WHERE age &gt; 30
+```</code></pre>
+<blockquote class="blockquote">
+<p>Kindly remove the <code>\</code> when you copy the code chunk above.</p>
+</blockquote>
+<p>Alright, I wrote the SQL code chunk above again here for your reference:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name, age, city </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> customers </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> age <span class="op">&gt;</span> <span class="dv">30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>2 records</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: left;">city</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Charlie</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;">Tokyo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Eve</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: left;">Sydney</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Or you can store the query into a string, and send it via <code>DBI::dbSendQuery()</code>, placed in <code>statement</code> argument.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbSendQuery</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    con, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SELECT name, age, city </span><span class="sc">\n</span><span class="st">FROM customers </span><span class="sc">\n</span><span class="st">WHERE age &gt; 30"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;SQLiteResult&gt;
+  SQL  SELECT name, age, city 
+FROM customers 
+WHERE age &gt; 30
+  ROWS Fetched: 0 [incomplete]
+       Changed: 0</code></pre>
+</div>
+</div>
+<p><strong>Why this matters for learning:</strong><br>
+You’re writing actual SQL. No training wheels. This builds muscle memory for SQL syntax and helps you think in terms of SQL operations: SELECT, FROM, WHERE, JOIN, GROUP BY, etc.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Nothing can make it so easy to work with databases using a familiar syntax with <code>{dplyr}</code>. Yes, with <code>{dbplyr}</code>, you can use <code>{dplyr}</code> functions to interact with your database tables as if they were regular data frames in R. Here’s how you can perform the same query using <code>{dplyr}</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    dplyr[filter, select, tbl, collect, show_query]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>customers_tbl <span class="ot">=</span> <span class="fu">tbl</span>(con, <span class="st">"customers"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> customers_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(age <span class="sc">&gt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(name, age, city)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>out <span class="sc">|&gt;</span> <span class="fu">collect</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  name      age city  
+  &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; 
+1 Charlie    35 Tokyo 
+2 Eve        42 Sydney</code></pre>
+</div>
+</div>
+<p><strong>The magic behind this:</strong></p>
+<p>When you use <code>{dplyr}</code> verbs on a database table, <code>{dbplyr}</code> doesn’t immediately execute anything. It’s lazy! It builds up the query and only executes it when you call <code>collect()</code>. This is efficient because:</p>
+<ul>
+<li>You can chain many operations without multiple round-trips to the database</li>
+<li>Only the final result set gets pulled into R memory</li>
+<li>The heavy computation happens in the database where it’s optimized</li>
+</ul>
+<p><strong>See the generated SQL:</strong></p>
+<p>How about getting the SQL query generated by <code>{dbplyr}</code>? You can use the <code>show_query()</code> function to see the SQL that <code>{dbplyr}</code> generates for your <code>{dplyr}</code> code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>out <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">show_query</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;SQL&gt;
+SELECT `name`, `age`, `city`
+FROM `customers`
+WHERE (`age` &gt; 30.0)</code></pre>
+</div>
+</div>
+<p>Easy, right? If you know R already, treat it as your SQL teacher! Write familiar <code>{dplyr}</code> code, then check the SQL translation. Over time, you’ll start to intuitively understand how <code>filter()</code> becomes <code>WHERE</code>, how <code>select()</code> becomes <code>SELECT</code>, and how more complex operations translate to SQL.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="working-with-query-results" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored" data-anchor-id="working-with-query-results"><span class="header-section-number">4.4</span> Working with Query Results</h3>
+<p>Once you have query results, you can treat them like any R data frame:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    ggplot2[ggplot, aes, geom_col, theme_minimal, labs]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>result_data <span class="ot">=</span> <span class="fu">collect</span>(out)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>result_data <span class="sc">|&gt;</span>  </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> name, <span class="at">y =</span> age, <span class="at">fill =</span> city)) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Customers Over 30"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Name"</span>,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Age"</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Explanation">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Explanation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Retrieve the data</li>
+<li>Now you can analyze it with R</li>
+</ol>
+</div>
+</div>
+</div>
+<p>This is where the R + SQL combination really shines. You use SQL’s efficiency to get exactly the data you need, then R’s rich ecosystem for analysis and visualization.</p>
+</section>
+<section id="database-hygiene" class="level3" data-number="4.5">
+<h3 data-number="4.5" class="anchored" data-anchor-id="database-hygiene"><span class="header-section-number">4.5</span> Database Hygiene</h3>
+<p>Always remember to close your database connections once you’re done:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This releases resources and ensures your database file isn’t locked. In practice, connections are also closed automatically when your R session ends, but it’s good practice to do it explicitly.</p>
+</section>
+</section>
+<section id="learning-sql-in-r-without-a-server" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="learning-sql-in-r-without-a-server"><span class="header-section-number">5</span> Learning SQL in R without a server</h2>
+<p>But I know some of you wants to know what it looks like to use the existing database and then call it in R.</p>
+<p>I literally said in the introduction that you can <em>simulate</em> — I have another different meaning:</p>
+<pre><code>-   Use `simulate_*` family functions in `{dbplyr}` package. These functions allow you to create in-memory database tables that mimic real database behavior without needing an actual database server. This is perfect for learning and testing SQL queries in R.</code></pre>
+<section id="what-are-simulated-connections" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="what-are-simulated-connections"><span class="header-section-number">5.1</span> What Are Simulated Connections?</h3>
+<p>Simulated connections create an in-memory representation of how different database systems handle SQL. This means you can:</p>
+<ul>
+<li>See how your <code>{dplyr}</code> code translates to different SQL dialects</li>
+<li>Learn SQL without any database installation</li>
+<li>Test queries before running them on production databases</li>
+<li>Understand the quirks of different database systems</li>
+</ul>
+</section>
+<section id="demonstration-simulating-microsoft-sql-server" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="demonstration-simulating-microsoft-sql-server"><span class="header-section-number">5.2</span> Demonstration: Simulating Microsoft SQL Server</h3>
+<p>First, let me show you how it looks like to connect to a database, i.e.&nbsp;SQLite in this case, and work with it. Try imagine you have a SQL server, and you want to connect to it using R. Use <code>simulate_mssql()</code> function to simulate a Microsoft SQL Server database connection:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    dbplyr[simulate_mssql, tbl_lazy]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>con_sim <span class="ot">=</span> <span class="fu">simulate_mssql</span>()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>customers_sim <span class="ot">=</span> <span class="fu">tbl_lazy</span>(df, con_sim)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>customers_sim <span class="sc">|&gt;</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(name, age, city) <span class="sc">|&gt;</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(age <span class="sc">&gt;</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;SQL&gt;
+SELECT `name`, `age`, `city`
+FROM `df`
+WHERE (`age` &gt; 30.0)</code></pre>
+</div>
+</div>
+<p>We are performing a pure lazy evaluation in this step</p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6</span> Conclusion</h2>
+<p>SQL and R aren’t competitors—they’re collaborators. SQL is your data retrieval expert, getting you exactly the data you need with incredible efficiency. R is your analysis specialist, turning that data into insights, models, and visualizations.</p>
+<p>The data scientists who succeed are the ones who can speak both languages fluently. They use SQL to ask databases the right questions, and R to find the answers that matter.</p>
+<p>So don’t pick sides. Master both. Your future self (and your future employers) will thank you.</p>
 
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-      <option value="" disabled="" selected="" hidden="">Order By</option>
-      <option value="index" data-direction="asc">Default</option>
-      <option value="listing-title" data-direction="asc">
-        Title
-      </option>
-      <option value="listing-date-sort" data-direction="asc">
-        Date - Oldest
-      </option>
-      <option value="listing-date-sort" data-direction="desc">
-        Date - Newest
-      </option>
-      <option value="listing-author" data-direction="asc">
-        Author
-      </option>
-    </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ1NRTCUyQ2RhdGEtc2NpZW5jZSUyQ2FuYWx5dGljcw==" data-listing-date-sort="1764259200000" data-listing-file-modified-sort="1764484856306" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2161">
-<div class="thumbnail"><a href="../posts/08-sql-r/index.html" class="no-external">
-
-<img loading="lazy" src="../posts/08-sql-r/image.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/08-sql-r/index.html" class="no-external">Why SQL + R is an affable combo when I start learning SQL?</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/08-sql-r/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U1FM'); return false;">SQL</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YS1zY2llbmNl'); return false;">data-science</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YW5hbHl0aWNz'); return false;">analytics</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/08-sql-r/index.html" class="no-external">
-<p>Learn mastering both — and how to make them work together seamlessly.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/08-sql-r/index.html" class="no-external">
-<div class="listing-date">
-Nov 28, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ1B5dGhvbiUyQ3N0YXRpc3RpY3MlMkNyZWdyZXNzaW9uJTJDbWFjaGluZS1sZWFybmluZw==" data-listing-date-sort="1763827200000" data-listing-file-modified-sort="1764303450923" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3027">
-<div class="thumbnail"><a href="../posts/07-glm/index.html" class="no-external">
-
-<img loading="lazy" src="../posts/07-glm/image.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/07-glm/index.html" class="no-external">Tutorial on Generalized Linear Model from scratch</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/07-glm/index.html" class="no-external">Dogmatic statistics for fun series</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">Python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3RhdGlzdGljcw=='); return false;">statistics</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVncmVzc2lvbg=='); return false;">regression</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/07-glm/index.html" class="no-external">
-<p>Finally understand what a link function actually does instead of just copy-pasting glm()</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/07-glm/index.html" class="no-external">
-<div class="listing-date">
-Nov 23, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ3BhY2thZ2Vz" data-listing-date-sort="1763308800000" data-listing-file-modified-sort="1763784024003" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21" data-listing-word-count-sort="4053">
-<div class="thumbnail"><a href="../posts/06-load-pkg/index.html" class="no-external">
-
-<img loading="lazy" src="../posts/06-load-pkg/image.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/06-load-pkg/index.html" class="no-external">Ways to load / attach packages in R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/06-load-pkg/index.html" class="no-external">Worst to best solution</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/06-load-pkg/index.html" class="no-external">
-<p>A completely objective, totally scientific ranking (2025 edition)</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/06-load-pkg/index.html" class="no-external">
-<div class="listing-date">
-Nov 17, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ3BpcGVzJTJDdGlkeXZlcnNlJTJDcHJvZ3JhbW1pbmc=" data-listing-date-sort="1762704000000" data-listing-file-modified-sort="1763630690369" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2213">
-<div class="thumbnail"><a href="../posts/05-pipes/index.html" class="no-external">
-
-<img loading="lazy" src="../posts/05-pipes/image.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/05-pipes/index.html" class="no-external">How much do you know about pipes?</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/05-pipes/index.html" class="no-external">History and Functionality of pipes</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cGlwZXM='); return false;">pipes</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('dGlkeXZlcnNl'); return false;">tidyverse</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvZ3JhbW1pbmc='); return false;">programming</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/05-pipes/index.html" class="no-external">
-I’ll go dive about the history of pipes in R. Pipes have revolutionized the way we write R code, making it more readable and maintainable. But the story of pipes in R is…<code></code><code></code>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/05-pipes/index.html" class="no-external">
-<div class="listing-date">
-Nov 10, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ3RpZHlzZWxlY3QlMkN0aWR5dmVyc2U=" data-listing-date-sort="1762099200000" data-listing-file-modified-sort="1763630648283" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1956">
-<div class="thumbnail"><a href="../posts/04-tidyselect-helpers/index.html" class="no-external">
-
-<img loading="lazy" src="../posts/04-tidyselect-helpers/image.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/04-tidyselect-helpers/index.html" class="no-external">The Hidden Magic of Tidy-Select: R’s Universal Column Selection Language</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/04-tidyselect-helpers/index.html" class="no-external">Not limited to tidyselect helpers</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('dGlkeXNlbGVjdA=='); return false;">tidyselect</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('dGlkeXZlcnNl'); return false;">tidyverse</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/04-tidyselect-helpers/index.html" class="no-external">
-Have you ever wondered how <code>where()</code>, <code>starts_with()</code>, and other selection helpers work seamlessly across different tidyverse packages? I recently discovered something…<code></code>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/04-tidyselect-helpers/index.html" class="no-external">
-<div class="listing-date">
-Nov 3, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ2Jvb2s=" data-listing-date-sort="1759852800000" data-listing-file-modified-sort="1763630609911" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="461">
-<div class="thumbnail"><a href="../posts/03-modules-in-r/index.html" class="no-external">
-
-<img loading="lazy" data-src="../posts/03-modules-in-r/tmbnl.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/03-modules-in-r/index.html" class="no-external">Box: Placing module system into R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/03-modules-in-r/index.html" class="no-external">Definitive Guide</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ym9vaw=='); return false;">book</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/03-modules-in-r/index.html" class="no-external">
-<em>Click here to read the actual book. </em>
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/03-modules-in-r/index.html" class="no-external">
-<div class="listing-date">
-Oct 8, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="UiUyQ3RpbWUtc2VyaWVzJTJDbWFjaGluZS1sZWFybmluZyUyQ2dyaWQtc2VhcmNo" data-listing-date-sort="1758902400000" data-listing-file-modified-sort="1763791272312" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30" data-listing-word-count-sort="5809">
-<div class="thumbnail"><a href="../posts/02-arima-grid-search/index.html" class="no-external">
-
-<img loading="lazy" data-src="../posts/02-arima-grid-search/image.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">First level of time series modelling: Basic ARIMA model hyperparameter tuning and grid search in R</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">Basics of grid search for ARIMA with plots in R</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('dGltZS1zZXJpZXM='); return false;">time-series</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Z3JpZC1zZWFyY2g='); return false;">grid-search</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/02-arima-grid-search/index.html" class="no-external">
-How do you train ARIMA model in your time series models? Grid search, or Hyndman and Khandaka (2008) algorithm? I created this document to demonstrate you how to fit every…
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/02-arima-grid-search/index.html" class="no-external">
-<div class="listing-date">
-Sep 27, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="UiUyQ21hY2hpbmUtbGVhcm5pbmclMkN0b3JjaCUyQ3BvaW50bGVzcy1jb2Rl" data-listing-date-sort="1758556800000" data-listing-file-modified-sort="1763630552057" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="22" data-listing-word-count-sort="4370">
-<div class="thumbnail"><a href="../posts/01-meta-nn/index.html" class="no-external">
-
-<img loading="lazy" data-src="../posts/01-meta-nn/tmbnl.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../posts/01-meta-nn/index.html" class="no-external">Automatically generate Deep Feedforward Neural Network (DFFNN) module from torch expression</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../posts/01-meta-nn/index.html" class="no-external">Use case of code generation in practice</a>
-</div>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('dG9yY2g='); return false;">torch</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cG9pbnRsZXNzLWNvZGU='); return false;">pointless-code</div>
-
-</div>
-<div class="delink listing-description"><a href="../posts/01-meta-nn/index.html" class="no-external">
-I have a course tutorial, which I discuss the things to get “advance” in R. Code generation is part of it. My blog compiles <em>pointless codes</em> in <em>pointless code series</em>, and…
-</a></div>
-</div>
-<div class="metadata">
-<a href="../posts/01-meta-nn/index.html" class="no-external">
-<div class="listing-date">
-Sep 23, 2025
-</div>
-<div class="listing-author">
-Joshua Marie
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
-  <ul class="pagination"></ul>
-</nav>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -3792,25 +3828,64 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         };
       }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
+        const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+        for (let i=0; i<annoteTargets.length; i++) {
+          const annoteTarget = annoteTargets[i];
+          const targetCell = annoteTarget.getAttribute("data-target-cell");
+          const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+          const contentFn = () => {
+            const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+            if (content) {
+              const tipContent = content.cloneNode(true);
+              tipContent.classList.add("code-annotation-tip-content");
+              return tipContent.outerHTML;
             }
-          });
+          }
+          const config = {
+            allowHTML: true,
+            content: contentFn,
+            onShow: (instance) => {
+              selectCodeLines(instance.reference);
+              instance.reference.classList.add('code-annotation-active');
+              window.tippy.hideAll();
+            },
+            onHide: (instance) => {
+              unselectCodeLines();
+              instance.reference.classList.remove('code-annotation-active');
+            },
+            maxWidth: 300,
+            delay: [50, 0],
+            duration: [200, 0],
+            offset: [5, 10],
+            arrow: true,
+            appendTo: function(el) {
+              return el.parentElement.parentElement.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'quarto',
+            placement: 'right',
+            popperOptions: {
+              modifiers: [
+              {
+                name: 'flip',
+                options: {
+                  flipVariations: false, // true by default
+                  allowedAutoPlacements: ['right'],
+                  fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                },
+              },
+              {
+                name: 'preventOverflow',
+                options: {
+                  mainAxis: false,
+                  altAxis: false
+                }
+              }
+              ]        
+            }      
+          };
+          window.tippy(annoteTarget, config); 
         }
     const findCites = (el) => {
       const parentEl = el.parentElement;
@@ -3851,6 +3926,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   </script>
+<script src="https://utteranc.es/client.js" repo="joshuamarie/joshuamarie" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -3859,7 +3936,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>   
     <div class="nav-footer-center">
 <p>Design inspired by <a href="https://github.com/statichunt/geeky-hugo">Geeky Hugo</a></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/joshuamarie/joshuamarie/edit/main/posts/08-sql-r/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/joshuamarie/joshuamarie/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
