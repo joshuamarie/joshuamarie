@@ -1,5 +1,5 @@
 
-local({
+action = local({
 
   # the requested version of renv
   version <- "1.1.5"
