@@ -473,19 +473,16 @@ WHERE age &gt; 30
 </table>
 </div>
 </div>
-<p>Or you can store the query into a string, and send it via <code>DBI::dbSendQuery()</code>, placed in <code>statement</code> argument.</p>
+<p>Or you can store the query into a string, and send it via <code>DBI::dbGetQuery()</code>, placed in <code>statement</code> argument.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbSendQuery</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DBI<span class="sc">::</span><span class="fu">dbGetQuery</span>(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    con, </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SELECT name, age, city </span><span class="sc">\n</span><span class="st">FROM customers </span><span class="sc">\n</span><span class="st">WHERE age &gt; 30"</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;SQLiteResult&gt;
-  SQL  SELECT name, age, city 
-FROM customers 
-WHERE age &gt; 30
-  ROWS Fetched: 0 [incomplete]
-       Changed: 0</code></pre>
+<pre><code>     name age   city
+1 Charlie  35  Tokyo
+2     Eve  42 Sydney</code></pre>
 </div>
 </div>
 <p><strong>Why this matters for learning:</strong><br>

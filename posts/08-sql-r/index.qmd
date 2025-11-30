@@ -220,10 +220,12 @@ FROM customers
 WHERE age > 30
 ```
 
-Or you can store the query into a string, and send it via `DBI::dbSendQuery()`, placed in `statement` argument. 
+Or you can store the query into a string, and send it via `DBI::dbGetQuery()`, placed in `statement` argument. 
 
 ```{r}
-DBI::dbSendQuery(
+#| warning: false
+#| message: false
+DBI::dbGetQuery(
     con, 
     "SELECT name, age, city \nFROM customers \nWHERE age > 30"
 )
