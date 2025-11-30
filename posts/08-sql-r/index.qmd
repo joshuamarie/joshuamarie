@@ -24,6 +24,7 @@ execute:
     message: false
 filters:
     - social-share
+    - collapse-output
 share:
     permalink: "https://joshuamarie.com/posts/08-sql-r"
     description: "Why SQL + R is an affable combo when I start learning SQL? — Joshua Marie"
@@ -39,6 +40,8 @@ share:
     location: "before-body"
 engine: knitr
 ---
+
+![](image.png)
 
 ## Introduction
 
@@ -149,7 +152,7 @@ Oh, you can definitely learn SQL and R at the same time, considering that SQLite
 Let me show you how to connect to a SQLite database and work with it:
 
 ```{r}
-#| code-fold: true
+#| code-fold: false
 box::use(
     DBI[dbConnect, dbWriteTable, dbDisconnect], 
     RSQLite[SQLite]
@@ -273,15 +276,15 @@ Easy, right? If you know R already, treat it as your SQL teacher! Write familiar
 Once you have query results, you can treat them like any R data frame:
 
 ```{r}
-#| code-fold: true
+#| code-fold: false
 box::use(
     ggplot2[ggplot, aes, geom_col, theme_minimal, labs]
 )
 
-# 1 
+# <1> 
 result_data = collect(out)
 
-# 2 
+# <2> 
 result_data |>  
     ggplot(aes(x = name, y = age, fill = city)) +
     geom_col() +
@@ -292,6 +295,9 @@ result_data |>
         y = "Age"
     )
 ```
+
+1.  Retrieve the data
+2.  Now you can analyze it with R
 
 ::: {.callout-note title="Explanation" collapse="true"}
 
@@ -317,7 +323,7 @@ But I know some of you wants to know what it looks like to use the existing data
 
 I literally said in the introduction that you can *simulate* — I have another different meaning: 
 
-    -   Use `simulate_*` family functions in `{dbplyr}` package. These functions allow you to create in-memory database tables that mimic real database behavior without needing an actual database server. This is perfect for learning and testing SQL queries in R.
+-   Use `simulate_*` family functions in `{dbplyr}` package. These functions allow you to create in-memory database tables that mimic real database behavior without needing an actual database server. This is perfect for learning and testing SQL queries in R.
 
 ### What Are Simulated Connections?
 
@@ -337,21 +343,189 @@ box::use(
     dbplyr[simulate_mssql, tbl_lazy]
 )
 
-con_sim = simulate_mssql()
+con_sim = simulate_mssql()            # <1>
+customers_sim = tbl_lazy(df, con_sim) # <2>
 
-customers_sim = tbl_lazy(df, con_sim)
-customers_sim |> 
-    select(name, age, city) |> 
-    filter(age > 30)
+customers_sim |>                      # <3>              
+    select(name, age, city) |>        # <3>   
+    filter(age > 30)                  # <3>             
 ```
 
-We are performing a pure lazy evaluation in this step
+1.  Create a simulated MS SQL Server connection
+2.  Create a (local) lazy table from our data frame
+3.  Build a query
+
+::: {.callout-note title="Explanation" collapse="true"}
+
+1.  Create a simulated MS SQL Server connection
+2.  Create a (local) lazy table from our data frame
+3.  Build a query
+:::
+
+We are performing a pure lazy evaluation in this step. Which means, we are not returning any information in the table and in the query process, we only generate the SQL code. 
+
+### Comparing SQL Dialects
+
+The only issue when learning SQL with R in the past is when I found out that different databases have different SQL dialects. Let's compare how PostgreSQL and Microsoft SQL Server handle the same query:
+
+:::: columns
+
+Let's import a bit first: 
+
+```{r}
+box::use(
+    dplyr[
+        keep_when = filter, arrange, desc, show_query, 
+        summarise, mutate, relocate
+    ], 
+    tidyr[
+        long = pivot_longer
+    ], 
+    dbplyr[simulate_postgres, simulate_mssql], 
+    magrittr[`%>%`] # <1>
+)
+```
+
+1.  This is totally optional, you still can use `|>` base R pipes, after all. 
+
+::: {.column width="50%"}
+
+#### PostgreSQL version
+
+```{r}
+#| output-fold: true
+#| output-summary: "Click to view generated SQL code"
+con_postgres = simulate_postgres()
+mtcars_postgres = tbl_lazy(mtcars, con_postgres)
+
+mtcars_postgres %>% 
+    filter(cyl == 6) %>% 
+    mutate(
+        hp_per_cyl = hp / cyl,
+        efficiency = mpg / disp
+    ) %>% 
+    select(mpg, disp, hp, hp_per_cyl, efficiency, everything()) %>% 
+    summarise(
+        across(
+            c(mpg, hp_per_cyl, efficiency), 
+            list(
+                mu = \(x) mean(x, na.rm = TRUE), 
+                sigma = \(x) sd(x, na.rm = TRUE)
+            ), 
+            .names = "{.col}..{.fn}"
+        ),
+        n = n()
+    ) %>% 
+    long(
+        cols = contains(c("mu", "sigma")), 
+        names_sep = "\\..", 
+        names_to = c("Variable", "Stat"), 
+        values_to = "Est"
+    )
+```
+
+:::
+
+::: {.column width="50%"}
+
+#### Microsoft SQL Server version
+
+```{r}
+#| output-fold: true
+#| output-summary: "Click to view generated SQL code"
+con_mssql = simulate_mssql()
+mtcars_mssql = tbl_lazy(mtcars, con_mssql)
+
+mtcars_mssql %>% 
+    filter(cyl == 6) %>% 
+    mutate(
+        hp_per_cyl = hp / cyl,
+        efficiency = mpg / disp
+    ) %>% 
+    select(mpg, disp, hp, hp_per_cyl, efficiency, everything()) %>% 
+    summarise(
+        across(
+            c(mpg, hp_per_cyl, efficiency), 
+            list(
+                mu = \(x) mean(x, na.rm = TRUE), 
+                sigma = \(x) sd(x, na.rm = TRUE)
+            ), 
+            .names = "{.col}..{.fn}"
+        ),
+        n = n()
+    ) %>% 
+    long(
+        cols = contains(c("mu", "sigma")), 
+        names_sep = "\\..", 
+        names_to = c("Variable", "Stat"), 
+        values_to = "Est"
+    )
+```
+
+:::
+
+::::
+
+### When to Use Simulated Connections
+
+Simulated connections are perfect for:
+
+-   **Learning**: Practice SQL translation without database setup
+-   **Development**: Test query logic before connecting to real databases
+-   **Documentation**: Show how queries work across different systems
+-   **Teaching**: Demonstrate SQL concepts without infrastructure requirements
+
+## Common Pitfalls and How to Avoid Them
+
+Some are based on my experience, so some of the list can be opinionated. 
+
+### 1. Collecting Too Early
+
+The problem in R can be overdramatic with large amounts of data when read and processed into memory. Unnecessarily bringing entire tables into R memory creates performance bottlenecks and can even crash your R session when datasets exceed available RAM.
+
+::: {.callout-tip title="Solution" collapse="true"}
+Chain operations and collect only when needed. Let the database do the heavy lifting with filtering, aggregating, and joining before bringing results into R.
+:::
+
+### 2. Not Checking Query Plans
+
+Slow queries are often the result of poor optimization, but many users never investigate why their queries take so long. Without examining the query plan, you're flying blind—unable to identify bottlenecks, missing indexes, or inefficient joins.
+
+::: {.callout-tip title="Solution" collapse="true"}
+Use `explain()` to understand query execution. This reveals how the database processes your query and highlights optimization opportunities.
+:::
+
+### 3. Forgetting Database Differences
+
+SQL dialects vary between database systems, and code that runs perfectly in SQLite might fail spectacularly in PostgreSQL or MySQL. These differences range from subtle syntax variations to completely different function names and behaviors.
+
+::: {.callout-tip title="Solution" collapse="true"}
+Test with simulated connections and understand dialect differences. Use `{dbplyr}`'s `simulate_*()` functions to preview how queries translate across databases before deploying to production systems.
+::: 
+
+### 4. Ignoring Indexes
+
+Queries that scan entire tables are a common performance killer, especially as datasets grow. Without proper indexes, your database must examine every single row to find matches, turning what should be millisecond queries into multi-second ordeals.
+
+::: {.callout-tip title="Solution" collapse="true"}
+Learn about indexes and how to create them for frequently queried columns. Understand which columns benefit from indexing and how composite indexes can optimize complex queries.
+:::
+
+### 5. Not Parameterizing Queries
+
+Building queries with string concatenation isn't just inelegant—it's dangerous. This practice opens your code to SQL injection attacks, where malicious input can execute arbitrary database commands, potentially exposing or destroying data.
+
+::: {.callout-tip title="Solution" collapse="true"}
+Use parameterized queries with `DBI::dbBind()` or stick with `{dplyr}` operations, which handle parameterization automatically. Never concatenate user input directly into SQL strings.
+:::
 
 ## Conclusion
 
-SQL and R aren't competitors—they're collaborators. SQL is your data retrieval expert, getting you exactly the data you need with incredible efficiency. R is your analysis specialist, turning that data into insights, models, and visualizations.
+SQL and R aren't competitors — they're collaborators. SQL is your data retrieval expert, getting you exactly the data you need with incredible efficiency. R is your analysis specialist, turning that data into insights, models, and visualizations. I can guarantee you that learning SQL through R is that you're never starting from zero. Your existing R knowledge accelerates SQL mastery. The familiar `{dplyr}` syntax becomes your bridge to SQL fluency. And the ability to seamlessly move from database queries to statistical analysis to stunning visualizations—all in one environment—is genuinely powerful.
 
-The data scientists who succeed are the ones who can speak both languages fluently. They use SQL to ask databases the right questions, and R to find the answers that matter.
+The data-driven professionals who thrive are those who can speak both languages fluently. They use SQL to ask databases the right questions and R to find the answers that matter. They understand when to leverage database optimization and when to bring data into R for complex transformations.
 
-So don't pick sides. Master both. Your future self (and your future employers) will thank you.
+The journey from R user to R + SQL expert isn't just about learning syntax—it's about becoming someone who can efficiently bridge data storage and data science, who understands both the "how" of data retrieval and the "why" of data analysis.
+
+So don't pick sides. Master both. Your future self (and would be your future employers) will thank you.
 
