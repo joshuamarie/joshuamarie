@@ -1,5 +1,4 @@
-Hey there! I'm Joshua - Specialized in statistical modeling, numerical analysis, and software development, and still currently curious for the new things. I adapt many things. 
-Welcome to my GitHub.
+Hey there! I'm Joshua - Specialized in statistical modeling, numerical analysis, and software development, and still currently curious for the new things. Welcome to my GitHub.
 
 ---
 
@@ -10,7 +9,9 @@ I am proficient enough in these following programming languages:
 ![R](https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge)
-![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
+
+I know enough in these following "low-level" programming languages: 
+
 ![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 ![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 
@@ -23,7 +24,7 @@ I have several projects, some were made in R, Python, and Rust. My compentencies
 3.  Bayesian Analysis
 4.  Rigorous inferential statistics and simulations
 
-To do those, I used several packages and frameworks among those languages, and big thanks to them. 
+To do those, I utilized several packages and frameworks among those languages, and big thanks to them. 
 
 This includes: 
 
