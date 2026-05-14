@@ -1,4 +1,4 @@
-Hey there! I'm Joshua - Specialized in statistical modeling, numerical analysis, and software development, and still currently curious for the new things. Welcome to my GitHub.
+Hey there! I'm Joshua. Welcome to my GitHub.
 
 ---
 
