@@ -28,7 +28,7 @@ To do those, I utilized several packages and frameworks among those languages, a
 
 This includes: 
 
-i.  `{tidyverse}` suites in my projects:
+i.  `{tidyverse}` suites:
 
 <p align="left">  
   <a href="https://github.com/tidyverse/tidyverse" ><img src="https://raw.githubusercontent.com/rstudio/hex-stickers/master/PNG/tidyverse.png" width="50px"/></a>
@@ -53,7 +53,7 @@ ii.  Making apps and reports with:
 which I have 3 projects publicly deployed:
 
 1.  [Dengue Monitoring](https://github.com/joshuamarie/dengue-monitoring), a simulated dengue surveillance app. 
-2.  [Accept-Reject Method Visualization](https://github.com/joshuamarie/accept-reject-method_visualization), which a forked version of [R Shiny app by Daniel Heemann](https://github.com/DHeemann/accept-reject-method_visualization). 
+2.  [Accept-Reject Method Visualization](https://github.com/joshuamarie/accept-reject-method_visualization), which is a forked (and a modified) version of [R Shiny app by Daniel Heemann](https://github.com/DHeemann/accept-reject-method_visualization). 
 3.  My personal [website](https://github.com/joshuamarie/joshuamarie.github.io). 
 
 iii.  Machine Learning modelling, which I have several suites:
